@@ -277,7 +277,7 @@ var bboxHandlers = {
         tpBbox.max.y = Math.max(tpBbox.max.y, ps.y, pe.y);
         bboxIsSet = true;
     },
-    addArcCurve: function(modal, start, end, center) {
+    addArcCurve: function(modal, start, end, center, extraRotations) {
         // To determine the precise bounding box of a circular arc we
 	// must account for the possibility that the arc crosses one or
 	// more axes.  If so, the bounding box includes the "bulges" of
@@ -420,7 +420,7 @@ var displayHandlers = {
         tp.lineTo(pe.x, pe.y);
         tp.stroke();
     },
-    addArcCurve: function(modal, start, end, center) {
+    addArcCurve: function(modal, start, end, center, extraRotations) {
         var motion = modal.motion;
 
         var deltaX1 = start.x - center.x;
@@ -439,24 +439,28 @@ var displayHandlers = {
 	if (theta1 == theta2) {
 	    theta2 += Math.PI * ((cw) ? -2 : 2);
 	}
+        if (extraRotations > 1) {
+            theta2 += (extraRotations-1) * Math.PI * ((cw) ? -2 : 2);;
+        }
 
         initialMoves = false;
 
         tp.beginPath();
         tp.strokeStyle = 'blue';
         deltaTheta = theta2 - theta1;
-        n = (Math.abs(deltaTheta) > Math.PI) ? 20 : 10;
+        n = 10 * Math.ceil(Math.abs(deltaTheta) / Math.PI);
         dt = (deltaTheta) / n;
+        dz = (end.z - start.z) / n;
         ps = projection(start);
         tp.moveTo(ps.x, ps.y);
         next = {};
-        // XXX we could do spirals by interpolating Z
         theta = theta1;
+        next.z = start.z;
         for (i = 0; i < n; i++) {
             theta += dt;
             next.x = center.x + radius * Math.cos(theta);
             next.y = center.y + radius * Math.sin(theta);
-            next.z = start.z;
+            next.z += dz;
             pe = projection(next)
             tp.lineTo(pe.x, pe.y);
         }

@@ -48,8 +48,8 @@ var Toolpath = function () {
         function offsetAddLine(start, end) {
             _this.fn.addLine(_this.modal, offsetG92(start), offsetG92(end));
         }
-        function offsetAddArcCurve(start, end, center) {
-            _this.fn.addArcCurve(_this.modal, offsetG92(start), offsetG92(end), offsetG92(center));
+        function offsetAddArcCurve(start, end, center, extraRotations) {
+            _this.fn.addArcCurve(_this.modal, offsetG92(start), offsetG92(end), offsetG92(center), extraRotations);
         }
         this.position = {
             x: 0,
@@ -275,7 +275,7 @@ var Toolpath = function () {
                     v0.y = v1.y + offsetY;
                 }
 
-                offsetAddArcCurve(v1, v2, v0);
+                offsetAddArcCurve(v1, v2, v0, params.P ? params.P : 0);
 
                 // Update position
                 _this.setPosition(targetPosition.x, targetPosition.y, targetPosition.z);
@@ -367,7 +367,7 @@ var Toolpath = function () {
                     v0.y = v1.y + offsetY;
                 }
 
-                offsetAddArcCurve(v1, v2, v0);
+                offsetAddArcCurve(v1, v2, v0, params.P ? params.P : 0);
 
                 // Update position
                 _this.setPosition(targetPosition.x, targetPosition.y, targetPosition.z);

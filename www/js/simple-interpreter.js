@@ -86,7 +86,7 @@ var interpret = function(self, data) {
         } else if (letter === 'F') { // F750 ; w/o motion command
             cmd = letter;
             args = code;
-        } else if (letter === 'X' || letter === 'Y' || letter === 'Z' || letter === 'A' || letter === 'B' || letter === 'C' || letter === 'I' || letter === 'J' || letter === 'K') {
+        } else if (letter === 'X' || letter === 'Y' || letter === 'Z' || letter === 'A' || letter === 'B' || letter === 'C' || letter === 'I' || letter === 'J' || letter === 'K' || letter === 'P') {
             // Use previous motion command if the line does not start with G-code or M-code.
             // @example
             //   G0 Z0.25
