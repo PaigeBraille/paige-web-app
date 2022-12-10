@@ -563,11 +563,6 @@ function grblHandleMessage(msg) {
     // Handlers for standard Grbl protocol messages
 
     if (msg.startsWith('ok')) {
-        if (grbl_processfn) {
-            grbl_processfn();
-            grbl_processfn = null;
-            grbl_errorfn = null;
-        }
         return;
     }
     if (msg.startsWith('[PRB:')) {
