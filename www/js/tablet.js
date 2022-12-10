@@ -102,11 +102,12 @@ setDistance = function(distance) {
     id('jog-distance').value = distance;
 }
 
-jogTo = function(location) {
+jogTo = function(distance) {
     // Always force G90 mode because synchronization of modal reports is unreliable
     var feedrate = 1000;
     var cmd;
-    cmd = 'G91 G0 ' + location + '\nG90';
+    cmd = '$J=G91F10000' + distance + '\n';
+    console.log("JogTo " + cmd);
     sendCommand(cmd);
 }
 
@@ -135,6 +136,49 @@ setAxis = function(axis, field) {
     var cmd = 'G10 L20 P1 ' + axis + coordinate;
     sendCommand(cmd);
 }
+var timeout_id = 0,
+    hold_time = 1000;
+
+var longone = false;
+function long_jog(target) {
+    longone = true;
+    distance = 5000;
+    cmd = '$J=G91F10000' + target.value + distance + '\n';
+    console.log("Long Jog " + cmd);
+    sendCommand(cmd);
+}
+
+var joggers = id('jog-controls');
+joggers.addEventListener('pointerdown', function(event) {
+    let target = event.target;
+    if (target.classList.contains('jog')) {
+        timeout_id = setTimeout(long_jog, hold_time, target);
+    }
+});
+joggers.addEventListener('pointerup', function(event) {
+    clearTimeout(timeout_id);
+    let target = event.target;
+    if (target.classList.contains('jog')) {
+        if (longone) {
+            longone = false;
+            console.log("Jog cancel");
+            SendRealtimeCmd(0x85);
+        } else {
+            sendMove(target.value);
+        }
+    }
+});
+joggers.addEventListener('pointerout', function(event) {
+    clearTimeout(timeout_id);
+    let target = event.target;
+    if (target.classList.contains('jog')) {
+        if (longone) {
+            longone = false;
+            console.log("Jog cancel");
+            SendRealtimeCmd(0x85);
+        }
+    }
+});
 
 sendMove = function(cmd) {
     tabletClick();

@@ -217,9 +217,10 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-default" id="jog-y-plus"
+            class="btn btn-default jog" id="jog-y-plus"
             title="Move Y+"
             onclick="sendMove('Y+')"
+            value="Y+"
             >
             Y+
           </button>
@@ -230,9 +231,10 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-default" id="jog-z-plus"
+            class="btn btn-default jog" id="jog-z-plus"
             title="Move Z+"
             onclick="sendMove('Z+')"
+            value="Z+"
             >
             Z+
           </button>
@@ -288,9 +290,10 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-default" id="jog-x-minus"
+            class="btn btn-default jog" id="jog-x-minus"
             title="Move X-"
             onclick="sendMove('X-')"
+            value="X-"
             >
             X-
           </button>
@@ -303,9 +306,10 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-default" id="jog-x-plus"
+            class="btn btn-default jog" id="jog-x-plus"
             title="Move X+"
             onclick="sendMove('X+')"
+            value="X+"
             >
             X+
           </button>
@@ -378,26 +382,28 @@
       </div>
       
       <div class="jog-row">
-        <div class="col-2 info-button" id="extruder-temperature">
-        </div>
-        <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-default" id="jog-y-minus"
-            title="Move Y-"
-            onclick="sendMove('Y-')"
-            >
-            Y-
-          </button>
-        </div>
         <div class="col-2 info-button" id="emptyLLHC">
         </div>
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-default" id="jog-z-minus"
+            class="btn btn-default jog" id="jog-y-minus"
+            title="Move Y-"
+            onclick="sendMove('Y-')"
+            value="Y-"
+            >
+            Y-
+          </button>
+        </div>
+        <div class="col-2 info-button" id="emptyLRHC">
+        </div>
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-default jog" id="jog-z-minus"
             title="Move Z-"
             onclick="sendMove('Z-')"
+            value="Z-"
             >
             Z-
           </button>
