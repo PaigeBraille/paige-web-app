@@ -185,6 +185,16 @@ function SendZerocommand(cmd) {
     SendPrinterCommand(command, true, get_Position);
 }
 
+function JogFeedrate(axis) {
+    var controlName = axis.startsWith("Z") ? "control_z_velocity" : "control_xy_velocity";
+    var feedrateValue = parseInt(id(controlName).value);
+    if (feedrateValue < 1 || isNaN(feedrateValue) || (feedrateValue === null)) {
+        alertdlg(translate_text_item("Out of range"), translate_text_item("Feedrate value must be at least 1 mm/min!"));
+        return 1;
+    }
+    return feedrateValue;
+}
+
 function SendJogcommand(cmd, feedrate) {
     if (id('lock_UI').checked) return;
     var feedratevalue = "";

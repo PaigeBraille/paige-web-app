@@ -102,12 +102,17 @@ setDistance = function(distance) {
     id('jog-distance').value = distance;
 }
 
-jogTo = function(distance) {
+jogTo = function(axisAndDistance) {
     // Always force G90 mode because synchronization of modal reports is unreliable
-    var feedrate = 1000;
+    var feedrate = JogFeedrate(axisAndDistance);
+    if (modal.units == "G20") {
+        feedrate /= 25.4;
+        feedrate = feedrate.toFixed(2);
+    }
+
     var cmd;
-    cmd = '$J=G91F10000' + distance + '\n';
-    console.log("JogTo " + cmd);
+    cmd = '$J=G91F' + feedrate + axisAndDistance + '\n';
+    // tabletShowMessage("JogTo " + cmd);
     sendCommand(cmd);
 }
 
@@ -116,19 +121,11 @@ goAxisByValue = function(axis, coordinate) {
     moveTo(axis + coordinate);
 }
 
-// moveAxis = function(axis, field) {
-//     goAxisByValue(axis, id(field).textContent);
-// }
-
 setAxisByValue = function(axis, coordinate) {
     tabletClick();
     var cmd = 'G10 L20 P0 ' + axis + coordinate;
     sendCommand(cmd);
 }
-
-// setAxis = function(axis, field) {
-//     setAxisByValue(axis, id(field).value);
-// }
 
 setAxis = function(axis, field) {
     tabletClick();
@@ -142,9 +139,17 @@ var timeout_id = 0,
 var longone = false;
 function long_jog(target) {
     longone = true;
-    distance = 5000;
-    cmd = '$J=G91F10000' + target.value + distance + '\n';
-    console.log("Long Jog " + cmd);
+    distance = 1000;
+    var axisAndDirection = target.value
+    var feedrate = JogFeedrate(axisAndDirection);
+    if (modal.units == "G20") {
+        distance /= 25.4;
+        distance = distance.toFixed(3);
+        feedrate /= 25.4;
+        feedrate = feedrate.toFixed(2);
+    }
+    cmd = '$J=G91F' + feedrate + axisAndDirection + distance + '\n';
+    // tabletShowMessage("Long Jog " + cmd);
     sendCommand(cmd);
 }
 
@@ -397,6 +402,15 @@ function stopAndRecover() {
 
 var oldCannotClick = null;
 
+function tabletUpdateModal() {
+    var newUnits = modal.units == 'G21' ? 'mm' : 'Inch';
+    if (getText('units') != newUnits) {
+        setText('units', newUnits);
+        setJogSelector(modal.units);
+    }
+    // setDisabled('units', false);
+}
+
 function tabletGrblState(grbl, response) {
     // tabletShowResponse(response)
     var stateName = grbl.stateName;
@@ -441,12 +455,7 @@ function tabletGrblState(grbl, response) {
     }
     oldCannotClick = cannotClick;
 
-    var newUnits = modal.units == 'G21' ? 'mm' : 'Inch';
-    if (getText('units') != newUnits) {
-        setText('units', newUnits);
-        setJogSelector(modal.units);
-    }
-    // setDisabled('units', false);
+    tabletUpdateModal();
 
     switch (stateName) {
         case 'Sleep':
@@ -630,8 +639,8 @@ function tabletGetFileList(path) {
 }
 
 function tabletInit() {
-    requestModes();
     tabletGetFileList('/');
+    requestModes();
 }
 
 function arrayToXYZ(a) {
