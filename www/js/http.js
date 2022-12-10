@@ -137,7 +137,9 @@ function ProcessGetHttp(url, resultfn, errorfn) {
             }
         }
     }
-    if (url.indexOf("?") != -1) url += "&PAGEID=" + page_id;
+
+    url += (url.indexOf("?") == -1) ? "?" : "&";
+    url += "PAGEID=" + page_id;
     //console.log("GET:" + url);
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
@@ -190,6 +192,8 @@ function ProcessPostHttp(url, postdata, resultfn, errorfn) {
             }
         }
     }
+    url += (url.indexOf("?") == -1) ? "?" : "&";
+    url += "PAGEID=" + page_id;
     //console.log(url);
     xmlhttp.open("POST", url, true);
     xmlhttp.send(postdata);
@@ -239,6 +243,8 @@ function ProcessFileHttp(url, postdata, progressfn, resultfn, errorfn) {
             }
         }
     }
+    url += (url.indexOf("?") == -1) ? "?" : "&";
+    url += "PAGEID=" + page_id;
     //console.log(url);
     xmlhttpupload.open("POST", url, true);
     if (typeof progressfn != 'undefined' && progressfn != null) xmlhttpupload.upload.addEventListener("progress", progressfn, false);
