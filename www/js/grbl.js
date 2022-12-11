@@ -371,7 +371,7 @@ function SendRealtimeCmd(code) {
 }
 
 function pauseGCode() {
-    SendRealtimeCmd(0x41);
+    SendRealtimeCmd(0x21); // '!'
 }
 
 function resumeGCode() {
