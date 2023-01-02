@@ -12,15 +12,15 @@ div.step button {
     background-color: inherit;
     float: left;
     border-radius: 50px;
-    border-top: 1px solid #337AB7;
-    border-bottom: 1px solid #337AB7;
-    border-left: 1px solid #337AB7;
-    border-right: 1px solid #337AB7;
+    border-top: 1px solid var(--paige-blue);
+    border-bottom: 1px solid var(--paige-blue);
+    border-left: 1px solid var(--paige-blue);
+    border-right: 1px solid var(--paige-blue);
     outline: none;
     cursor: pointer;
     padding: 12px 14px;
     margin: 0 auto;
-    color: #337AB7;
+    color: var(--paige-blue);
 }
 
 .connecting-line {
@@ -65,13 +65,13 @@ div.step button.disabled:hover {
 .steplinks.no_revert_wizard:hover,
 .steplinks.no_revert_wizard {
     cursor: not-allowed;
-    color: #337AB7;
+    color: var(--paige-blue);
     background-color: #FFFFFF;
 }
 
 /* Create an active/current steplink class */
 div.step button.active {
-    background-color: #337AB7;
+    background-color: var(--paige-blue);
     color: #FFFFFF;
     margin-bottom: 40;
 }

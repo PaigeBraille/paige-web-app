@@ -129,7 +129,7 @@ var germantrans = {
 "Used:":"Benutzt:",
 "Value | Target":"Wert | Ziel",
 "Value":"Wert",
-"Ocupation:":"Belegung:",
+"Occupation:":"Belegung:",
 "Wrong data":"Falsche Daten",
 "Yes":"Ja",
 "Light":"Licht",

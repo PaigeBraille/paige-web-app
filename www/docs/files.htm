@@ -32,7 +32,7 @@
                                         <div class="col-md-3 col-sm-3"><uib-progressbar class="progress-striped active" data-ng-show="file.uploading" value="file.percentage"><span data-ng-bind="file.percentage + '%'" data-ng-hide="file.percentage < 5"></span></uib-progressbar></div>
                                         <div class="col-md-4 col-sm-2">
                                             <div class="pull-right">
-                                                <button class="btn btn-xs btn-default glyphicon glyphicon-print" ng-if="fileVM.showprintbutton(file.filename)" data-ng-click="fileVM.print(file.filename)" ></button>
+                                                <!-- <button class="btn btn-xs btn-default glyphicon glyphicon-print" ng-if="fileVM.showprintbutton(file.filename)" data-ng-click="fileVM.print(file.filename)" ></button> -->
                                                 <button class="btn btn-xs btn-danger glyphicon glyphicon-trash" ng-if="fileVM.showdeletebutton(file.filename)" data-ng-click="fileVM.deleteFile(file.filename, file.id)" ></button>
                                             </div>
                                         </div>

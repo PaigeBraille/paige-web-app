@@ -1,85 +1,88 @@
 <div id="settingstab" class="tabcontent">
-    <center>
-        <h2>
-            <span translate>ESP3D Settings</span>
-        </h2>
-        <table>
-            <tr>
-                <td style='padding:10px'>
-                    <button type="button" class="btn btn-info" onclick="statusdlg();">
-                        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
-                            <g transform='translate(50,1200) scale(1, -1)'>
-                                <path fill='currentColor' d='M50 1100h200q21 0 35.5 -14.5t14.5 -35.5v-200q0 -21 -14.5 -35.5t-35.5 -14.5h-200q-21 0 -35.5 14.5t-14.5 35.5v200q0 21 14.5 35.5t35.5 14.5zM450 1100h700q21 0 35.5 -14.5t14.5 -35.5v-200q0 -21 -14.5 -35.5t-35.5 -14.5h-700q-21 0 -35.5 14.5t-14.5 35.5v200 q0 21 14.5 35.5t35.5 14.5zM50 700h200q21 0 35.5 -14.5t14.5 -35.5v-200q0 -21 -14.5 -35.5t-35.5 -14.5h-200q-21 0 -35.5 14.5t-14.5 35.5v200q0 21 14.5 35.5t35.5 14.5zM450 700h700q21 0 35.5 -14.5t14.5 -35.5v-200q0 -21 -14.5 -35.5t-35.5 -14.5h-700 q-21 0 -35.5 14.5t-14.5 35.5v200q0 21 14.5 35.5t35.5 14.5zM50 300h200q21 0 35.5 -14.5t14.5 -35.5v-200q0 -21 -14.5 -35.5t-35.5 -14.5h-200q-21 0 -35.5 14.5t-14.5 35.5v200q0 21 14.5 35.5t35.5 14.5zM450 300h700q21 0 35.5 -14.5t14.5 -35.5v-200 q0 -21 -14.5 -35.5t-35.5 -14.5h-700q-21 0 -35.5 14.5t-14.5 35.5v200q0 21 14.5 35.5t35.5 14.5z'></path>
-                            </g>
-                        </svg>
-                    </button>
-                </td>
-                <td style='padding:10px'>
-                    <button type="button" class="btn btn-success" onclick="SPIFFSdlg('/');">
-                        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
-                            <g transform='translate(50,1200) scale(1, -1)'>
-                                <path fill='currentColor' d='M200 800l-200 -400v600h200q0 41 29.5 70.5t70.5 29.5h300q42 0 71 -29.5t29 -70.5h500v-200h-1000zM1500 700l-300 -700h-1200l300 700h1200z'></path>
-                            </g>
-                        </svg>
-                    </button>
-                </td>
-                <td style='padding:10px'>
-                    <button id="settings_update_fw_btn" type="button" class="btn btn-warning" onclick="updatedlg();">
-                        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
-                            <g transform='translate(50,1200) scale(1, -1)'>
-                                <path fill='currentColor' d='M503 1089q110 0 200.5 -59.5t134.5 -156.5q44 14 90 14q120 0 205 -86.5t85 -207t-85 -207t-205 -86.5h-128v250q0 21 -14.5 35.5t-35.5 14.5h-300q-21 0 -35.5 -14.5t-14.5 -35.5v-250h-222q-80 0 -136 57.5t-56 136.5q0 69 43 122.5t108 67.5q-2 19 -2 37q0 100 49 185 t134 134t185 49zM525 500h150q10 0 17.5 -7.5t7.5 -17.5v-275h137q21 0 26 -11.5t-8 -27.5l-223 -244q-13 -16 -32 -16t-32 16l-223 244q-13 16 -8 27.5t26 11.5h137v275q0 10 7.5 17.5t17.5 7.5z'></path>
-                            </g>
-                        </svg>
-                    </button>
-                </td>
-                <td style='padding:10px'>
-                    <button type="button" id="settings_restart_btn" class="btn btn-danger" onclick="restart_esp();">
-                        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
-                            <g transform='translate(50,1200) scale(1, -1)'>
-                                <path fill='currentColor' d='M550 1200h100q21 0 35.5 -14.5t14.5 -35.5v-400q0 -21 -14.5 -35.5t-35.5 -14.5h-100q-21 0 -35.5 14.5t-14.5 35.5v400q0 21 14.5 35.5t35.5 14.5zM800 975v166q167 -62 272 -209.5t105 -331.5q0 -117 -45.5 -224t-123 -184.5t-184.5 -123t-224 -45.5t-224 45.5 t-184.5 123t-123 184.5t-45.5 224q0 184 105 331.5t272 209.5v-166q-103 -55 -165 -155t-62 -220q0 -116 57 -214.5t155.5 -155.5t214.5 -57t214.5 57t155.5 155.5t57 214.5q0 120 -62 220t-165 155z'></path>
-                            </g>
-                        </svg>
-                    </button>
-                </td>
-                <td style='padding:10px'>
-                    <button type="button" id="settings_refresh_btn" class="btn btn-primary" onclick="refreshSettings(current_setting_filter);">
-                        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
-                            <g transform='translate(50,1200) scale(1, -1)'>
-                                <path fill="currentColor" d='M947 1060l135 135q7 7 12.5 5t5.5 -13v-361q0 -11 -7.5 -18.5t-18.5 -7.5h-361q-11 0 -13 5.5t5 12.5l134 134q-110 75 -239 75q-116 0 -214.5 -57t-155.5 -155.5t-57 -214.5h-150q0 117 45.5 224t123 184.5t184.5 123t224 45.5q192 0 347 -117zM1027 600h150 q0 -117 -45.5 -224t-123 -184.5t-184.5 -123t-224 -45.5q-192 0 -348 118l-134 -134q-7 -8 -12.5 -5.5t-5.5 12.5v360q0 11 7.5 18.5t18.5 7.5h360q10 0 12.5 -5.5t-5.5 -12.5l-133 -133q110 -76 240 -76q116 0 214.5 57t155.5 155.5t57 214.5z'></path>
-                            </g>
-                        </svg>
-                    </button>
-                </td>
-            </tr>
-        </table>
-        <br>
-        <span id="settings_status"></span>
-        <hr>
-        <div class="loader hide_it" id="settings_loader"></div>
-        <div class="container hide_it" id="settings_list_content">
-            <span id="settings_filters">
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" id="network_setting_filter" name="setting_filter" value="network" onclick="build_HTML_setting_list('network')">
-                        <span translate>Network</span>
-                    </label>
-                </div>
-                <div class="radio-inline">
+    <div id="settings-header">
+        <span id="settings-title">Settings</span>
+        <button type="button" class="btn btn-primary" onclick="statusdlg();" aria-label="Paige status">
+            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M0.429932 22.3799C0.642151 21.4597 1.13483 20.6281 1.83993 19.9999C5.17993 16.6799 8.48993 13.3499 11.8399 9.99987C11.924 9.93204 11.9853 9.84014 12.0157 9.73648C12.0461 9.63282 12.0441 9.52235 12.0099 9.41987C11.7865 8.43854 11.7665 7.42186 11.951 6.43248C12.1355 5.44311 12.5207 4.50201 13.0829 3.6672C13.6451 2.8324 14.3722 2.12158 15.2196 1.57857C16.067 1.03555 17.0166 0.671847 18.0099 0.509873C19.286 0.287307 20.5984 0.411641 21.8099 0.869874C21.9619 0.904059 22.1011 0.98084 22.211 1.09123C22.3209 1.20161 22.3972 1.34104 22.4307 1.49318C22.4643 1.64531 22.4539 1.80387 22.4006 1.95028C22.3473 2.09669 22.2534 2.22489 22.1299 2.31987C20.8833 3.55987 19.6466 4.78654 18.4199 5.99987C18.3487 6.06374 18.2968 6.14638 18.2703 6.23833C18.2437 6.33029 18.2436 6.42786 18.2699 6.51987C18.3999 7.02987 18.4999 7.51987 18.5999 8.06987C18.609 8.15332 18.647 8.23097 18.7072 8.2894C18.7675 8.34783 18.8462 8.38337 18.9299 8.38987C19.4499 8.48987 19.9299 8.59987 20.4999 8.72987C20.5835 8.75324 20.672 8.7525 20.7551 8.72773C20.8383 8.70296 20.9128 8.65516 20.9699 8.58987C22.1899 7.35654 23.4166 6.12987 24.6499 4.90987C24.7504 4.7814 24.8865 4.68538 25.0412 4.63381C25.196 4.58223 25.3625 4.57738 25.5199 4.61987C25.6459 4.65836 25.7607 4.72661 25.8547 4.81887C25.9487 4.91112 26.0191 5.02466 26.0599 5.14987C26.4402 6.12917 26.6073 7.17828 26.55 8.22725C26.4928 9.27622 26.2126 10.3009 25.7281 11.2331C25.2436 12.1652 24.5659 12.9833 23.7402 13.6328C22.9146 14.2824 21.9599 14.7484 20.9399 14.9999C19.8402 15.2751 18.6896 15.2751 17.5899 14.9999C17.4712 14.9605 17.3433 14.9586 17.2234 14.9943C17.1036 15.0301 16.9976 15.1019 16.9199 15.1999C13.5899 18.5399 10.2399 21.8799 6.91993 25.1999C6.30538 25.8656 5.50344 26.3293 4.61993 26.5299H3.48993C2.81184 26.4034 2.17799 26.1037 1.64993 25.6599C1.00662 25.0894 0.576407 24.3171 0.429932 23.4699V22.3799ZM19.9999 2.10987H19.8599H19.7399C18.6935 2.01983 17.6418 2.20603 16.6899 2.64987C15.4564 3.25327 14.4776 4.27542 13.928 5.53383C13.3785 6.79224 13.2941 8.20499 13.6899 9.51987C13.7829 9.74711 13.802 9.99782 13.7446 10.2365C13.6871 10.4752 13.5561 10.6898 13.3699 10.8499C9.78993 14.3365 6.23993 17.8499 2.71993 21.3899C2.46654 21.6141 2.26937 21.8947 2.14431 22.2091C2.01925 22.5235 1.96979 22.8629 1.99993 23.1999C2.05445 23.6567 2.26032 24.0821 2.58473 24.4084C2.90914 24.7346 3.33342 24.9428 3.78993 24.9999C4.1293 25.0337 4.47185 24.987 4.7898 24.8636C5.10775 24.7403 5.39215 24.5437 5.61993 24.2899L16.2699 13.5999C16.4082 13.4326 16.5971 13.3148 16.8081 13.2643C17.0192 13.2137 17.2409 13.2333 17.4399 13.3199C18.1357 13.5517 18.8707 13.6428 19.6021 13.5878C20.3334 13.5329 21.0466 13.333 21.6999 12.9999C22.6003 12.5808 23.3735 11.9306 23.9409 11.1156C24.5082 10.3005 24.8495 9.3497 24.9299 8.35987C24.9878 7.90644 24.9675 7.44645 24.8699 6.99987L24.6299 7.23987C23.6299 8.23987 22.6299 9.17987 21.7099 10.1599C21.5871 10.2971 21.4286 10.3978 21.2522 10.4507C21.0757 10.5037 20.8881 10.5068 20.7099 10.4599L17.9199 9.85987C17.7336 9.83198 17.5612 9.74503 17.428 9.61183C17.2948 9.47862 17.2078 9.30618 17.1799 9.11987C16.9899 8.21987 16.8099 7.31987 16.5899 6.42987C16.5306 6.2266 16.5301 6.01066 16.5885 5.80712C16.6469 5.60357 16.7618 5.42076 16.9199 5.27987C17.9199 4.33987 18.8399 3.36987 19.7899 2.41987C19.8912 2.34159 19.9648 2.23296 19.9999 2.10987V2.10987Z"
+                    fill="white" stroke="white" stroke-width="0.25" stroke-miterlimit="10" />
+            </svg>
+
+        </button>
+        <button type="button" class="btn btn-primary" onclick="SPIFFSdlg('/');" aria-label="Paige UI update">
+            <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.42993 20.1501V0.850098H10.0199L15.5699 6.0301V20.1501H1.42993Z" stroke="white"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10.02 0.850098V6.0301H15.57L10.02 0.850098Z" stroke="white" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+        <button id="settings_update_fw_btn" type="button" class="btn btn-primary" onclick="updatedlg();" aria-label="Paige Firmware update">
+            <svg width="29" height="19" viewBox="0 0 29 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.3701 13.3799L14.5001 18.2499L9.63013 13.3799" stroke="white" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.5 18.25V8.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path
+                    d="M27.2701 16.2601C27.6566 15.4908 27.8553 14.6409 27.8501 13.7801C27.8501 12.3108 27.2664 10.9016 26.2275 9.86269C25.1885 8.82374 23.7794 8.24007 22.3101 8.24007C21.6266 8.23119 20.9476 8.35339 20.3101 8.60006C20.0306 7.17289 19.433 5.82704 18.5619 4.66251C17.6908 3.49798 16.5685 2.54469 15.2784 1.87347C13.9882 1.20224 12.5634 0.830343 11.1098 0.785388C9.65624 0.740433 8.21119 1.02358 6.88205 1.6138C5.55291 2.20402 4.37383 3.08613 3.43243 4.19461C2.49102 5.30308 1.81147 6.60943 1.44427 8.01661C1.07706 9.42378 1.03164 10.8956 1.31138 12.3227C1.59112 13.7499 2.18883 15.0956 3.0601 16.2601"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+        </button>
+        <button type="button" id="settings_restart_btn" class="btn btn-primary" onclick="restart_esp();" aria-label="Restart Paige">
+            <svg width="19" height="23" viewBox="0 0 19 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M14.5201 5.54004C16.0303 6.60245 17.1628 8.1183 17.7535 9.86776C18.3441 11.6172 18.3622 13.5093 17.805 15.2697C17.2478 17.0301 16.1444 18.5673 14.6547 19.6583C13.165 20.7493 11.3666 21.3375 9.52008 21.3375C7.6736 21.3375 5.87513 20.7493 4.38545 19.6583C2.89577 18.5673 1.79233 17.0301 1.23515 15.2697C0.677973 13.5093 0.696016 11.6172 1.28667 9.86776C1.87732 8.1183 3.00987 6.60245 4.52008 5.54004"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9.5 11.9599V1.66992" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+
+        </button>
+        <button type="button" id="settings_refresh_btn" class="btn btn-primary"
+            onclick="refreshSettings(current_setting_filter);" aria-label="Refresh settings page">
+            <svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.19995 13.73L3.65995 10.5L6.87995 12.95" stroke="white" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M23.7999 7.27002L21.3399 10.5L18.1199 8.05002" stroke="white" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M3.65991 10.5C3.66135 12.4857 4.33133 14.4132 5.56187 15.9717C6.79242 17.5302 8.51187 18.629 10.4431 19.091C12.3744 19.553 14.4049 19.3514 16.2076 18.5185C18.0102 17.6856 19.48 16.2701 20.3799 14.5"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M4.61987 6.48987C5.51984 4.71977 6.98957 3.30423 8.79221 2.47137C10.5949 1.63851 12.6254 1.43684 14.5567 1.89886C16.4879 2.36088 18.2074 3.45968 19.4379 5.01819C20.6685 6.57669 21.3384 8.50412 21.3399 10.4899"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+        </button>
+    </div>
+    <span id="settings_status"></span>
+    <div class="loader hide_it" id="settings_loader"></div>
+    <div class="hide_it" id="settings_list_content">
+        <span id="settings_filters" style="display: none;">
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" id="network_setting_filter" name="setting_filter" value="network"
+                        onclick="build_HTML_setting_list('network')">
+                    <span translate>Network</span>
+                </label>
+            </div>
+            <!-- <div class="radio-inline">
                     <label>
                         <input type="radio" id="printer_setting_filter" name="setting_filter" value="network" onclick="build_HTML_setting_list('printer')">
                         <span translate>Printer</span>
                     </label>
-                </div>
-            </span>
-            <table class="table table-bordered table-striped table-hover table-responsive" style='width:auto;'>
-                <thead>
-                    <tr>
-                        <th translate>Label</th>
-                        <th translate>Value</th>
-                    </tr>
-                </thead>
-                <tbody id="settings_list_data"></tbody>
-            </table>
-        </div>
-    </center>
+                </div> -->
+        </span>
+        <table class="table table-bordered table-striped table-hover table-responsive" id="settings-table">
+            <thead style="display: none;">
+                <tr>
+                    <th translate>Label</th>
+                    <th translate>Value</th>
+                </tr>
+            </thead>
+            <tbody id="settings_list_data"></tbody>
+        </table>
+    </div>
+
 </div>

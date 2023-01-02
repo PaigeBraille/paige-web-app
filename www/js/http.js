@@ -3,7 +3,7 @@ var http_cmd_list = [];
 var processing_cmd = false;
 var xmlhttpupload;
 
-var max_cmd = 20;
+var max_cmd = 200;
 
 function clear_cmd_list() {
     http_cmd_list = [];
@@ -121,6 +121,9 @@ function SendGetHttp(url, result_fn, error_fn, id, max_id) {
 }
 
 function ProcessGetHttp(url, resultfn, errorfn) {
+    if (IS_UI_TEST || IS_UI_DEMO) {
+        return;
+    }
     if (http_communication_locked) {
         errorfn(503, translate_text_item("Communication locked!"));
         console.log("locked");

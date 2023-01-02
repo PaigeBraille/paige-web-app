@@ -13,6 +13,9 @@ function connectdlg(getFw) {
 }
 
 function getFWdata(response) {
+    if (IS_UI_TEST || IS_UI_DEMO) {
+        return true;
+    }
     var tlist = response.split("#");
     //FW version:0.9.200 # FW target:smoothieware # FW HW:Direct SD # primary sd:/ext/ # secondary sd:/sd/ # authentication: yes
     if (tlist.length < 3) {
@@ -110,10 +113,8 @@ function connectsuccess(response) {
         console.log("Fw identification:" + response);
         if (ESP3D_authentication) {
             closeModal("Connection successful");
-            document.getElementById('menu_authentication').style.display = 'inline';
             logindlg(initUI, true);
         } else {
-            document.getElementById('menu_authentication').style.display = 'none';
             initUI();
         }
     } else {

@@ -1,0 +1,35 @@
+<div id="paigetab" class="tabcontent">
+  <div class="grade-chooser">
+    <span id="grade-title">Choose grade</span>
+    <div class="radio-toolbar">
+      <input type="radio" id="radioGrade1" name="grade" value="1" checked>
+      <label for="radioGrade1">1</label>
+
+      <input type="radio" id="radioGrade2" name="grade" value="2">
+      <label for="radioGrade2">2</label>
+
+      <!-- <input type="radio" id="radioGradeUebMath" name="grade" value="ueb_math">
+      <label for="radioGradeUebMath">UEB Math</label> -->
+    </div>
+  </div>
+  <div id="paige-textareas">
+    <div class="paige-textarea">
+      <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
+      <!-- Include to block backspace: onkeydown="onPaigeKeyDown(event);" -->
+      <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
+        oninput="onPaigeChange(this.value);"></textarea>
+    </div>
+    <div class="paige-textarea">
+      <label for="translated" class="textarea-title" id="textarea-label-2">Print</label>
+      <textarea disabled id="translated"></textarea>
+    </div>
+  </div>
+  <div class="paige-buttons">
+    <button onClick="saveTextInput();" id="save-button">
+      Save
+    </button>
+    <button id="PAIGEClearButton" onclick="clearTextInput();">
+      Clear
+    </button>
+  </div>
+</div>

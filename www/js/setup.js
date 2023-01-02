@@ -55,7 +55,7 @@ function setupdone(response) {
     do_not_build_settings = false;
     build_HTML_setting_list(current_setting_filter);
     translate_text(language_save);
-    document.getElementById('main_ui').style.display = 'block';
+    document.getElementById('main_ui').style.display = 'flex';
     closeModal("setup done");
 
 }
