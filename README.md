@@ -2,7 +2,7 @@
 
 ### Online version 
 
-- This repo also autodeploys a demo version of the web app to netlify
+- This repo also autodeploys a demo version of the web app to Netlify on push to the `main` branch
 - It can be found at https://paigetranslate.netlify.app/
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffbf45ea-ca3f-4802-8933-cf564f1eaed1/deploy-status)](https://app.netlify.com/sites/paigetranslate/deploys)
@@ -35,6 +35,10 @@ Once you have updated liblouis, you will have to run `npm run package` again to 
 
 To add new liblouis tables, add their names to the `TABLES_TO_KEEP` list in `gulpfile.mjs` and then follow the instructions for updating liblouis.
 
+### Git
+
+The main branch for the Paige web app is `main`, other branches come from `MitchBradley`'s original repo
+
 ### License
 
-This code is available under a GPL-3.0 license. The app is based on the [ESP3D-WEBUI codebase](https://github.com/luc-github/ESP3D-WEBUI) from `luc-github`.
+This code is available under a GPL-3.0 license. The app is based on the [MitchBradley's fork of the ESP3D-WEBUI codebase](https://github.com/MitchBradley/ESP3D-WEBUI) originally by `luc-github`.
