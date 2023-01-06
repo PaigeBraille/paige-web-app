@@ -18,6 +18,7 @@ var TABLES_TO_KEEP = ["en-gb-g1.utb", "unicode.dis", "text_nabcc.dis", "ukcharde
 
 function updateLiblouis() {
   // Remove unused table data from liblouis build
+  // You should have run npm install before this task runs so that it can find the build in node_modules
   fs.readFile("node_modules/liblouis-build/build-tables-embeded-root-utf16.js", "utf8", (error, content) => {
     if (error) {
       throw error;
@@ -139,6 +140,7 @@ function concatApp() {
 }
 
 function replaceSVG() {
+  // Inserts the correct raw SVG code wherever the special <!-- replaceSVG --> was used
   return gulp
     .src("dist/**")
     .pipe(
@@ -220,6 +222,7 @@ function smoosh() {
 }
 
 function setTest() {
+  // Set the variable IS_UI_TEST to true in the javascript
   return gulp
     .src("dist/index.html")
     .pipe(
@@ -231,6 +234,7 @@ function setTest() {
 }
 
 function setDemo() {
+  // Set the variable IS_UI_TEST to false in the javascript
   return gulp
     .src("dist/index.html")
     .pipe(
