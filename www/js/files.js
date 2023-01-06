@@ -99,6 +99,7 @@ function files_build_file_line(index) {
     }
     content += "><table><tr><td><span style='padding-right:12px;'>";
     if (entry.isdir == true) content += get_icon_svg("folder-open");
+    // All strings that match the replaceSVG comment are replaced with the corresponding SVG code using the replaceSVG gulp task
     else content += '<!-- replaceSVG --><object data="images/Files.svg" type="image/svg+xml"></object><!-- /replaceSVG -->';
     content += "</span ></td><td>";
     if (
