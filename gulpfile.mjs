@@ -140,14 +140,14 @@ function concatApp() {
 
 function replaceSVG() {
   return gulp
-    .src("dist/index.html")
+    .src("dist/**")
     .pipe(
       replace(
         /<!-- replaceSVG -->(.*?)<!-- \/replaceSVG -->/g,
         function (match, p1) {
           var parts = match.split('data="');
           var name = parts[1].split('.svg')[0];
-          return fs.readFileSync(`dist/${name}.svg`, "utf8");
+          return fs.readFileSync(`dist/${name}.svg`, "utf8").replaceAll(/(?:\r\n|\r|\n)/g,"");
         }
       )
     )
@@ -267,10 +267,11 @@ var packageSeries = gulp.series(
   copy,
   icons,
   concatApp,
-  includeHtml,
-  includeHtml,
   replaceSVG,
+  includeHtml,
+  includeHtml,
   englishOnly,
+  replaceSVG,
   minifyApp,
   smoosh,
   compress
@@ -282,10 +283,11 @@ var package2testSeries = gulp.series(
   copyTest,
   icons,
   concatAppTest,
-  includeHtml,
-  includeHtml,
   replaceSVG,
+  includeHtml,
+  includeHtml,
   englishOnly,
+  replaceSVG,
   smoosh,
   setTest
 );
@@ -296,10 +298,11 @@ var package2demoSeries = gulp.series(
   copyTest,
   icons,
   concatAppTest,
-  includeHtml,
-  includeHtml,
   replaceSVG,
+  includeHtml,
+  includeHtml,
   englishOnly,
+  replaceSVG,
   smoosh,
   setDemo
 );
