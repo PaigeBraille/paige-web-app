@@ -149,7 +149,8 @@ function replaceSVG() {
         function (match, p1) {
           var parts = match.split('data="');
           var name = parts[1].split('.svg')[0];
-          return fs.readFileSync(`dist/${name}.svg`, "utf8").replaceAll(/(?:\r\n|\r|\n)/g,"");
+          var contents = fs.readFileSync(`dist/${name}.svg`, "utf8").toString();
+          return contents.replaceAll(/(?:\r\n|\r|\n)/g,"");
         }
       )
     )
