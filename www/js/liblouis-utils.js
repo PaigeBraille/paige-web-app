@@ -3,7 +3,13 @@ var translatedText = document.querySelector("#translated");
 
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
+function makeTextareaAutoScroll(textarea) {
+  textarea.scrollTop = textarea.scrollHeight;
+}
+
 function onPaigeChange(newInput) {
+  makeTextareaAutoScroll(initialInputText);
+  makeTextareaAutoScroll(translatedText);
   // if (newInput.length === 1) {
   //   // First character
   //   console.log("First character typed, executing home command.");
