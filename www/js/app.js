@@ -499,8 +499,8 @@ function initUI_3() {
 
 function initUI_4() {
   AddCmd(display_boot_progress);
-  init_temperature_panel();
-  init_extruder_panel();
+  // init_temperature_panel();
+  // init_extruder_panel();
   init_command_panel();
   init_files_panel(false);
   //check if we need setup
