@@ -14,7 +14,7 @@ import inlineFonts from "gulp-inline-fonts";
 import smoosher from "gulp-smoosher";
 import size from "gulp-filesize";
 
-var TABLES_TO_KEEP = ["en-gb-g1.utb", "unicode.dis", "text_nabcc.dis", "ukchardefs.cti", "litdigits6Dots.uti", "braille-patterns.cti", "loweredDigits6Dots.uti", "latinLetterDef6Dots.uti", "en-GB-g2.ctb"];
+var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "unicode.dis", "en-ueb-chardefs.uti", "en-ueb-g2.ctb", "en-ueb-math.ctb", "latinLetterDef8Dots.uti", "braille-patterns.cti"];
 
 function updateLiblouis() {
   // Remove unused table data from liblouis build

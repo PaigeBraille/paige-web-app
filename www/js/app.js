@@ -126,6 +126,10 @@ window.onload = function () {
 var wsmsg = "";
 
 function startSocket() {
+  var returned_value;
+  var grade;
+  var lines;
+  var translation;
   try {
     if (async_webcommunication) {
       ws_source = new WebSocket("ws://" + document.location.host + "/ws", [
@@ -220,7 +224,7 @@ function startSocket() {
           console.log("MSG: " + tval[2] + " code:" + tval[1]);
         }
         if (tval[0] == "PAIGE_POTENT_VALUE") {
-          var returned_value = tval[1];
+          returned_value = tval[1];
           PAIGE_POTENT_VALUE = returned_value;
           if (PAIGE_POTENT_VALUE >= 75) {
             paigeClearButton.disabled = false;
@@ -236,34 +240,34 @@ function startSocket() {
         }
         if (tval[0] == "PAIGE_KEYBOARD") {
           if (tval[1] == "ASCII"){
-            var returned_value = tval[2];
+            returned_value = tval[2];
             initialInputText.value = initialInputText.value + returned_value;
-            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            grade = document.querySelector('input[name="grade"]:checked').value;
             // var unicodeInput = asciiToUnicode(newInput);
-            var lines = initialInputText.value.split("\n");
-            var translation = [];
-            for (var i = 0; i < lines.length; i++) {
-              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            lines = initialInputText.value.split("\n");
+            translation = [];
+            for (var idx = 0; idx < lines.length; idx++) {
+              translation.push(translateWithLiblouis(lines[idx].replace("\n", ""), grade));
             }
             translatedText.value = translation.join("\n");
           } else if (tval[1] == "BACK_SPACE") {
             initialInputText.value = initialInputText.value.slice(0, -1);
-            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            grade = document.querySelector('input[name="grade"]:checked').value;
             // var unicodeInput = asciiToUnicode(newInput);
-            var lines = initialInputText.value.split("\n");
-            var translation = [];
-            for (var i = 0; i < lines.length; i++) {
-              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            lines = initialInputText.value.split("\n");
+            translation = [];
+            for (var j = 0; j < lines.length; j++) {
+              translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
             }
             translatedText.value = translation.join("\n");
           } else if (tval[1] == "NEW_FILE" && initialInputText.value != tval[2]){
             initialInputText.value = tval[2];
-            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            grade = document.querySelector('input[name="grade"]:checked').value;
             // var unicodeInput = asciiToUnicode(newInput);
-            var lines = initialInputText.value.split("\n");
-            var translation = [];
-            for (var i = 0; i < lines.length; i++) {
-              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            lines = initialInputText.value.split("\n");
+            translation = [];
+            for (var k = 0; k < lines.length; k++) {
+              translation.push(translateWithLiblouis(lines[k].replace("\n", ""), grade));
             }
             translatedText.value = translation.join("\n");
           }
@@ -525,8 +529,8 @@ function initDemo() {
   // Swap titles and fonts as translation is going the other way (Print -> Braille)
   document.getElementById("textarea-label-1").innerHTML = "Print";
   document.getElementById("textarea-label-2").innerHTML = "Braille";
-  document.getElementById("initialInputText").style.fontFamily = '"Inter", sans-serif'
-  document.getElementById("translated").style.fontFamily = '"aph_braille_shadowsregular"'
+  document.getElementById("initialInputText").style.fontFamily = '"Inter", sans-serif';
+  document.getElementById("translated").style.fontFamily = '"aph_braille_shadowsregular"';
 }
 
 function show_main_UI() {
