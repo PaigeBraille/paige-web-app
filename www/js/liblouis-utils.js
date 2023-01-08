@@ -46,11 +46,11 @@ function onPaigeChange(newInput) {
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   // var unicodeInput = asciiToUnicode(newInput);
   var lines = newInput.split("\n");
-  var translation = [];
-  for (var i = 0; i < lines.length; i++) {
-    translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+  var libtranslation = [];
+  for (var idx = 0; idx < lines.length; idx++) {
+    libtranslation.push(translateWithLiblouis(lines[idx].replace("\n", ""), gradeValue));
   }
-  translatedText.value = translation.join("\n");
+  translatedText.value = libtranslation.join("\n");
   // var gcodeFileName = fileName + ".gcode";
   // console.log("Attempting to run command", gcodeFileName);
   // PAIGESimpleReadSPIFFFile(gcodeFileName);
@@ -121,20 +121,20 @@ function translateWithLiblouis(inputStr, grade) {
   // Use unicode.dis if you want to translate to/from Unicode Braille instead of ASCII Braille
   // If using without unicode.dis, ASCII Braille should be rendered using the braille font (aph_braille_shadowsregular)
   
-  // var tableNames = "unicode.dis,en-gb-g1.utb";
+  // var tableNames = "unicode.dis,en-ueb-g1.ctb";
   // if (grade === '2') {
-  //   tableNames = "unicode.dis,en-GB-g2.ctb"
+  //   tableNames = "unicode.dis,en-ueb-g2.ctb"
   // }
 
-  var tableNames = "en-gb-g1.utb";
+  var tableNames = "en-ueb-g1.ctb";
   if (grade === '2') {
-    tableNames = "en-GB-g2.ctb"
+    tableNames = "en-ueb-g2.ctb";
   }
   try {
     if (IS_UI_DEMO) {
       return printToBraille(tableNames, inputStr);
     } else {
-      return brailleToPrint(tableNames, inputStr)
+      return brailleToPrint(tableNames, inputStr);
     }
   } catch (e) {
     console.error("Error with liblouis translation", e);
