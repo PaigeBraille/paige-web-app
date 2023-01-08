@@ -46,11 +46,11 @@ function onPaigeChange(newInput) {
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   // var unicodeInput = asciiToUnicode(newInput);
   var lines = newInput.split("\n");
-  var libtranslation = [];
-  for (var idx = 0; idx < lines.length; idx++) {
-    libtranslation.push(translateWithLiblouis(lines[idx].replace("\n", ""), gradeValue));
+  var translation = [];
+  for (var i = 0; i < lines.length; i++) {
+    translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
   }
-  translatedText.value = libtranslation.join("\n");
+  translatedText.value = translation.join("\n");
   // var gcodeFileName = fileName + ".gcode";
   // console.log("Attempting to run command", gcodeFileName);
   // PAIGESimpleReadSPIFFFile(gcodeFileName);
