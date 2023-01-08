@@ -17,6 +17,7 @@
     "gulp-inline-fonts": "^1.2.1",
     "gulp-jshint": "latest",
     "gulp-ng-annotate": "^0.2.0",
+    "gulp-purgecss": "^5.0.0",
     "gulp-remove-code": "latest",
     "gulp-replace": "latest",
     "gulp-smoosher": "^0.0.7",

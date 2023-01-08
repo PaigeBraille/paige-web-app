@@ -3,6 +3,7 @@ import jshint from "gulp-jshint";
 import concat from "gulp-concat";
 import uglify from "gulp-uglify";
 import cleanCSS from "gulp-clean-css";
+import purgecss from "gulp-purgecss";
 import removeCode from "gulp-remove-code";
 import merge from "merge-stream";
 import { deleteSync } from "del";
@@ -151,7 +152,7 @@ function replaceSVG() {
           var parts = match.split('data="');
           var name = parts[1].split('.svg')[0];
           var contents = fs.readFileSync(`dist/${name}.svg`, "utf8").toString();
-          return contents.replace(/(?:\r\n|\r|\n)/g,"");
+          return contents.replace(/(?:\r\n|\r|\n)/g, "");
         }
       )
     )
@@ -194,6 +195,9 @@ function minifyApp() {
           console.log(details.name + ": " + details.stats.minifiedSize);
         })
       )
+      .pipe(purgecss({
+        content: ['www/**/*.html']
+      }))
       .pipe(gulp.dest("./dist/css/")),
 
     gulp
@@ -313,8 +317,8 @@ var package2demoSeries = gulp.series(
   setDemo
 );
 
-gulp.task('updateLiblouis', function() { 
-  return new Promise(function(resolve, reject) {
+gulp.task('updateLiblouis', function () {
+  return new Promise(function (resolve, reject) {
     updateLiblouis();
     resolve();
   });
