@@ -247,16 +247,16 @@ function build_control_from_index(index, extra_set_function) {
       content += "<div class='item-flex-row'>";
       content += "<table><tr><td>";
       content += "<div class='input-group'>";
-      content += "<div class='input-group-btn'>";
-      content +=
-        "<button class='btn btn-default btn-svg' onclick='setting_revert_to_default(" +
-        i +
-        "," +
-        sub_element +
-        ")' >";
-      content += get_icon_svg("repeat");
-      content += "</button>";
-      content += "</div>";
+      // content += "<div class='input-group-btn'>";
+      // content +=
+      //   "<button class='btn btn-default btn-svg' onclick='setting_revert_to_default(" +
+      //   i +
+      //   "," +
+      //   sub_element +
+      //   ")' >";
+      // content += get_icon_svg("repeat");
+      // content += "</button>";
+      // content += "</div>";
       content += "<input class='hide_it'></input>";
       content += "</div>";
       content += "</td><td>";

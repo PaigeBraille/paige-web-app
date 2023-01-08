@@ -235,15 +235,37 @@ function startSocket() {
           }
         }
         if (tval[0] == "PAIGE_KEYBOARD") {
-          var gradeValue = document.querySelector("#grade").value;
           if (tval[1] == "ASCII"){
             var returned_value = tval[2];
             initialInputText.value = initialInputText.value + returned_value;
-            translatedText.value = translateWithLiblouis(initialInputText.value.replaceAll("\n", ""), gradeValue);
+            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            // var unicodeInput = asciiToUnicode(newInput);
+            var lines = initialInputText.value.split("\n");
+            var translation = [];
+            for (var i = 0; i < lines.length; i++) {
+              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            }
+            translatedText.value = translation.join("\n");
           } else if (tval[1] == "BACK_SPACE") {
             initialInputText.value = initialInputText.value.slice(0, -1);
-            translatedText.value = translateWithLiblouis(initialInputText.value.replaceAll("\n", ""), gradeValue);
-
+            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            // var unicodeInput = asciiToUnicode(newInput);
+            var lines = initialInputText.value.split("\n");
+            var translation = [];
+            for (var i = 0; i < lines.length; i++) {
+              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            }
+            translatedText.value = translation.join("\n");
+          } else if (tval[1] == "NEW_FILE" && initialInputText.value != tval[2]){
+            initialInputText.value = tval[2];
+            var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+            // var unicodeInput = asciiToUnicode(newInput);
+            var lines = initialInputText.value.split("\n");
+            var translation = [];
+            for (var i = 0; i < lines.length; i++) {
+              translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+            }
+            translatedText.value = translation.join("\n");
           }
         }
       }
