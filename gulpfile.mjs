@@ -179,6 +179,23 @@ function englishOnly() {
     .pipe(gulp.dest("./dist/js/"));
 }
 
+function minifyCSS() {
+
+  return gulp
+    .src("dist/css/style.css")
+    .pipe(purgecss({
+      content: ['www/**/*.html', "www/js/*.js"]
+    }))
+    .pipe(
+      cleanCSS({ debug: true }, function (details) {
+        console.log(details.name + ": " + details.stats.originalSize);
+        console.log(details.name + ": " + details.stats.minifiedSize);
+      })
+    )
+    .pipe(gulp.dest("./dist/css/"))
+
+}
+
 function minifyApp() {
   return merge(
 
@@ -186,19 +203,6 @@ function minifyApp() {
       .src(["dist/js/app.js"])
       .pipe(uglify({ mangle: true }))
       .pipe(gulp.dest("./dist/js/")),
-
-    gulp
-      .src("dist/css/style.css")
-      .pipe(
-        cleanCSS({ debug: true }, function (details) {
-          console.log(details.name + ": " + details.stats.originalSize);
-          console.log(details.name + ": " + details.stats.minifiedSize);
-        })
-      )
-      .pipe(purgecss({
-        content: ['www/**/*.html']
-      }))
-      .pipe(gulp.dest("./dist/css/")),
 
     gulp
       .src("dist/index.html")
@@ -268,6 +272,7 @@ gulp.task(concatApp);
 gulp.task(icons);
 gulp.task(concatAppTest);
 gulp.task(minifyApp);
+gulp.task(minifyCSS);
 gulp.task(smoosh);
 gulp.task(setTest);
 
@@ -283,6 +288,7 @@ var packageSeries = gulp.series(
   englishOnly,
   replaceSVG,
   minifyApp,
+  minifyCSS,
   smoosh,
   compress
 );
@@ -298,6 +304,7 @@ var package2testSeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  minifyCSS,
   smoosh,
   setTest
 );
@@ -313,6 +320,7 @@ var package2demoSeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  minifyCSS,
   smoosh,
   setDemo
 );
