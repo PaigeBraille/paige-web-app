@@ -239,6 +239,8 @@ function startSocket() {
           }
         }
         if (tval[0] == "PAIGE_KEYBOARD") {
+          makeTextareaAutoScroll(initialInputText);
+          makeTextareaAutoScroll(translatedText);
           if (tval[1] == "ASCII"){
             returned_value = tval[2];
             initialInputText.value = initialInputText.value + returned_value;
