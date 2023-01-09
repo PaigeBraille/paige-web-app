@@ -152,18 +152,9 @@ function initpreferences() {
     document.getElementById("has_tft_usb").style.display = "table-row";
   }
 
-  if (supportsRedundantTemperatures())
-    document.getElementById("redundant_controls_option").style.display =
-      "block";
-  else
-    document.getElementById("redundant_controls_option").style.display = "none";
-  if (supportsProbeTemperatures())
-    document.getElementById("probe_controls_option").style.display = "block";
-  else document.getElementById("probe_controls_option").style.display = "none";
-  if (supportsChamberTemperatures())
-    document.getElementById("chamber_controls_option").style.display = "block";
-  else
-    document.getElementById("chamber_controls_option").style.display = "none";
+  document.getElementById("redundant_controls_option").style.display = "none";
+  document.getElementById("probe_controls_option").style.display = "none";
+  document.getElementById("chamber_controls_option").style.display = "none";
 
   default_preferenceslist = JSON.parse(defaultpreferenceslist);
 }

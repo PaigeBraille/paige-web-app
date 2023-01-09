@@ -3,6 +3,7 @@ import jshint from "gulp-jshint";
 import concat from "gulp-concat";
 import uglify from "gulp-uglify";
 import cleanCSS from "gulp-clean-css";
+import purgecss from "gulp-purgecss";
 import removeCode from "gulp-remove-code";
 import merge from "merge-stream";
 import { deleteSync } from "del";
@@ -14,7 +15,8 @@ import inlineFonts from "gulp-inline-fonts";
 import smoosher from "gulp-smoosher";
 import size from "gulp-filesize";
 
-var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "unicode.dis", "en-ueb-chardefs.uti", "en-ueb-g2.ctb", "en-ueb-math.ctb", "latinLetterDef8Dots.uti", "braille-patterns.cti"];
+// Add "unicode.dis" if you need unicode
+var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-chardefs.uti", "en-ueb-g2.ctb", "en-ueb-math.ctb", "latinLetterDef8Dots.uti", "braille-patterns.cti"];
 
 function updateLiblouis() {
   // Remove unused table data from liblouis build
@@ -150,7 +152,7 @@ function replaceSVG() {
           var parts = match.split('data="');
           var name = parts[1].split('.svg')[0];
           var contents = fs.readFileSync(`dist/${name}.svg`, "utf8").toString();
-          return contents.replace(/(?:\r\n|\r|\n)/g,"");
+          return contents.replace(/(?:\r\n|\r|\n)/g, "");
         }
       )
     )
@@ -177,6 +179,23 @@ function englishOnly() {
     .pipe(gulp.dest("./dist/js/"));
 }
 
+function minifyCSS() {
+
+  return gulp
+    .src("dist/css/style.css")
+    .pipe(purgecss({
+      content: ['www/**/*.html', "www/js/*.js"]
+    }))
+    .pipe(
+      cleanCSS({ debug: true }, function (details) {
+        console.log(details.name + ": " + details.stats.originalSize);
+        console.log(details.name + ": " + details.stats.minifiedSize);
+      })
+    )
+    .pipe(gulp.dest("./dist/css/"))
+
+}
+
 function minifyApp() {
   return merge(
 
@@ -184,16 +203,6 @@ function minifyApp() {
       .src(["dist/js/app.js"])
       .pipe(uglify({ mangle: true }))
       .pipe(gulp.dest("./dist/js/")),
-
-    gulp
-      .src("dist/css/style.css")
-      .pipe(
-        cleanCSS({ debug: true }, function (details) {
-          console.log(details.name + ": " + details.stats.originalSize);
-          console.log(details.name + ": " + details.stats.minifiedSize);
-        })
-      )
-      .pipe(gulp.dest("./dist/css/")),
 
     gulp
       .src("dist/index.html")
@@ -263,6 +272,7 @@ gulp.task(concatApp);
 gulp.task(icons);
 gulp.task(concatAppTest);
 gulp.task(minifyApp);
+gulp.task(minifyCSS);
 gulp.task(smoosh);
 gulp.task(setTest);
 
@@ -278,6 +288,7 @@ var packageSeries = gulp.series(
   englishOnly,
   replaceSVG,
   minifyApp,
+  minifyCSS,
   smoosh,
   compress
 );
@@ -293,6 +304,7 @@ var package2testSeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  minifyCSS,
   smoosh,
   setTest
 );
@@ -308,12 +320,13 @@ var package2demoSeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  minifyCSS,
   smoosh,
   setDemo
 );
 
-gulp.task('updateLiblouis', function() { 
-  return new Promise(function(resolve, reject) {
+gulp.task('updateLiblouis', function () {
+  return new Promise(function (resolve, reject) {
     updateLiblouis();
     resolve();
   });
