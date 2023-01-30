@@ -231,6 +231,14 @@ function smoosh() {
   return gulp.src("dist/index.html").pipe(smoosher()).pipe(gulp.dest("dist"));
 }
 
+function compress() {
+  return gulp
+    .src("dist/index.html")
+    .pipe(gzip({ gzipOptions: { level: 9 } }))
+    .pipe(gulp.dest("."))
+    .pipe(size());
+}
+
 function setTest() {
   // Set the variable IS_UI_TEST to true in the javascript
   return gulp
@@ -255,26 +263,6 @@ function setDemo() {
     .pipe(gulp.dest("dist"));
 }
 
-function compress() {
-  return gulp
-    .src("dist/index.html")
-    .pipe(gzip({ gzipOptions: { level: 9 } }))
-    .pipe(gulp.dest("."))
-    .pipe(size());
-}
-
-gulp.task(clean);
-gulp.task(lint);
-gulp.task(copy);
-gulp.task(copyTest);
-gulp.task(replaceSVG);
-gulp.task(concatApp);
-gulp.task(icons);
-gulp.task(concatAppTest);
-gulp.task(minifyApp);
-gulp.task(minifyCSS);
-gulp.task(smoosh);
-gulp.task(setTest);
 
 var packageSeries = gulp.series(
   clean,

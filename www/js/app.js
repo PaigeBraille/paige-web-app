@@ -34,8 +34,6 @@ var enable_ping = true;
 var esp_error_message = "";
 var esp_error_code = 0;
 var PAIGE_POTENT_VALUE = 0;
-var IS_UI_TEST = false; // Gulp sets to true for the test build
-var IS_UI_DEMO = false; // Gulp sets to true for the demo build
 
 var paigeClearButton = document.querySelector("#PAIGEClearButton");
 var initialInputText = document.querySelector("#initialInputText");

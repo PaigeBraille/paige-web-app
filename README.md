@@ -35,6 +35,11 @@ Once you have updated liblouis, you will have to run `npm run package` again to 
 
 To add new liblouis tables, add their names to the `TABLES_TO_KEEP` list in `gulpfile.mjs` and then follow the instructions for updating liblouis.
 
+### Different build settings
+
+- `www/js/globalSettings.js` contains some global variables that are referenced throughout the code to enable / disable features
+- To add a new setting, you can add a gulp step to set / unset the variable in question, and create a new package task that uses this step (see `setDemo` as an example, which is used in `package2demo`)
+
 ### Git
 
 The main branch for the Paige web app is `main`, other branches come from `MitchBradley`'s original repo
