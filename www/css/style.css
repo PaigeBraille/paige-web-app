@@ -823,3 +823,10 @@ button.delete-button {
     display: flex;
     align-items: center;
 }
+
+.file-buttons {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    justify-content: end;
+}

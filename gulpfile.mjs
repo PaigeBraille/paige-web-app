@@ -252,12 +252,24 @@ function setTest() {
 }
 
 function setDemo() {
-  // Set the variable IS_UI_TEST to false in the javascript
+  // Set the variable IS_UI_DEMO to true in the javascript
   return gulp
     .src("dist/index.html")
     .pipe(
       replace(
         "var IS_UI_DEMO = false;", "var IS_UI_DEMO = true;"
+      )
+    )
+    .pipe(gulp.dest("dist"));
+}
+
+function setDisplay() {
+  // Set the variable USES_PAIGE_DISPLAY to true in the javascript
+  return gulp
+    .src("dist/index.html")
+    .pipe(
+      replace(
+        "var USES_PAIGE_DISPLAY = false;", "var USES_PAIGE_DISPLAY = true;"
       )
     )
     .pipe(gulp.dest("dist"));
@@ -281,6 +293,24 @@ var packageSeries = gulp.series(
   compress
 );
 
+var packageDisplaySeries = gulp.series(
+  clean,
+  lint,
+  copy,
+  icons,
+  concatApp,
+  replaceSVG,
+  includeHtml,
+  includeHtml,
+  englishOnly,
+  replaceSVG,
+  minifyApp,
+  minifyCSS,
+  smoosh,
+  setDisplay,
+  compress
+);
+
 var package2testSeries = gulp.series(
   clean,
   lint,
@@ -294,7 +324,8 @@ var package2testSeries = gulp.series(
   replaceSVG,
   minifyCSS,
   smoosh,
-  setTest
+  setTest,
+  setDisplay
 );
 
 var package2demoSeries = gulp.series(
@@ -322,3 +353,4 @@ gulp.task('updateLiblouis', function () {
 gulp.task("package", packageSeries);
 gulp.task("package2test", package2testSeries);
 gulp.task("package2demo", package2demoSeries);
+gulp.task("packageDisplay", packageDisplaySeries);

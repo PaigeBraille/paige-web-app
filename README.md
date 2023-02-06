@@ -9,9 +9,17 @@
 
 ### Building for deployment
 
+#### Paige Connect
+
 To build run:
 - `npm install` (this will install all dependencies)
 - `npm run package` (this will use [Gulp](https://gulpjs.com/) alongside multiple Gulp plugins to build everything into one `index.html.gz` file - you can also see the original uncompressed `index.html` at `dist/index.html`)
+
+#### For use with Paige Display
+
+To build run:
+- `npm install` (this will install all dependencies)
+- `npm run packagefordisplay` (this will use [Gulp](https://gulpjs.com/) alongside multiple Gulp plugins to build everything into one `index.html.gz` file - you can also see the original uncompressed `index.html` at `dist/index.html`)
 
 ### Dependency-free manual testing of Paige UI
 

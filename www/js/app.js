@@ -503,6 +503,7 @@ function initUI_4() {
   // init_extruder_panel();
   init_command_panel();
   init_files_panel(false);
+  setupGradeButtons();
   //check if we need setup
   if (target_firmware == "???") {
     console.log("Launch Setup");

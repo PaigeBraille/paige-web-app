@@ -135,15 +135,13 @@ function files_build_file_line(index) {
     }
     content += ">" + entry.datetime + "</div>";
     content += "<div class='" + iconcol + "'>";
-    content += "<div class='pull-right'>";
-    // if (files_showdeletebutton(index)) {
-    //   content +=
-    //     "<button class='btn btn-xs btn-danger' onclick='PAIGE_files_load(" +
-    //     index +
-    //     ")'  style='padding-top: 4px;'>" +
-    //     get_icon_svg("trash", "1em", "1em") +
-    //     "</button>";
-    // }
+    content += "<div class='file-buttons'>";
+    if (files_showdeletebutton(index)) {
+      content +=
+        "<button class='btn btn-info' onclick='PAIGE_files_load(" +
+        index +
+        ")' > Open </button>";
+    }
     // content += "&nbsp;";
     // if (entry.isprintable) {
     //   content +=
@@ -175,7 +173,20 @@ function files_build_file_line(index) {
 function PAIGE_files_load(index) {
   var filePath = files_currentPath + "SD/" + files_file_list[index].name;
   try {
-    readTextFile(filePath);
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", filePath, false);
+    rawFile.onreadystatechange = function () {
+      if (rawFile.readyState === 4 && rawFile.status === 200) {
+        var allText = rawFile.responseText;
+        openPaigeTab();
+        onPaigeChange(allText);
+      } else {
+        console.error("Error loading file from", filePath);
+        console.error("Ready state", rawFile.readyState);
+        console.error("Status", rawFile.status);
+      }
+    };
+    rawFile.send(null);
   } catch (e) {
     console.log(e);
   }
