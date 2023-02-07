@@ -49,6 +49,8 @@ function setIcons(tabName) {
             document.getElementById("settings-on-icon").style.display = "none";
             break;
         case 'maintab':
+            files_refreshFiles(files_currentPath);
+            
             document.getElementById("paige-off-icon").style.display = "flex";
             document.getElementById("paige-on-icon").style.display = "none";
 

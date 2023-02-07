@@ -76,10 +76,11 @@ function onPaigeChange(newInput) {
   //   initialInputText.value = oldInput;
   //   return;
   // }
-  if (IS_UI_DEMO) {
-    initialInputText.value = newInput;
-  } else {
+  if (USES_PAIGE_DISPLAY) {
+    // Limit line length for Paige display
     initialInputText.value = splitText(newInput);
+  } else {
+    initialInputText.value = newInput;
   }
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   // var unicodeInput = asciiToUnicode(newInput);
