@@ -40,6 +40,8 @@ function build_accept(file_filters_list) {
   var accept_txt = "";
   if (typeof file_filters_list != "undefined") {
     tfiles_filters = file_filters_list.trim().split(";");
+    tfiles_filters.push("txt");
+    tfiles_filters.push("brf");
     for (var i = 0; i < tfiles_filters.length; i++) {
       var v = tfiles_filters[i].trim();
       if (v.length > 0) {
@@ -179,7 +181,15 @@ function PAIGE_files_load(index) {
       if (rawFile.readyState === 4 && rawFile.status === 200) {
         var allText = rawFile.responseText;
         openPaigeTab();
-        onPaigeChange(allText);
+        if (files_file_list[index].name.includes(".brf")) {
+          // Braille file -> put directly into input textarea
+          allText = allText.replace("//g", "");
+          onPaigeChange(allText);
+        } else {
+          // Translate from english to braille first
+          updateTextFromEnglishFileUpload(allText);
+        }
+        
       } else {
         console.error("Error loading file from", filePath);
         console.error("Ready state", rawFile.readyState);

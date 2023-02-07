@@ -11,11 +11,11 @@ function setupGradeButtons() {
   var radio1 = document.getElementById('radioGrade1');
   var radio2 = document.getElementById('radioGrade2');
 
-  radio1.addEventListener('click', function() {
+  radio1.addEventListener('click', function () {
     onPaigeChange(initialInputText.value);
   });
 
-  radio2.addEventListener('click', function() {
+  radio2.addEventListener('click', function () {
     onPaigeChange(initialInputText.value);
   });
 }
@@ -28,17 +28,10 @@ function splitText(text) {
   // Add newlines inbetween every 15 characters, and new pages (currently formatted as 2 newlines) inbetween every 5 lines
   var newText = text.replace(/\n/g, "");
   var lines = [];
-  var finalLines = [];
   for (var i = 0; i < newText.length; i += MAX_LINE_LENGTH) {
     lines.push(newText.substring(i, i + MAX_LINE_LENGTH));
   }
-  for (var i = 0; i < lines.length; i += 1) {
-    if (i !== 0 & i % LINES_PER_PAGE === 0) {
-      finalLines.push("\n");
-    }
-    finalLines.push(lines[i]);
-  }
-  return finalLines.join("\n");
+  return lines.join("\n");
 }
 
 
@@ -117,13 +110,30 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+function formatAsBrf(text) {
+  var newText = text.replace(/\n/g, "");
+  var lines = [];
+  var finalLines = [];
+  for (var i = 0; i < newText.length; i += MAX_LINE_LENGTH) {
+    lines.push(newText.substring(i, i + MAX_LINE_LENGTH));
+  }
+  for (var i = 0; i < lines.length; i += 1) {
+    if (i !== 0 & i % LINES_PER_PAGE === 0) {
+      finalLines.push(""+lines[i]);
+    } else {
+      finalLines.push(lines[i]);
+    }
+  }
+  return finalLines.join("\n");
+}
+
 function saveTextInput() {
   if (IS_UI_DEMO) {
-    download("braille.brf", translatedText.value);
+    download("braille.brf", formatAsBrf(translatedText.value));
   } else {
     console.log("Attempting to save Braille");
     var filename = translatedText.value.split("\n")[0].replace(/\s/g, '_');
-    PAIGE_files_start_upload(filename + ".brf", initialInputText.value);
+    PAIGE_files_start_upload(filename + ".brf", formatAsBrf(initialInputText.value));
     function uploadTxt() {
       PAIGE_files_start_upload(filename + ".txt", translatedText.value);
     }
@@ -160,6 +170,16 @@ function printToBraille(tableNames, inputStr) {
 
 function brailleToPrint(tableNames, inputStr) {
   return liblouis.backTranslateString(tableNames, inputStr);
+}
+
+function updateTextFromEnglishFileUpload(text) {
+  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+  var tableNames = "en-ueb-g1.ctb";
+  if (gradeValue === '2') {
+    tableNames = "en-ueb-g2.ctb";
+  }
+  var brailleInput = printToBraille(tableNames, text);
+  onPaigeChange(brailleInput);
 }
 
 function translateWithLiblouis(inputStr, grade) {
