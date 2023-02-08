@@ -43,7 +43,7 @@ function goToPreviousPage() {
 
 function splitText(text, goToLastPage) {
   allPagesText[currentPage] = text; // Edit current page
-  var newText = allPagesText.join("").replace(/\n/g, "");
+  var newText = allPagesText.join("").replace(/\r?\n|\r/g, "");
   if (newText.replace(/\s+/g, '').length === 0) {
     currentPage = 0;
     allPagesText = [];
