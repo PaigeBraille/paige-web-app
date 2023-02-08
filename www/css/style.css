@@ -830,3 +830,19 @@ button.delete-button {
     flex-direction: row;
     justify-content: end;
 }
+
+.pagination-controls {
+    display: flex;
+    margin-top: var(--padding-sm);
+    flex-direction: row;
+}
+
+.pagination-controls > button {
+    margin-right: var(--padding-sm);
+    background-color: transparent;
+    color: var(--paige-blue);
+    outline-style: none;
+    border-style: none;
+    cursor: pointer;
+    font-weight: 600;
+}

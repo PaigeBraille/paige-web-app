@@ -17,7 +17,11 @@
       <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
       <!-- Include to block backspace: onkeydown="onPaigeKeyDown(event);" -->
       <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
-        oninput="onPaigeChange(this.value);"></textarea>
+        oninput="onPaigeChange(this.value, true);"></textarea>
+        <div class="pagination-controls" id="braille-pagination">
+          <button onclick="goToPreviousPage()">←</button>
+          <button onclick="goToNextPage()">→</button>
+        </div>
     </div>
     <div class="paige-textarea">
       <label for="translated" class="textarea-title" id="textarea-label-2">Print</label>

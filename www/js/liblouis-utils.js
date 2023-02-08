@@ -5,18 +5,21 @@ var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
 var MAX_LINE_LENGTH = 15;
 var LINES_PER_PAGE = 5;
-var currentInput = "";
+
+// For Paige Display pagination
+var allPagesText = [];
+var currentPage = 0;
 
 function setupGradeButtons() {
   var radio1 = document.getElementById('radioGrade1');
   var radio2 = document.getElementById('radioGrade2');
 
   radio1.addEventListener('click', function () {
-    onPaigeChange(initialInputText.value);
+    onPaigeChange(initialInputText.value, false);
   });
 
   radio2.addEventListener('click', function () {
-    onPaigeChange(initialInputText.value);
+    onPaigeChange(initialInputText.value, false);
   });
 }
 
@@ -24,75 +27,58 @@ function makeTextareaAutoScroll(textarea) {
   textarea.scrollTop = textarea.scrollHeight;
 }
 
-function splitText(text) {
-  // Add newlines inbetween every 15 characters, and new pages (currently formatted as 2 newlines) inbetween every 5 lines
-  var newText = text.replace(/\n/g, "");
+function goToNextPage() {
+  if (currentPage < allPagesText.length - 1) {
+    currentPage += 1;
+    onPaigeChange(allPagesText[currentPage], false);
+  }
+}
+
+function goToPreviousPage() {
+  if (currentPage > 0) {
+    currentPage -= 1;
+    onPaigeChange(allPagesText[currentPage], false);
+  }
+}
+
+function splitText(text, goToLastPage) {
+  allPagesText[currentPage] = text; // Edit current page
+  var newText = allPagesText.join("").replace(/\n/g, "");
+  if (newText.replace(/\s+/g, '').length === 0) {
+    currentPage = 0;
+    allPagesText = [];
+    return "";
+  }
   var lines = [];
   for (var i = 0; i < newText.length; i += MAX_LINE_LENGTH) {
     lines.push(newText.substring(i, i + MAX_LINE_LENGTH));
   }
-  return lines.join("\n");
+  var pages = [];
+  for (var j = 0; j < lines.length; j += LINES_PER_PAGE) {
+    pages.push(lines.slice(j, j + LINES_PER_PAGE).join("\n"));
+  }
+  allPagesText = pages;
+  if (goToLastPage) {
+    currentPage = allPagesText.length - 1;
+  }
+  return allPagesText[currentPage];
 }
 
 
-function onPaigeChange(newInput) {
+function onPaigeChange(newInput, goToLastPage) {
   makeTextareaAutoScroll(initialInputText);
   makeTextareaAutoScroll(translatedText);
-  // if (newInput.length === 1) {
-  //   // First character
-  //   console.log("First character typed, executing home command.");
-  //   SendHomeCommand();
-  //   PAIGESimpleReadSPIFFFile("initial.gcode");
-  // }
-  // var newChar = newInput[newInput.length - 1];
-  // var lines = newInput.split("\n");
-  // var validBarPosition = true;
-  // var validBarPosition = checkPotentiometerValue(lines.length);
-  // if (lines.length > 0) {
-  //   if (lines[lines.length-1].length > 15) {
-  //     // Max line length is 15 characters
-  //     console.log("Line length must 15 characters");
-  //     initialInputText.value = initialInputText.value.substring(0,newInput.length-1);
-  //     return;
-  //   }
-  // }
-  // if (lines.length >= 7) {
-  //   // Max number of lines is 6
-  //   console.log("Maximum 6 lines");
-  //   initialInputText.value = initialInputText.value.substring(0,newInput.length-1);
-  //   return;
-  // }
-  // if (newChar === "\n") {
-  //   // Last character was a new line character thus we want to execute the new line macro
-  //   initialInputText.value = newInput;
-  //   console.log("Executing the new line macro");
-  //   PAIGESimpleReadSPIFFFile("A.gcode");
-  //   return;
-  // }
-  // var ascii = newChar.toUpperCase().charCodeAt(0);
-  // var fileName = getAsciiFileName(ascii);
-  // if (!["2", "3", "4", "5"].includes(fileName[0]) || (!validBarPosition)) {
-  //   if (validBarPosition) {console.log("Input disabled as input character outside of know ASCII braille range");}
-  //   initialInputText.value = oldInput;
-  //   return;
-  // }
   if (USES_PAIGE_DISPLAY) {
-    // Limit line length for Paige display
-    initialInputText.value = splitText(newInput);
-  } else {
-    initialInputText.value = newInput;
+    newInput = splitText(newInput, goToLastPage);
   }
+  initialInputText.value = newInput;
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
-  // var unicodeInput = asciiToUnicode(newInput);
   var lines = newInput.split("\n");
   var translation = [];
   for (var i = 0; i < lines.length; i++) {
     translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
   }
   translatedText.value = translation.join("\n");
-  // var gcodeFileName = fileName + ".gcode";
-  // console.log("Attempting to run command", gcodeFileName);
-  // PAIGESimpleReadSPIFFFile(gcodeFileName);
 }
 
 function getAsciiFileName(AsciiBase10) {
@@ -120,7 +106,7 @@ function formatAsBrf(text) {
   }
   for (var i = 0; i < lines.length; i += 1) {
     if (i !== 0 & i % LINES_PER_PAGE === 0) {
-      finalLines.push(""+lines[i]);
+      finalLines.push("" + lines[i]);
     } else {
       finalLines.push(lines[i]);
     }
@@ -145,6 +131,8 @@ function saveTextInput() {
 function clearTextInput() {
   initialInputText.value = "";
   translatedText.value = "";
+  allPagesText = [];
+  currentPage = 0;
   try {
     console.log("Attempting to clear");
     macro_command("ESP", "clear.gcode");
@@ -180,7 +168,7 @@ function updateTextFromEnglishFileUpload(text) {
     tableNames = "en-ueb-g2.ctb";
   }
   var brailleInput = printToBraille(tableNames, text);
-  onPaigeChange(brailleInput);
+  onPaigeChange(brailleInput, true);
 }
 
 function translateWithLiblouis(inputStr, grade) {

@@ -542,6 +542,9 @@ function show_main_UI() {
     initDemo();
   }
   // Default to Paige tab
+  if (!USES_PAIGE_DISPLAY) {
+    document.getElementById("braille-pagination").style.display = "none";
+  }
   document.getElementById("loading-splash-screen").style.display = "none";
   openPaigeTab();
 }
