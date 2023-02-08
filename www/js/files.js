@@ -40,8 +40,6 @@ function build_accept(file_filters_list) {
   var accept_txt = "";
   if (typeof file_filters_list != "undefined") {
     tfiles_filters = file_filters_list.trim().split(";");
-    tfiles_filters.push("txt");
-    tfiles_filters.push("brf");
     for (var i = 0; i < tfiles_filters.length; i++) {
       var v = tfiles_filters[i].trim();
       if (v.length > 0) {
@@ -54,7 +52,7 @@ function build_accept(file_filters_list) {
     accept_txt = "*, *.*";
     tfiles_filters = "";
   }
-  document.getElementById("files_input_file").accept = accept_txt;
+  document.getElementById("files_input_file").accept = accept_txt+", text/plain, .txt, .brf";
   console.log(accept_txt);
 }
 
@@ -173,7 +171,10 @@ function files_build_file_line(index) {
 }
 
 function PAIGE_files_load(index) {
-  var filePath = files_currentPath + "SD/" + files_file_list[index].name;
+  var filePath =  "SD" + files_currentPath + files_file_list[index].name;
+  if (files_currentPath[0] !== "/") {
+    filePath =  "SD/" + files_currentPath + files_file_list[index].name;
+  }
   try {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", filePath, false);
