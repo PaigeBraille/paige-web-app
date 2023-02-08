@@ -19,7 +19,6 @@ function refreshSettings(hide_setting_list) {
   document.getElementById("settings_loader").style.display = "block";
   document.getElementById("settings_list_content").style.display = "none";
   document.getElementById("settings_status").style.display = "none";
-  document.getElementById("settings_refresh_btn").style.display = "none";
 
   var defaultSettings = {
     "EEPROM": [{
@@ -716,7 +715,6 @@ function getESPsettingsSuccess(response) {
   document.getElementById("settings_loader").style.display = "none";
   document.getElementById("settings_list_content").style.display = "block";
   document.getElementById("settings_status").style.display = "none";
-  document.getElementById("settings_refresh_btn").style.display = "block";
 }
 
 function getESPsettingsfailed(error_code, response) {
@@ -725,7 +723,6 @@ function getESPsettingsfailed(error_code, response) {
   document.getElementById("settings_status").style.display = "block";
   document.getElementById("settings_status").innerHTML =
     translate_text_item("Failed:") + error_code + " " + response;
-  document.getElementById("settings_refresh_btn").style.display = "block";
 }
 
 function restart_esp() {

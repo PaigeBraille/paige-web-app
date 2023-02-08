@@ -50,7 +50,7 @@ function setIcons(tabName) {
             break;
         case 'maintab':
             files_refreshFiles(files_currentPath);
-            
+
             document.getElementById("paige-off-icon").style.display = "flex";
             document.getElementById("paige-on-icon").style.display = "none";
 
@@ -61,6 +61,8 @@ function setIcons(tabName) {
             document.getElementById("settings-on-icon").style.display = "none";
             break;
         case 'settingstab':
+            refreshSettings(current_setting_filter);
+            
             document.getElementById("paige-off-icon").style.display = "flex";
             document.getElementById("paige-on-icon").style.display = "none";
 
