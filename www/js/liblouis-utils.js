@@ -6,8 +6,7 @@ var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 var MAX_LINE_LENGTH = 15;
 var LINES_PER_PAGE = 5;
 
-// For Paige Display pagination
-var allPagesText = [];
+var allPagesText = [""];
 var currentPage = 0;
 
 function setupGradeButtons() {
@@ -41,36 +40,33 @@ function goToPreviousPage() {
   }
 }
 
-function splitText(text, goToLastPage) {
-  allPagesText[currentPage] = text; // Edit current page
-  var newText = allPagesText.join("").replace(/\r?\n|\r/g, "");
-  if (newText.replace(/\s+/g, '').length === 0) {
+function processText(text, goToLastPage) {
+  if (USES_PAIGE_DISPLAY) {
+    // Enforce BRF standard
+    allPagesText[currentPage] = text; // Edit current page
+    var newText = allPagesText.join(" ").replace(/\r?\n|\r/g, " ");
+    if (newText.replace(/\s+/g, '').length === 0) {
+      currentPage = 0;
+      allPagesText = [""];
+      return "";
+    }
+    allPagesText = textToValidBraillePages(newText, MAX_LINE_LENGTH, LINES_PER_PAGE);
+    if (goToLastPage) {
+      currentPage = allPagesText.length - 1;
+    }
+    return allPagesText[currentPage];
+  } else {
+    allPagesText = [text];
     currentPage = 0;
-    allPagesText = [];
-    return "";
+    return text;
   }
-  var lines = [];
-  for (var i = 0; i < newText.length; i += MAX_LINE_LENGTH) {
-    lines.push(newText.substring(i, i + MAX_LINE_LENGTH));
-  }
-  var pages = [];
-  for (var j = 0; j < lines.length; j += LINES_PER_PAGE) {
-    pages.push(lines.slice(j, j + LINES_PER_PAGE).join("\n"));
-  }
-  allPagesText = pages;
-  if (goToLastPage) {
-    currentPage = allPagesText.length - 1;
-  }
-  return allPagesText[currentPage];
 }
 
 
 function onPaigeChange(newInput, goToLastPage) {
   makeTextareaAutoScroll(initialInputText);
   makeTextareaAutoScroll(translatedText);
-  if (USES_PAIGE_DISPLAY) {
-    newInput = splitText(newInput, goToLastPage);
-  }
+  newInput = processText(newInput, goToLastPage);
   initialInputText.value = newInput;
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   var lines = newInput.split("\n");
@@ -97,32 +93,39 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function formatAsBrf(text) {
-  var newText = text.replace(/\n/g, "");
-  var lines = [];
-  var finalLines = [];
-  for (var i = 0; i < newText.length; i += MAX_LINE_LENGTH) {
-    lines.push(newText.substring(i, i + MAX_LINE_LENGTH));
-  }
-  for (var i = 0; i < lines.length; i += 1) {
-    if (i !== 0 & i % LINES_PER_PAGE === 0) {
-      finalLines.push("" + lines[i]);
-    } else {
-      finalLines.push(lines[i]);
-    }
-  }
-  return finalLines.join("\n");
+function getBrf() {
+  var allText = allPagesText.join(" ");
+  return textToBrf(allText, MAX_LINE_LENGTH, LINES_PER_PAGE);
 }
+
+function getFullTranslation() {
+  var lines = allPagesText.join("").split("\n");
+  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+  var translation = [];
+  for (var i = 0; i < lines.length; i++) {
+    translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
+  }
+  return translation.join("\n");
+}
+
 
 function saveTextInput() {
   if (IS_UI_DEMO) {
-    download("braille.brf", formatAsBrf(translatedText.value));
+    download("braille.brf", textToBrf(translatedText.value, MAX_LINE_LENGTH, LINES_PER_PAGE));
   } else {
     console.log("Attempting to save Braille");
     var filename = translatedText.value.split("\n")[0].replace(/\s/g, '_');
-    PAIGE_files_start_upload(filename + ".brf", formatAsBrf(initialInputText.value));
+    var brfFileContents = getBrf();
+    var translationFileContents = getFullTranslation();
+
+    console.log("BRF File contents:");
+    console.log(brfFileContents);
+    console.log("TXT File contents:");
+    console.log(translationFileContents);
+
+    PAIGE_files_start_upload(filename + ".brf", brfFileContents);
     function uploadTxt() {
-      PAIGE_files_start_upload(filename + ".txt", translatedText.value);
+      PAIGE_files_start_upload(filename + ".txt", translationFileContents);
     }
     setTimeout(uploadTxt, 5000);
   }
@@ -141,17 +144,6 @@ function clearTextInput() {
     console.error("Error sending clear command", e);
   }
 }
-
-// function asciiToUnicode(inp) {
-//   var unicodeStr = "";
-//   for (var i = 0; i < inp.length; i++) {
-//     var val = asciiToUnicodeMap.get(inp[i]);
-//     if (val) {
-//       unicodeStr += asciiToUnicodeMap.get(inp[i]);
-//     }
-//   }
-//   return unicodeStr;
-// }
 
 function printToBraille(tableNames, inputStr) {
   return liblouis.translateString(tableNames, inputStr);
@@ -214,11 +206,3 @@ function checkPotentiometerValue(line) {
   }
   return false;
 }
-
-// function onPaigeKeyDown(event) {
-//   var backspace = 8;
-//   if (event.keyCode == backspace) {
-//     event.preventDefault();
-//     return;
-//   }
-// }

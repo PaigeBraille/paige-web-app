@@ -323,10 +323,10 @@ var package2testSeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  setDisplay,
   minifyCSS,
   smoosh,
-  setTest,
-  setDisplay
+  setTest
 );
 
 var package2demoSeries = gulp.series(
