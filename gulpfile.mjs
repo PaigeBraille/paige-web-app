@@ -265,14 +265,15 @@ function setDemo() {
 
 function setDisplay() {
   // Set the variable USES_PAIGE_DISPLAY to true in the javascript
+  // Needs to run before minification
   return gulp
-    .src("dist/index.html")
+    .src("dist/js/app.js")
     .pipe(
       replace(
         "var USES_PAIGE_DISPLAY = false;", "var USES_PAIGE_DISPLAY = true;"
       )
     )
-    .pipe(gulp.dest("dist"));
+    .pipe(gulp.dest("dist/js"));
 }
 
 
@@ -304,10 +305,10 @@ var packageDisplaySeries = gulp.series(
   includeHtml,
   englishOnly,
   replaceSVG,
+  setDisplay,
   minifyApp,
   minifyCSS,
   smoosh,
-  setDisplay,
   compress
 );
 
