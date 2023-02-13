@@ -835,6 +835,7 @@ button.delete-button {
     display: flex;
     margin-top: var(--padding-sm);
     flex-direction: row;
+    align-items: center;
 }
 
 .pagination-controls > button {
@@ -845,4 +846,10 @@ button.delete-button {
     border-style: none;
     cursor: pointer;
     font-weight: 600;
+}
+
+#pagination-text {
+    font-size: var(--font-size-default);
+    color: var(--paige-blue);
+    margin-left: var(--padding-sm);
 }

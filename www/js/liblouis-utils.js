@@ -1,5 +1,6 @@
 var initialInputText = document.querySelector("#initialInputText");
 var translatedText = document.querySelector("#translated");
+var paginationText = document.querySelector("#pagination-text");
 
 var PAIGE_CHARACTER_WAIT_TIME_MS = 100;
 
@@ -44,7 +45,7 @@ function processText(text, goToLastPage) {
   if (USES_PAIGE_DISPLAY) {
     // Enforce BRF standard
     allPagesText[currentPage] = text; // Edit current page
-    var newText = allPagesText.join(" ").replace(/\r?\n|\r/g, " ");
+    var newText = cleanText(allPagesText.join(" "));
     if (newText.replace(/\s+/g, '').length === 0) {
       currentPage = 0;
       allPagesText = [""];
@@ -62,19 +63,32 @@ function processText(text, goToLastPage) {
   }
 }
 
+function translateLines(lines) {
+  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+  var translation = [];
+  try {
+    for (var i = 0; i < lines.length; i++) {
+      var line = translateWithLiblouis(cleanText(lines[i].replace("\n", "")));
+      if (line.replace(/\s+/g, '').length !== 0) {
+        translation.push(translateWithLiblouis(line, gradeValue));
+      }
+    }
+    return translation.join("\n");
+  } catch (error) {
+    console.error(error);
+    return translation.join("\n");
+  }
+}
+
 
 function onPaigeChange(newInput, goToLastPage) {
   makeTextareaAutoScroll(initialInputText);
   makeTextareaAutoScroll(translatedText);
   newInput = processText(newInput, goToLastPage);
   initialInputText.value = newInput;
-  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   var lines = newInput.split("\n");
-  var translation = [];
-  for (var i = 0; i < lines.length; i++) {
-    translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
-  }
-  translatedText.value = translation.join("\n");
+  document.getElementById("pagination-text").innerHTML = "Page " + (currentPage + 1).toString() + " of " + allPagesText.length;
+  translatedText.value = translateLines(lines);
 }
 
 function getAsciiFileName(AsciiBase10) {
@@ -99,13 +113,8 @@ function getBrf() {
 }
 
 function getFullTranslation() {
-  var lines = allPagesText.join("").split("\n");
-  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
-  var translation = [];
-  for (var i = 0; i < lines.length; i++) {
-    translation.push(translateWithLiblouis(lines[i].replace("\n", ""), gradeValue));
-  }
-  return translation.join("\n");
+  var lines = allPagesText.join("\n").split("\n");
+  return translateLines(lines);
 }
 
 
@@ -113,7 +122,6 @@ function saveTextInput() {
   if (IS_UI_DEMO) {
     download("braille.brf", textToBrf(translatedText.value, MAX_LINE_LENGTH, LINES_PER_PAGE));
   } else {
-    console.log("Attempting to save Braille");
     var filename = translatedText.value.split("\n")[0].replace(/\s/g, '_');
     var brfFileContents = getBrf();
     var translationFileContents = getFullTranslation();
@@ -136,6 +144,7 @@ function clearTextInput() {
   translatedText.value = "";
   allPagesText = [];
   currentPage = 0;
+  document.getElementById("pagination-text").innerHTML = "Page 1 of 1";
   try {
     console.log("Attempting to clear");
     macro_command("ESP", "clear.gcode");
@@ -160,7 +169,7 @@ function updateTextFromEnglishFileUpload(text) {
     tableNames = "en-ueb-g2.ctb";
   }
   var brailleInput = printToBraille(tableNames, text);
-  onPaigeChange(brailleInput, true);
+  onPaigeChange(brailleInput, false);
 }
 
 function translateWithLiblouis(inputStr, grade) {

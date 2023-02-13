@@ -184,8 +184,7 @@ function PAIGE_files_load(index) {
         openPaigeTab();
         if (files_file_list[index].name.includes(".brf")) {
           // Braille file -> put directly into input textarea
-          allText = allText.replace("//g", "");
-          onPaigeChange(allText, true);
+          onPaigeChange(cleanText(allText), false);
         } else {
           // Translate from english to braille first
           updateTextFromEnglishFileUpload(allText);
