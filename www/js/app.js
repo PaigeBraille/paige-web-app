@@ -500,6 +500,10 @@ function initUI_2() {
 
 function initUI_3() {
   AddCmd(display_boot_progress);
+  //init panels
+  console.log("Get macros");
+  init_controls_panel();
+  init_grbl_panel();
   console.log("Get preferences");
   getpreferenceslist();
   initUI_4();
