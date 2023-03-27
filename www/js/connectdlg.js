@@ -1,3 +1,17 @@
+//Connect dialog
+function connectdlg(getFw) {
+    var modal = setactiveModal('connectdlg.html');
+    var get_FW = true;
+    if (modal == null) return;
+    showModal();
+    //removeIf(production)
+    connectsuccess("FW version:0.9.9X # FW target:Smoothieware # FW HW:Direct SD # primary : /sd/ # secondary : /ext/ # authentication: no");
+    return;
+    //endRemoveIf(production)
+    if (typeof getFw != 'undefined') get_FW = getFw;
+    if (get_FW) retryconnect();
+}
+
 function getFWdata(response) {
     if (IS_UI_TEST || IS_UI_DEMO) {
         return true;
