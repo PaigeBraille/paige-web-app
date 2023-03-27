@@ -239,7 +239,7 @@ function startSocket() {
         if (tval[0] == "PAIGE_KEYBOARD") {
           makeTextareaAutoScroll(initialInputText);
           makeTextareaAutoScroll(translatedText);
-          if (tval[1] == "ASCII"){
+          if (tval[1] == "ASCII") {
             returned_value = tval[2];
             initialInputText.value = initialInputText.value + returned_value;
             grade = document.querySelector('input[name="grade"]:checked').value;
@@ -260,7 +260,7 @@ function startSocket() {
               translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
             }
             translatedText.value = translation.join("\n");
-          } else if (tval[1] == "NEW_FILE" && initialInputText.value != tval[2]){
+          } else if (tval[1] == "NEW_FILE" && initialInputText.value != tval[2]) {
             initialInputText.value = tval[2];
             grade = document.querySelector('input[name="grade"]:checked').value;
             // var unicodeInput = asciiToUnicode(newInput);
@@ -451,6 +451,17 @@ function update_UI_firmware_target() {
   return fwName;
 }
 
+function overrideBackButton() {
+  // Show a confirmation dialog if the user presses the browser's back button
+  window.addEventListener("popstate", function (e) {
+    if (confirm("Are you sure you want to leave this page?")) {
+      window.location.href = "/";
+    } else {
+      history.pushState(null, null, window.location.href);
+    }
+  });
+}
+
 function Set_page_title(page_title) {
   if (typeof page_title != "undefined") esp_hostname = page_title;
   document.title = esp_hostname;
@@ -458,6 +469,7 @@ function Set_page_title(page_title) {
 
 function initUI() {
   console.log("Init UI");
+  overrideBackButton();
   if (ESP3D_authentication) connectdlg(false);
   AddCmd(display_boot_progress);
   //initial check
@@ -488,10 +500,6 @@ function initUI_2() {
 
 function initUI_3() {
   AddCmd(display_boot_progress);
-  //init panels
-  console.log("Get macros");
-  init_controls_panel();
-  init_grbl_panel();
   console.log("Get preferences");
   getpreferenceslist();
   initUI_4();
