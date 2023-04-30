@@ -177,6 +177,47 @@ function startSocket() {
               wsmsg.startsWith("echo:E0 Flow")
             )
           )
+          if(wsmsg.startsWith("[MSG:INFO:")){
+            var tval = wsmsg.split(":");
+            if (tval[0] == "[MSG") {
+              makeTextareaAutoScroll(initialInputText);
+              makeTextareaAutoScroll(translatedText);
+              if (tval[3] == "ASCII"){
+                returned_value = tval[4][0];
+                initialInputText.value = initialInputText.value + returned_value;
+                grade = document.querySelector('input[name="grade"]:checked').value;
+                // var unicodeInput = asciiToUnicode(newInput);
+                lines = initialInputText.value.split("\n");
+                translation = [];
+                for (var idx = 0; idx < lines.length; idx++) {
+                  translation.push(translateWithLiblouis(lines[idx].replace("\n", ""), grade));
+                }
+                translatedText.value = translation.join("\n");
+              } else if (tval[3] == "BACK_SPACE") {
+                console.log("hello, i was here")
+                initialInputText.value = initialInputText.value.slice(0, -1);
+                grade = document.querySelector('input[name="grade"]:checked').value;
+                // var unicodeInput = asciiToUnicode(newInput);
+                lines = initialInputText.value.split("\n");
+                translation = [];
+                for (var j = 0; j < lines.length; j++) {
+                  translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
+                }
+                translatedText.value = translation.join("\n");
+              } //else if (tval[3] == "NEW_FILE" && initialInputText.value != tval[2]){
+              //   initialInputText.value = tval[4];
+              //   grade = document.querySelector('input[name="grade"]:checked').value;
+              //   // var unicodeInput = asciiToUnicode(newInput);
+              //   lines = initialInputText.value.split("\n");
+              //   translation = [];
+              //   for (var k = 0; k < lines.length; k++) {
+              //     translation.push(translateWithLiblouis(lines[k].replace("\n", ""), grade));
+              //   }
+              //   translatedText.value = translation.join("\n");
+              // }
+            }
+            
+          }
             console.log(wsmsg);
           wsmsg = "";
           msg = "";
@@ -234,42 +275,6 @@ function startSocket() {
             paigeClearButton.pointerEvents = "none";
             paigeClearButton.title =
               "Please move the bar to the bottom of the display to be able to clear";
-          }
-        }
-        if (tval[0] == "PAIGE_KEYBOARD") {
-          makeTextareaAutoScroll(initialInputText);
-          makeTextareaAutoScroll(translatedText);
-          if (tval[1] == "ASCII") {
-            returned_value = tval[2];
-            initialInputText.value = initialInputText.value + returned_value;
-            grade = document.querySelector('input[name="grade"]:checked').value;
-            // var unicodeInput = asciiToUnicode(newInput);
-            lines = initialInputText.value.split("\n");
-            translation = [];
-            for (var idx = 0; idx < lines.length; idx++) {
-              translation.push(translateWithLiblouis(lines[idx].replace("\n", ""), grade));
-            }
-            translatedText.value = translation.join("\n");
-          } else if (tval[1] == "BACK_SPACE") {
-            initialInputText.value = initialInputText.value.slice(0, -1);
-            grade = document.querySelector('input[name="grade"]:checked').value;
-            // var unicodeInput = asciiToUnicode(newInput);
-            lines = initialInputText.value.split("\n");
-            translation = [];
-            for (var j = 0; j < lines.length; j++) {
-              translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
-            }
-            translatedText.value = translation.join("\n");
-          } else if (tval[1] == "NEW_FILE" && initialInputText.value != tval[2]) {
-            initialInputText.value = tval[2];
-            grade = document.querySelector('input[name="grade"]:checked').value;
-            // var unicodeInput = asciiToUnicode(newInput);
-            lines = initialInputText.value.split("\n");
-            translation = [];
-            for (var k = 0; k < lines.length; k++) {
-              translation.push(translateWithLiblouis(lines[k].replace("\n", ""), grade));
-            }
-            translatedText.value = translation.join("\n");
           }
         }
       }
