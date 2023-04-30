@@ -1,11 +1,11 @@
-<nav class="tab" id="mainuitablinks">
+<nav class="tab" id="mainuitablinks" role="navigation" aria-label="Main navigation">
     <div class="paige-logo">
-        <!-- replaceSVG --><object data="images/PaigeLogo.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
+        <img src="images/PaigeLogo.svg" alt="Paige Logo">
     </div>
-    <ul class="nav-links">
-        <li>
+    <ul class="nav-links" role="tablist">
+        <li role="presentation">
             <button class="tablinks" onclick="opentab(event, 'paigetab', 'mainuitabscontent', 'mainuitablinks', undefined)"
-                id="paigetablink" aria-label="Paige main display">
+                id="paigetablink" aria-label="Paige main display" role="tab" aria-controls="paigetab" tabindex="0">
                 <span id="paige-off-icon">
                     <!-- replaceSVG --><object data="images/PaigeOFF.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
                 </span>
@@ -14,9 +14,9 @@
                 </span>
             </button>
         </li>
-        <li>
+        <li role="presentation">
             <button class="tablinks" onclick="opentab(event, 'maintab', 'mainuitabscontent', 'mainuitablinks', undefined)"
-                id="maintablink" aria-label="File system">
+                id="maintablink" aria-label="File system" role="tab" aria-controls="maintab" tabindex="-1">
                 <span id="files-off-icon">
                     <!-- replaceSVG --><object data="images/FilesOFF.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
                 </span>
@@ -25,9 +25,9 @@
                 </span>
             </button>
         </li>
-        <li>
+        <li role="presentation">
             <button class="tablinks" onclick="opentab(event, 'settingstab', 'mainuitabscontent', 'mainuitablinks', undefined)"
-                id="settingtablink" aria-label="Settings">
+                id="settingtablink" aria-label="Settings" role="tab" aria-controls="settingstab" tabindex="-1">
                 <span id="settings-off-icon">
                     <!-- replaceSVG --><object data="images/SettingsOFF.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
                 </span>

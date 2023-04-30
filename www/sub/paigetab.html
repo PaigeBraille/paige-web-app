@@ -1,39 +1,34 @@
-<div id="paigetab" class="tabcontent">
-  <div class="grade-chooser">
-    <span id="grade-title">Choose grade</span>
+<div id="paigetab" class="tabcontent" role="tabpanel" aria-labelledby="paige-tab">
+  <div class="grade-chooser" role="region" aria-label="Choose grade">
+    <span id="grade-title" role="heading" aria-level="2">Choose grade</span>
     <div class="radio-toolbar">
       <input type="radio" id="radioGrade1" name="grade" value="1" checked>
       <label for="radioGrade1">1</label>
-
       <input type="radio" id="radioGrade2" name="grade" value="2">
       <label for="radioGrade2">2</label>
-
-      <!-- <input type="radio" id="radioGradeUebMath" name="grade" value="ueb_math">
-      <label for="radioGradeUebMath">UEB Math</label> -->
     </div>
   </div>
-  <div id="paige-textareas">
+  <div id="paige-textareas" role="region" aria-label="Text areas">
     <div class="paige-textarea">
       <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
-      <!-- Include to block backspace: onkeydown="onPaigeKeyDown(event);" -->
       <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
-        oninput="onPaigeChange(this.value, true);"></textarea>
+        oninput="onPaigeChange(this.value, true);" aria-describedby="braille-pagination"></textarea>
         <div class="pagination-controls" id="braille-pagination">
-          <button onclick="goToPreviousPage()">←</button>
-          <button onclick="goToNextPage()">→</button>
+          <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
+          <button onclick="goToNextPage()" aria-label="Go to next page">→</button>
           <span id="pagination-text">Page 1 of 1</span>
         </div>
     </div>
     <div class="paige-textarea">
       <label for="translated" class="textarea-title" id="textarea-label-2">Print</label>
-      <textarea disabled id="translated"></textarea>
+      <textarea disabled id="translated" aria-label="Print textarea"></textarea>
     </div>
   </div>
-  <div class="paige-buttons">
-    <button onClick="saveTextInput();" id="save-button">
+  <div class="paige-buttons" role="region" aria-label="Action buttons">
+    <button onClick="saveTextInput();" id="save-button" aria-label="Save text input">
       Save
     </button>
-    <button id="PAIGEClearButton" onclick="clearTextInput();">
+    <button id="PAIGEClearButton" onclick="clearTextInput();" aria-label="Clear text input">
       Clear
     </button>
   </div>

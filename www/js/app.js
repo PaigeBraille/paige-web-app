@@ -456,6 +456,17 @@ function update_UI_firmware_target() {
   return fwName;
 }
 
+function overrideBackButton() {
+  // Show a confirmation dialog if the user presses the browser's back button
+  window.addEventListener("popstate", function (e) {
+    if (confirm("Are you sure you want to leave this page?")) {
+      window.location.href = "/";
+    } else {
+      history.pushState(null, null, window.location.href);
+    }
+  });
+}
+
 function Set_page_title(page_title) {
   if (typeof page_title != "undefined") esp_hostname = page_title;
   document.title = esp_hostname;
@@ -463,6 +474,7 @@ function Set_page_title(page_title) {
 
 function initUI() {
   console.log("Init UI");
+  overrideBackButton();
   if (ESP3D_authentication) connectdlg(false);
   AddCmd(display_boot_progress);
   //initial check
