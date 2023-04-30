@@ -194,7 +194,7 @@ function startSocket() {
                 }
                 translatedText.value = translation.join("\n");
               } else if (tval[3] == "BACK_SPACE") {
-                console.log("hello, i was here")
+                console.log("hello, i was here");
                 initialInputText.value = initialInputText.value.slice(0, -1);
                 grade = document.querySelector('input[name="grade"]:checked').value;
                 // var unicodeInput = asciiToUnicode(newInput);
