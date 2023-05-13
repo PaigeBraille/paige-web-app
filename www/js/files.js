@@ -136,12 +136,12 @@ function files_build_file_line(index) {
     content += ">" + entry.datetime + "</div>";
     content += "<div class='" + iconcol + "'>";
     content += "<div class='file-buttons'>";
-    if (files_showdeletebutton(index)) {
-      content +=
-        "<button class='btn btn-info' onclick='PAIGE_files_load(" +
-        index +
-        ")' > Open </button>";
-    }
+    // if (files_showdeletebutton(index)) {
+    //   content +=
+    //     "<button class='btn btn-info' onclick='PAIGE_files_load(" +
+    //     index +
+    //     ")' > Open </button>";
+    // }
     // content += "&nbsp;";
     // if (entry.isprintable) {
     //   content +=
@@ -184,7 +184,7 @@ function PAIGE_files_load(index) {
         openPaigeTab();
         if (files_file_list[index].name.includes(".brf")) {
           // Braille file -> put directly into input textarea
-          onPaigeChange(cleanText(allText), false);
+          onPaigeChange(allText, false);
         } else {
           // Translate from english to braille first
           updateTextFromEnglishFileUpload(allText);

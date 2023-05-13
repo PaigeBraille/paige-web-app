@@ -34,6 +34,7 @@ var enable_ping = true;
 var esp_error_message = "";
 var esp_error_code = 0;
 var PAIGE_POTENT_VALUE = 0;
+var paige_keyText = [""];
 
 var paigeClearButton = document.querySelector("#PAIGEClearButton");
 var initialInputText = document.querySelector("#initialInputText");
@@ -168,7 +169,7 @@ function startSocket() {
           Monitor_output_Update(wsmsg);
           process_socket_response(wsmsg);
           //msg = wsmsg.replace("\n", "");
-          //wsmsg = msg.replace("\r", "");
+          wsmsg = wsmsg.replace("~", "\n");
           if (
             !(
               wsmsg.startsWith("ok T:") ||
@@ -184,36 +185,44 @@ function startSocket() {
               makeTextareaAutoScroll(translatedText);
               if (tval[3] == "ASCII"){
                 returned_value = tval[4][0];
-                initialInputText.value = initialInputText.value + returned_value;
-                grade = document.querySelector('input[name="grade"]:checked').value;
-                // var unicodeInput = asciiToUnicode(newInput);
-                lines = initialInputText.value.split("\n");
-                translation = [];
-                for (var idx = 0; idx < lines.length; idx++) {
-                  translation.push(translateWithLiblouis(lines[idx].replace("\n", ""), grade));
-                }
-                translatedText.value = translation.join("\n");
+                paige_keyText = initialInputText.value + returned_value;
+                onPaigeChange(paige_keyText, true);
+                // grade = document.querySelector('input[name="grade"]:checked').value;
+                // // var unicodeInput = asciiToUnicode(newInput);
+                // lines = initialInputText.value.split("\n");
+                // translation = [];
+                // for (var idx = 0; idx < lines.length; idx++) {
+                //   translation.push(translateWithLiblouis(lines[idx].replace("\n", ""), grade));
+                // }
+                // translatedText.value = translation.join("\n");
               } else if (tval[3] == "BACK_SPACE") {
-                console.log("hello, i was here");
-                initialInputText.value = initialInputText.value.slice(0, -1);
-                grade = document.querySelector('input[name="grade"]:checked').value;
-                // var unicodeInput = asciiToUnicode(newInput);
-                lines = initialInputText.value.split("\n");
-                translation = [];
-                for (var j = 0; j < lines.length; j++) {
-                  translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
-                }
-                translatedText.value = translation.join("\n");
-              } //else if (tval[3] == "NEW_FILE" && initialInputText.value != tval[2]){
-              //   initialInputText.value = tval[4];
-              //   grade = document.querySelector('input[name="grade"]:checked').value;
-              //   // var unicodeInput = asciiToUnicode(newInput);
-              //   lines = initialInputText.value.split("\n");
-              //   translation = [];
-              //   for (var k = 0; k < lines.length; k++) {
-              //     translation.push(translateWithLiblouis(lines[k].replace("\n", ""), grade));
-              //   }
-              //   translatedText.value = translation.join("\n");
+                returned_value = tval[4][0];
+                paige_keyText = initialInputText.value.slice(0, -1);
+                onPaigeChange(paige_keyText, true);
+                //initialInputText.value = initialInputText.value.slice(0, -1);
+                // grade = document.querySelector('input[name="grade"]:checked').value;
+                // // var unicodeInput = asciiToUnicode(newInput);
+                // lines = initialInputText.value.split("\n");
+                // translation = [];
+                // for (var j = 0; j < lines.length; j++) {
+                //   translation.push(translateWithLiblouis(lines[j].replace("\n", ""), grade));
+                // }
+                // translatedText.value = translation.join("\n");
+              } else if (tval[3] == "FILE"){
+                  // initialInputText.value = tval[4];
+                  console.log(tval[4]);
+                  paige_keyText = tval[4].slice(0,-2);
+                  onPaigeChange(paige_keyText, true);
+              } // else if (tval[3] == "NEW_LINE"){
+              //     initialInputText.value = initialInputText.value + "\n";
+              //     grade = document.querySelector('input[name="grade"]:checked').value;
+              //     // var unicodeInput = asciiToUnicode(newInput);
+              //     lines = initialInputText.value.split("\n");
+              //     translation = [];
+              //     for (var k = 0; k < lines.length; k++) {
+              //       translation.push(translateWithLiblouis(lines[k].replace("\n", ""), grade));
+              //     }
+              //     translatedText.value = translation.join("\n");
               // }
             }
             
