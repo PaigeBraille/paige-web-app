@@ -28,6 +28,33 @@ To build run:
 - Open `dist/index.html` in your browser
 - You can type Ascii Braille into the Braille tab
 
+### Testing with FluidNC backend
+
+You can upload `index.html.gz` to a FluidNC ESP32 machine and run it
+from there by browsing to the FluidNC IP address.  That is the normal
+way of using WebUI.
+
+Alternatively, for a quicker test of a new build, you can avoid the upload step by
+starting a proxy server with:
+
+```bash
+python fluidnc-web-sim.py
+```
+
+Then browse to "localhost:8080" instead of directly to the FluidNC IP address.
+
+The proxy serves the "dist/index.html" file directly for the initial
+load of WebUI, bypassing the FluidNC system for the index file.  The
+proxy forwards all other communication over to the FluidNC machine.
+
+By default, the proxy tries to find the FluidNC machine by using MDNS
+to "fluidnc.local".  If that does not work, you can supply the FluidNC
+IP address on the command line, as with:
+
+```bash
+python fluidnc-web-sim.py 192.168.1.25
+```
+
 ### Updating liblouis
 
 To update the liblouis build used in the app follow the following steps
