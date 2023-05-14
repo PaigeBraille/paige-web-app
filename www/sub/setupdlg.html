@@ -7,8 +7,8 @@
             <span class="close" onclick="closeModal('cancel')"><b>&times;</b></span>
             <br>
             <div class="step no_navigationr">
-                <div class="steplinks spacer"></div>
-                <button class="steplinks" onclick="openstep(event, 'startstep')" id="startsteplink">
+                <div class="spacer"></div>
+                <button id="startsteplink">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
                         <g transform='translate(50,1200) scale(1, -1)'>
                             <path fill='currentColor'
@@ -17,8 +17,8 @@
                         </g>
                     </svg>
                 </button>
-                <div class="steplinks connecting-line" id="wizard_line1"></div>
-                <button class="steplinks disabled" onclick="openstep(event, 'step1')" id="step1link" disabled>
+                <div class="connecting-line" id="wizard_line1"></div>
+                <button onclick="enablestep1()" id="step1link">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
                         <g transform='translate(50,1200) scale(1, -1)'>
                             <path fill='currentColor'
@@ -27,8 +27,8 @@
                         </g>
                     </svg>
                 </button>
-                <div class="steplinks connecting-line" id="wizard_line2"></div>
-                <button class="steplinks disabled" onclick="openstep(event, 'step2')" id="step2link" disabled>
+                <div class="connecting-line" id="wizard_line2"></div>
+                <button onclick="enablestep2()" id="step2link">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
                         <g transform='translate(50,1200) scale(1, -1)'>
                             <path fill='currentColor'
@@ -37,8 +37,8 @@
                         </g>
                     </svg>
                 </button>
-                <div class="steplinks connecting-line" id="wizard_line3"></div>
-                <button class="steplinks disabled" onclick="openstep(event, 'step3')" id="step3link" disabled>
+                <div class="connecting-line" id="wizard_line3"></div>
+                <button onclick="enablestep3()" id="step3link">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
                         <g transform='translate(50,1200) scale(1, -1)'>
                             <path fill='currentColor'
@@ -47,8 +47,8 @@
                         </g>
                     </svg>
                 </button>
-                <div class="steplinks connecting-line" id="wizard_line4"></div>
-                <button class="steplinks disabled" onclick="openstep(event, 'endstep')" id="endsteplink" disabled>
+                <div class="connecting-line" id="wizard_line4"></div>
+                <button onclick="enablestep4()"  id="endsteplink">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
                         <g transform='translate(50,1200) scale(1, -1)'>
                             <path fill='currentColor'
@@ -60,33 +60,13 @@
             </div>
 
         </div>
-        <div class="modal-body">
-            <div id="startstep" class="stepcontent">
-                <p>This wizard will help you to configure the basic settings.</p>
-                <p>Press start to proceed.</p>
-            </div>
-            <div id="step1" class="stepcontent">
-                fw / baud
-                <br>
-            </div>
-            <div id="step2" class="stepcontent">
-                wifi
-                <br>
-            </div>
-            <div id="step3" class="stepcontent">
-                SD
-                <br>
-            </div>
-            <div id="endstep" class="stepcontent">
-                <span translate>Setup is finished.</span><br> <br>
-                <span translate>After closing, you will still be able to change or to fine tune your settings in main
-                    interface anytime.</span><br>
-                <span translate>You may need to restart the board to apply the new settings and connect again.</span>
-            </div>
+        <div class="modal-body" id="stepcontent">
+            <p>This wizard will help you to configure the basic settings.</p>
+            <p>Press start to proceed.</p>
         </div>
         <div class="modal-footer">
             <span class="pull-right">
-                <button class="btn btn-warning" onclick="continue_setup_wizard()" id="wizard_button" translate>Start
+                <button class="btn btn-warning" onclick="continue_setup_wizard()" id="wizard_button">Start
                     setup</button>
             </span>
             <span class="pull-right">

@@ -344,16 +344,8 @@ function get_index_from_eeprom_pos(pos) {
   return -1;
 }
 
-function build_HTML_setting_list(filter) {
-  //this to prevent concurent process to update after we clean content
-  if (do_not_build_settings) return;
-  var content = "";
-  current_setting_filter = filter;
-  document.getElementById(
-    current_setting_filter + "_setting_filter"
-  ).checked = true;
-  console.log({ current_setting_filter: current_setting_filter });
-  console.log({ configList: setting_configList });
+function getSettingsTableComponents(filter) {
+  var components = [];
   for (var i = 0; i < setting_configList.length; i++) {
     var text = translate_text_item(setting_configList[i].label, true);
     if (text.toLowerCase().includes("ssid") || text.toLowerCase().includes("password") || text.toLowerCase().includes("hostname")) {
@@ -364,20 +356,32 @@ function build_HTML_setting_list(filter) {
         filter == "all" ||
         filter == "network"
       ) {
-        console.log("starting the content writing");
-        content += "<tr>";
-        content += "<td style='vertical-align:middle'>";
-        content += newtext2;
-        content += "</td>";
-        content += "<td style='vertical-align:middle'>";
-        content +=
-          "<table><tr><td>" + build_control_from_index(i) + "</td></tr></table>";
-        content += "</td>";
-        content += "</tr>\n";
+        components.push({ label: newtext2, control: build_control_from_index(i) });
       }
     }
   }
-  console.log({ contentBeforeWrite: content });
+  return components;
+}
+
+function build_HTML_setting_list(filter) {
+  //this to prevent concurent process to update after we clean content
+  if (do_not_build_settings) return;
+  var content = "";
+  current_setting_filter = filter;
+  document.getElementById(
+    current_setting_filter + "_setting_filter"
+  ).checked = true;
+  var components = getSettingsTableComponents(filter);
+  for (var i = 0; i < components.length; i++) {
+    content += "<tr>";
+    content += "<td style='vertical-align:middle'>";
+    content += components[i].label;
+    content += "</td>";
+    content += "<td style='vertical-align:middle'>";
+    content += "<tr><td>" + components[i].control + "</td></tr>";
+    content += "</td>";
+    content += "</tr>\n";
+  }
   if (content.length > 0)
     document.getElementById("settings_list_data").innerHTML = content;
 }
