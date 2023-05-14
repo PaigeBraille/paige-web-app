@@ -1,7 +1,8 @@
 :root {
     --paige-blue: #2A7DE1;
     --paige-red: #F44545;
-    --font-size-default: 24px;
+    --font-size-default: 16px;
+    --font-size-textarea: 24px;
     --font-size-heading: 48px;
     --font-size-subheading: 32px;
     --font-size-button: 18px;
@@ -494,6 +495,7 @@ label.textarea-title {
     margin: 0;
     height: 320px;
     border-radius: 4px;
+    font-size: var(--font-size-textarea);
 }
 
 .paige-buttons>button {

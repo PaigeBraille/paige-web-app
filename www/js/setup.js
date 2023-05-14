@@ -37,11 +37,6 @@ function setupdlg() {
     document.getElementById("wizard_line4").style.background = "#e0e0e0";
     document.getElementById("endsteplink").disabled = true;
     document.getElementById("endsteplink").className = "steplinks disabled";
-    var content = "<table><tr><td>";
-    content += get_icon_svg("flag") + "&nbsp;</td><td>";
-    content += build_language_list("language_selection");
-    content += "</td></tr></table>";
-    document.getElementById("setup_langage_list").innerHTML = content;
 
     var modal = setactiveModal('setupdlg.html', setupdone);
     if (modal == null) return;
@@ -50,15 +45,6 @@ function setupdlg() {
 }
 
 
-function setupdone(response) {
-    setup_is_done = true;
-    do_not_build_settings = false;
-    build_HTML_setting_list(current_setting_filter);
-    translate_text(language_save);
-    document.getElementById('main_ui').style.display = 'flex';
-    closeModal("setup done");
-
-}
 
 function continue_setup_wizard() {
     active_wizard_page++;
@@ -101,24 +87,11 @@ function enablestep1() {
     document.getElementById("wizard_line1").style.background = "#337AB7";
     document.getElementById("step1link").disabled = "";
     document.getElementById("step1link").className = document.getElementById("step1link").className.replace(" disabled", "");
-    content += "<h4>" + translate_text_item("ESP3D Settings") + "</h4><hr>";
-    if (!((target_firmware == "grbl-embedded") || (target_firmware == "marlin-embedded"))) {
-        index = get_index_from_eeprom_pos(EP_TARGET_FW);
-        content += translate_text_item("Save your printer's firmware base:");
-        content += build_control_from_index(index);
-        content += translate_text_item("This is mandatory to get ESP working properly.");
-        content += "<hr>\n";
-        index = get_index_from_eeprom_pos(EP_BAUD_RATE);
-        content += translate_text_item("Save your printer's board current baud rate:");
-        content += build_control_from_index(index);
-        content += translate_text_item("Printer and ESP board must use same baud rate to communicate properly.") + "<br>";
-        content += "<hr>\n";
-    }
+    content += "<h4>" + "Paige Settings" + "</h4><hr>";
     index = get_index_from_eeprom_pos(EP_HOSTNAME);
-    content += translate_text_item("Define ESP name:") + "<table><tr><td>";
+    content += "Define Hostname:" + "<table><tr><td>";
     content += build_control_from_index(index);
     content += "</td></tr></table>";
-
     document.getElementById("step1").innerHTML = content
     document.getElementById("step1link").click();
 }
@@ -148,7 +121,7 @@ function enablestep2() {
     document.getElementById("step2link").disabled = "";
     document.getElementById("step2link").className = document.getElementById("step2link").className.replace(" disabled", "");
     index = get_index_from_eeprom_pos(EP_WIFI_MODE);
-    content += "<h4>" + translate_text_item("WiFi Configuration") + "</h4><hr>";
+    content += "<h4>" + "WiFi Configuration" + "</h4><hr>";
     content += translate_text_item("Define ESP role:") + "<table><tr><td>";
     content += build_control_from_index(index, "define_esp_role");
     content += "</td></tr></table>" + translate_text_item("AP define access point / STA allows to join existing network") + "<br>";
@@ -247,4 +220,24 @@ function enablestep4() {
     document.getElementById("endsteplink").disabled = "";
     document.getElementById("endsteplink").className = document.getElementById("endsteplink").className.replace(" disabled", "");
     document.getElementById("endsteplink").click();
+}
+
+function setupdone(response) {
+    setup_is_done = true;
+    do_not_build_settings = false;
+    build_HTML_setting_list(current_setting_filter);
+    document.getElementById('main_ui').style.display = 'flex';
+    closeModal("setup done");
+    SendHomeCommand();
+    document.getElementById("main_ui").style.display = "flex";
+    // If demo, change to demo settings
+    if (IS_UI_DEMO) {
+        initDemo();
+    }
+    // Default to Paige tab
+    if (!USES_PAIGE_DISPLAY) {
+        document.getElementById("braille-pagination").style.display = "none";
+        document.getElementById("pagination-text").style.display = "none";
+    }
+    openPaigeTab();
 }

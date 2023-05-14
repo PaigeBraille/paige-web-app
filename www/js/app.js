@@ -531,20 +531,11 @@ function initUI_4() {
   init_files_panel(false);
   setupGradeButtons();
   //check if we need setup
-  if (target_firmware == "???") {
-    console.log("Launch Setup");
-    AddCmd(display_boot_progress);
-    closeModal("Connection successful");
-    setupdlg();
-  } else {
-    //wizard is done UI can be updated
-    setup_is_done = true;
-    do_not_build_settings = false;
-    AddCmd(display_boot_progress);
-    build_HTML_setting_list(current_setting_filter);
-    AddCmd(closeModal);
-    AddCmd(show_main_UI);
-  }
+  console.log("Launch Setup");
+  AddCmd(display_boot_progress);
+  closeModal("Connection successful");
+  document.getElementById("loading-splash-screen").style.display = "none";
+  setupdlg();
 }
 
 function initDemo() {
@@ -560,21 +551,6 @@ function initDemo() {
   document.getElementById("translated").style.fontFamily = '"aph_braille_shadowsregular"';
 }
 
-function show_main_UI() {
-  SendHomeCommand();
-  document.getElementById("main_ui").style.display = "flex";
-  // If demo, change to demo settings
-  if (IS_UI_DEMO) {
-    initDemo();
-  }
-  // Default to Paige tab
-  if (!USES_PAIGE_DISPLAY) {
-    document.getElementById("braille-pagination").style.display = "none";
-    document.getElementById("pagination-text").style.display = "none";
-  }
-  document.getElementById("loading-splash-screen").style.display = "none";
-  openPaigeTab();
-}
 
 function compareStrings(a, b) {
   // case-insensitive comparison
