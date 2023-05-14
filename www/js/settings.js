@@ -317,13 +317,11 @@ function build_control_from_index(index, extra_set_function) {
         "</button>";
       if (setting_configList[i].pos == EP_STA_SSID) {
         content +=
-          "<button class='btn btn-default btn-svg' onclick='scanwifidlg(\"" +
+          "<button class='btn btn-default' onclick='scanwifidlg(\"" +
           i +
           '","' +
           sub_element +
-          "\")'>";
-        content += get_icon_svg("search");
-        content += "</button>";
+          "\")'>Scan</button>";
       }
       content += "</div>";
       content += "</div>";
