@@ -6,6 +6,7 @@ function init_controls_panel() {
 }
 
 function hideAxiscontrols() {
+<<<<<<< HEAD
   document.getElementById("JogBar").style.display = "none";
   document.getElementById("HomeZ").style.display = "none";
   document.getElementById("CornerZ").style.display = "block";
@@ -36,6 +37,30 @@ function loadmacrolist() {
   return;
   //endRemoveIf(production)
   SendGetHttp(url, processMacroGetSuccess, processMacroGetFailed);
+=======
+    displayNone('JogBar');
+    displayNone('HomeZ');
+    displayBlock('CornerZ');
+    displayNone('control_z_position_display');
+    displayNone('control_zm_position_row');
+    displayNone('z_velocity_display');
+}
+
+function showAxiscontrols() {
+    displayNone('CornerZ');
+    displayBlock('JogBar');
+    displayBlock('HomeZ');
+    displayBlock('control_z_position_display');
+    displayTable('control_zm_position_row');
+    displayInline('z_velocity_display');
+
+}
+
+function loadmacrolist() {
+    control_macrolist = [];
+    var url = "/macrocfg.json";
+    SendGetHttp(url, processMacroGetSuccess, processMacroGetFailed);
+>>>>>>> upstream/revamp
 }
 
 function Macro_build_list(response_text) {
@@ -92,6 +117,7 @@ function processMacroGetFailed(errorcode, response) {
 }
 
 function on_autocheck_position(use_value) {
+<<<<<<< HEAD
   if (typeof use_value !== "undefined")
     document.getElementById("autocheck_position").checked = use_value;
   if (document.getElementById("autocheck_position").checked) {
@@ -101,6 +127,22 @@ function on_autocheck_position(use_value) {
       interval_position = setInterval(function () {
         get_Position();
       }, interval * 1000);
+=======
+    if (typeof(use_value) !== 'undefined') id('autocheck_position').checked = use_value;
+    if (id('autocheck_position').checked) {
+        var interval = parseInt(id('posInterval_check').value);
+        if (!isNaN(interval) && interval > 0 && interval < 100) {
+            if (interval_position != -1) clearInterval(interval_position);
+            interval_position = setInterval(function() {
+                get_Position()
+            }, interval * 1000);
+        } else {
+            id('autocheck_position').checked = false;
+            id('posInterval_check').value = 0;
+            if (interval_position != -1) clearInterval(interval_position);
+            interval_position = -1;
+        }
+>>>>>>> upstream/revamp
     } else {
       document.getElementById("autocheck_position").checked = false;
       document.getElementById("posInterval_check").value = 0;
@@ -114,6 +156,7 @@ function on_autocheck_position(use_value) {
 }
 
 function onPosIntervalChange() {
+<<<<<<< HEAD
   var interval = parseInt(document.getElementById("posInterval_check").value);
   if (!isNaN(interval) && interval > 0 && interval < 100) {
     on_autocheck_position();
@@ -137,6 +180,21 @@ function get_Position() {
   } else if (target_firmware == "marlin-embedded") {
     SendPrinterCommand(command, false, null, null, 114, 1);
   } else SendPrinterCommand(command, false, process_Position, null, 114, 1);
+=======
+    var interval = parseInt(id('posInterval_check').value);
+    if (!isNaN(interval) && interval > 0 && interval < 100) {
+        on_autocheck_position();
+    } else {
+        id('autocheck_position').checked = false;
+        id('posInterval_check').value = 0;
+        if (interval != 0) alertdlg(translate_text_item("Out of range"), translate_text_item("Value of auto-check must be between 0s and 99s !!"));
+        on_autocheck_position();
+    }
+}
+
+function get_Position() {
+    SendPrinterCommand("?", false, null, null, 114, 1);
+>>>>>>> upstream/revamp
 }
 
 function Control_get_position_value(label, result_data) {
@@ -153,6 +211,7 @@ function Control_get_position_value(label, result_data) {
 }
 
 function process_Position(response) {
+<<<<<<< HEAD
   if (target_firmware == "grbl" || target_firmware == "grbl-embedded") {
     process_grbl_position(response);
   } else {
@@ -195,6 +254,39 @@ function SendHomecommand(cmd) {
     }
   }
   SendPrinterCommand(cmd, true, get_Position);
+=======
+    grblProcessStatus(response);
+}
+
+function control_motorsOff() {
+    SendPrinterCommand("$Motors/Disable", true);
+}
+
+function SendHomecommand(cmd) {
+    if (id('lock_UI').checked) return;
+    switch (cmd) {
+        case 'G28':
+            cmd = '$H';
+            break;
+        case 'G28 X0':
+            cmd = '$HX';
+            break;
+        case 'G28 Y0':
+            cmd = '$HY';
+            break;
+
+        case 'G28 Z0':
+            if (grblaxis > 3) {
+                cmd = '$H' + id('control_select_axis').value;
+            } else cmd = '$HZ';
+            break;
+        default:
+            cmd = '$H';
+            break;
+    }
+
+    SendPrinterCommand(cmd, true, get_Position);
+>>>>>>> upstream/revamp
 }
 
 function SendZerocommand(cmd) {
@@ -202,7 +294,18 @@ function SendZerocommand(cmd) {
   SendPrinterCommand(command, true, get_Position);
 }
 
+function JogFeedrate(axis) {
+    var controlName = axis.startsWith("Z") ? "control_z_velocity" : "control_xy_velocity";
+    var feedrateValue = parseInt(id(controlName).value);
+    if (feedrateValue < 1 || isNaN(feedrateValue) || (feedrateValue === null)) {
+        alertdlg(translate_text_item("Out of range"), translate_text_item("Feedrate value must be at least 1 mm/min!"));
+        return 1;
+    }
+    return feedrateValue;
+}
+
 function SendJogcommand(cmd, feedrate) {
+<<<<<<< HEAD
   if (document.getElementById("lock_UI").checked) return;
   var feedratevalue = "";
   var command = "";
@@ -274,6 +377,49 @@ function onZvelocityChange() {
   ) {
     //we could display error but we do not
   }
+=======
+    if (id('lock_UI').checked) return;
+    var feedratevalue = "";
+    var command = "";
+    if (feedrate == "XYfeedrate") {
+        feedratevalue = parseInt(id('control_xy_velocity').value);
+        if (feedratevalue < 1 || isNaN(feedratevalue) || (feedratevalue === null)) {
+            alertdlg(translate_text_item("Out of range"), translate_text_item("XY Feedrate value must be at least 1 mm/min!"));
+            id('control_xy_velocity').value = preferenceslist[0].xy_feedrate;
+            return;
+        }
+    } else {
+        feedratevalue = parseInt(id('control_z_velocity').value);
+        if (feedratevalue < 1 || isNaN(feedratevalue) || (feedratevalue === null)) {
+            var letter = "Z";
+            if (grblaxis > 3) letter = "Axis";
+            alertdlg(translate_text_item("Out of range"), translate_text_item( letter +" Feedrate value must be at least 1 mm/min!"));
+            id('control_z_velocity').value = preferenceslist[0].z_feedrate;
+            return;
+        }
+    }
+    if(grblaxis > 3){
+        var letter = id('control_select_axis').value;
+        cmd = cmd.replace("Z", letter);
+    }
+    command = "$J=G91 G21 F" + feedratevalue + " " + cmd;
+    console.log(command);
+    SendPrinterCommand(command, true, get_Position);
+}
+
+function onXYvelocityChange() {
+    var feedratevalue = parseInt(id('control_xy_velocity').value);
+    if (feedratevalue < 1 || feedratevalue > 9999 || isNaN(feedratevalue) || (feedratevalue === null)) {
+        //we could display error but we do not
+    }
+}
+
+function onZvelocityChange() {
+    var feedratevalue = parseInt(id('control_z_velocity').value);
+    if (feedratevalue < 1 || feedratevalue > 999 || isNaN(feedratevalue) || (feedratevalue === null)) {
+        //we could display error but we do not
+    }
+>>>>>>> upstream/revamp
 }
 
 function processMacroSave(answer) {
@@ -314,6 +460,7 @@ function control_build_macro_button(index) {
 }
 
 function control_build_macro_ui() {
+<<<<<<< HEAD
   var content =
     "<button class='btn btn-primary' onclick='showmacrodlg(processMacroSave)'>";
   content += "<span class='badge'>";
@@ -353,3 +500,40 @@ function macro_command(target, filename) {
   //console.log(cmd);
   SendPrinterCommand(cmd);
 }
+=======
+    var content = "<div class='tooltip'>";
+    content += "<span class='tooltip-text'>Manage macros</span>"
+    content += "<button class='btn btn-primary' onclick='showmacrodlg(processMacroSave)'>";
+    content += "<span class='badge'>";
+    content += "<svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>";
+    content += "<g transform='translate(50,1200) scale(1, -1)'>";
+    content += "<path  fill='currentColor' d='M407 800l131 353q7 19 17.5 19t17.5 -19l129 -353h421q21 0 24 -8.5t-14 -20.5l-342 -249l130 -401q7 -20 -0.5 -25.5t-24.5 6.5l-343 246l-342 -247q-17 -12 -24.5 -6.5t-0.5 25.5l130 400l-347 251q-17 12 -14 20.5t23 8.5h429z'></path>";
+    content += "</g>";
+    content += "</svg>";
+    content += "<svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>";
+    content += "<g transform='translate(50,1200) scale(1, -1)'>";
+    content += "<path  fill='currentColor' d='M1011 1210q19 0 33 -13l153 -153q13 -14 13 -33t-13 -33l-99 -92l-214 214l95 96q13 14 32 14zM1013 800l-615 -614l-214 214l614 614zM317 96l-333 -112l110 335z'></path>";
+    content += "</g>";
+    content += "</svg>";
+    content += "</span>";
+    content += "</button>";
+    content += "</div>";
+    for (var i = 0; i < 9; i++) {
+        content += control_build_macro_button(i);
+    }
+    id('Macro_list').innerHTML = content;
+}
+
+function macro_command(target, filename) {
+    var cmd = ""
+    if (target == "ESP") {
+        cmd = "$LocalFS/Run=" + filename;
+    } else if (target == "SD") {
+        files_print_filename(filename);
+    } else if (target == "URI") {
+        window.open(filename);
+    } else return;
+    //console.log(cmd);
+    SendPrinterCommand(cmd);
+}
+>>>>>>> upstream/revamp

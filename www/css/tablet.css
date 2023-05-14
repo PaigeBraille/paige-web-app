@@ -1,0 +1,616 @@
+body {
+    height: 100%;
+}
+html {
+    height: 100vh;
+}
+#main_ui {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#toolpath {
+    width: 100%;
+    height: 100%;
+    # border: 1px solid #ccc;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(118, 118, 118);
+    padding: 4px;
+}
+
+.col-1 {
+    width: 8.33333%;
+}
+.col-2 {
+    width: 16.66667%;
+}
+.col-3 {
+    width: 25%;
+}
+.col-4 {
+    width: 33.33333%;
+}
+.col-5 {
+    width: 41.66667%;
+}
+.col-6 {
+    width: 50%;
+}
+.col-7 {
+    width: 58.33333%;
+}
+.col-8 {
+    width: 66.66667%;
+}
+.col-9 {
+    width: 75%;
+}
+.col-10 {
+    width: 83.33333%;
+}
+.col-11 {
+    width: 91.66667%;
+}
+.col-12 {
+    width: 100%;
+}
+[class*="col-"] {
+    float: left;
+    padding: 2px;
+}
+
+.tablettab .btn,
+.tablettab .form-control {
+  font-size: inherit;
+}
+
+.btn-default.btn-select,
+.btn-default.btn-select:focus,
+.btn-default.btn-select:hover {
+    color: #fff;
+    background-color: #404040;
+    border-color: #383838;
+}
+
+.dropdown-toggle:focus {
+  outline: 0;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #337ab7;
+  outline: 0;
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #777;
+}
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.open > .dropdown-menu {
+  display: block;
+}
+.open > a {
+  outline: 0;
+}
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu-left {
+  right: auto;
+  left: 0;
+}
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 1.42857143;
+  color: #777;
+  white-space: nowrap;
+}
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+}
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  content: "";
+  border-top: 0;
+  border-bottom: 4px dashed;
+  border-bottom: 4px solid \9;
+}
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 2px;
+}
+@media (min-width: 768px) {
+  .navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+  .navbar-right .dropdown-menu-left {
+    right: auto;
+    left: 0;
+  }
+}
+
+.tablettab {
+  height: 100%;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  /* 8px works at a width of 300 */
+  font-size: 8px;
+}
+.tablettab .btn,
+.tablettab .position,
+.tablettab .form-control {
+  border-radius: 4px;
+  border-style: outset;
+  padding: 0.4rem 0rem;
+  width: 100%;
+}
+
+.tablettab .jog-selector {
+  width: 75%;
+  margin-left: auto;
+  margin-right: 5%;
+}
+.tablettab .dropdown {
+  position: inherit;
+  display: block;
+}
+
+select:disabled {
+  pointer-events: none;
+  opacity: .4;
+}
+
+.tablettab .btn[disabled] {
+  pointer-events: none;
+  opacity: .6;
+}
+.control-pad .form-control[disabled=disabled] {
+  pointer-events: none;
+  opacity: .4;
+}
+.control-pad {
+  padding-top: 12px;
+  padding-bottom: 6px;
+}
+
+#filename {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1;
+  height:4rem;
+  margin: 5px;
+}
+
+#expand-button {
+  position:absolute;
+  top:0;
+  right:0;
+  z-index:1;
+  width:3rem;
+  height:4rem;
+  margin: 5px;
+}
+
+.gcode {
+    background-color: lavenderblush;
+}
+
+#gcode-states {
+    background-color: azure;
+    # padding-left: 0.4rem;
+    width: 100%;
+    height: fit-content;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+    font-size: 10px;
+
+    padding: 2px;
+
+    # border-style: solid;
+    # border-width: 1px;
+    # border-radius: 5px;
+    # border-color: rgb(118, 118, 118);
+}
+
+#messages {
+    background-color: lightyellow;
+    # padding-left: 0.4rem;
+    width: 100%;
+    height: 40%;
+    max-height: 100%;
+    overflow: scroll;
+    font-size: 10px;
+
+    padding: 2px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgb(118, 118, 118);
+}
+
+.middle-block {
+  top: 100%;
+  left: 0;
+  z-index: 100;
+}
+.jog-controls {
+    background-color: lightyellow;
+    display: block;
+    overflow: hidden;
+    padding-bottom: 12px;
+}
+#jog-distance {
+   text-align-last: right;
+}
+
+.run-controls {
+    display: none;
+}
+> * {
+  margin-bottom: 5px;
+}
+> *:last-child {
+  margin-bottom: 0;
+}
+.tablettab .dropdown-menu {
+  position: absolute;
+  right: 0;
+}
+.tablettab .dropdown-menu>li>a .fa {
+  width: 16px;
+}
+.nav-panel {
+  padding-bottom: 12px;
+  overflow: hidden;
+}
+.axis-position {
+  background-color: azure;
+  overflow: hidden;
+}
+.active-state {
+#  border: 1px solid #ccc;
+#  border-radius: 4px;
+#  background-color: #f6f686;
+  padding: 5px 10px;
+  text-align: center;
+}
+.pos-name {
+  text-align: center;
+}
+.info-button {
+  text-align: center;
+  padding: 5px 10px;
+}
+.axis-label {
+  text-align: center;
+}
+.position {
+  # width: 90%;
+  float: right;
+  text-align: center;
+  background-color: honeydew;
+}
+.mposition {
+  width: 90%;
+  float: right;
+  text-align: left;
+  color: lightslategray;
+  padding-top: 1rem;
+}
+.load {
+  font-size: 12px;
+  width: 99%;
+  resize: none;
+}
+.fileslist {
+  padding-top: 20px;
+}
+.text-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+textarea {
+  font-size: 10px;
+  width: 100%;
+  resize: none;
+  border-radius: 5px;
+  margin-top: 2px;
+  flex-grow: 1;
+}
+.tablettab .axis-position .btn {
+  text-align: center;
+}
+.btn-zero {
+    background-color: lightyellow;
+}
+.btn-goto {
+    background-color: #d0ffd0;
+}
+
+.spindle {
+   text-align: center;
+}
+
+.rotate-45deg {
+  transform: rotate(45deg);
+}
+.rotate-45deg:before {
+  transform: rotate(45deg);
+}
+.rotate--45deg {
+  transform: rotate(-45deg);
+}
+.rotate--45deg:before {
+  transform: rotate(-45deg);
+}
+.rotate-90deg {
+  transform: rotate(90deg);
+}
+.rotate-90deg:before {
+  transform: rotate(90deg);
+}
+.rotate--90deg {
+  transform: rotate(-90deg);
+}
+.rotate--90deg:before {
+  transform: rotate(-90deg);
+}
+.control-pad .tablettab .btn {
+  width: 100%;
+}
+.axis-position .inset {
+  padding-left: 15px;
+}
+.mdifiles {
+  background-color: lavenderblush;
+  padding-top: 12px;
+  padding-bottom: 6px;
+  overflow: hidden;
+}
+
+/* Overrides of @media stuff in bootstrap.css that maybe should be changed there */
+.navbar-left {
+  float: left !important;
+}
+.navbar-right {
+  float: right !important;
+  margin-right: -15px;
+}
+.navbar-header {
+   float: left;
+}
+.navbar-right~.navbar-right {
+  margin-right: 0;
+}
+/* End of overrides */
+
+.tablettab .form-control {
+  height: unset;
+}
+@media (max-width: 512px) {
+  .navbar-brand {
+    display: none;
+  }
+}
+
+@media (min-width: 300px) {
+  .tablettab {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 400px) {
+  .tablettab {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 512px) {
+  .tablettab,
+  .tablettab .btn {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 640px) {
+  .tablettab,
+  .tablettab .btn {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 736px) {
+  font-size: 14px;
+  .tablettab .dropdown-menu {
+    min-width: 180px;
+  }
+  .tablettab .dropdown-menu>li>a .fa {
+    width: 1.7rem;
+  }
+  .axis-label {
+    font-size: 18px;
+  }
+  .tablettab .dropdown-menu {
+    font-size: 24px;
+  }
+  .tablettab .btn,
+  .tablettab .position,
+  .tablettab .form-control {
+    font-size: 1.7rem;
+  }
+  .tablettab .mposition {
+    font-size: 1.7rem;
+  }
+
+  textarea, #messages, #gcode-states {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tablettab {
+    font-size: 15px;
+  }
+  .tablettab .dropdown-menu {
+    min-width: 180px;
+  }
+  .tablettab .dropdown-menu>li>a .fa {
+    width: 15px;
+  }
+  .axis-label {
+    font-size: 20px;
+  }
+  .tablettab .dropdown-menu {
+    font-size: 24px;
+  }
+  .tablettab .btn,
+  .tablettab .position,
+  .tablettab .form-control {
+    font-size: 2rem;
+  }
+  .tablettab .mposition {
+    font-size: 2rem;
+  }
+  textarea, #messages, #gcode-states {
+    font-size: 12px;
+  }
+}
+@media (min-width: 992px) {
+  .tablettab {
+    font-size: 20px;
+  }
+  .tablettab .dropdown-menu {
+    min-width: 200px;
+  }
+  .tablettab .dropdown-menu>li>a .fa {
+    width: 20px;
+  }
+  .axis-label {
+    font-size: 28px;
+  }
+  .tablettab .dropdown-menu {
+    font-size: 24px;
+  }
+  .tablettab .btn,
+  .tablettab .position,
+  .tablettab .form-control {
+    font-size: 20px;
+    height: 40px;
+  }
+  .tablettab .mposition {
+    font-size: 20px;
+  }
+
+  textarea, #messages, #gcode-states  {
+    font-size: 14px;
+  }
+}
+@media (min-width: 1200px) {
+  .tablettab {
+    font-size: 28px;
+  }
+  .tablettab .dropdown-menu {
+    min-width: 220px;
+  }
+  .tablettab .dropdown-menu>li>a .fa {
+    width: 24px;
+  }
+  .axis-label {
+    font-size: 30px;
+  }
+  .tablettab .dropdown-menu {
+    font-size: 24px;
+  }
+  .tablettab .btn,
+  .tablettab .position,
+  .tablettab .form-control {
+    font-size: 24px;
+    height: 52px;
+  }
+  .tablettab .mposition {
+    font-size: 24px;
+  }
+
+  textarea, #messages, #gcode-states  {
+    font-size: 18px;
+  }
+}
