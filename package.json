@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "PaigeWebApp",
   "description": "Paige Web App",
@@ -42,39 +41,3 @@
     "update-liblouis": "gulp updateLiblouis"
   }
 }
-=======
-{
-  "name": "ESP3D-WebUI",
-  "description": "Web UI for ESP3D",
-  "devDependencies": {
-    "del": "6.0.0",
-    "deprecated": "latest",
-    "fs": "latest",
-    "gulp": "^4.0.2",
-    "gulp-bytediff": "latest",
-    "gulp-cdnizer": "latest",
-    "gulp-clean-css": "latest",
-    "gulp-concat": "latest",
-    "gulp-filesize": "latest",
-    "gulp-gzip": "latest",
-    "gulp-htmlmin": "latest",
-    "gulp-if": "latest",
-    "gulp-jshint": "latest",
-    "gulp-ng-annotate": "latest",
-    "gulp-remove-code": "latest",
-    "gulp-replace": "latest",
-    "gulp-smoosher": "latest",
-    "gulp-uglify": "^3.0.2",
-    "gulp-zip": "latest",
-    "jshint": "latest",
-    "merge-stream": "latest",
-    "uglify-js": "^3.14.2"
-  },
-  "repository": "https://github.com/luc-github/ESP3D-WEBUI",
-  "author": "Luc LEBOSSE",
-  "license": "(ISC OR GPL-3.0)",
-  "dependencies": {
-    "global": "latest"
-  }
-}
->>>>>>> upstream/revamp
