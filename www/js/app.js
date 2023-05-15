@@ -192,7 +192,7 @@ function startSocket() {
                 onPaigeChange(paige_keyText, true);
               } else if (tval[3] == "FILE"){
                   console.log(tval[4]);
-                  paige_keyText = tval[4].replace("A","\n");
+                  paige_keyText = tval[4].replace(/A/g,"\n");
                   paige_keyText = paige_keyText.slice(0,-2);
                   onPaigeChange(paige_keyText, true);
               } 
