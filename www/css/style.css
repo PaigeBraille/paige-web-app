@@ -855,3 +855,14 @@ button.delete-button {
     color: var(--paige-blue);
     margin-left: var(--padding-sm);
 }
+
+.settings-input-group {
+    display: flex;
+    flex-direction: row;
+    margin-left: 12px;
+}
+
+.settings-input-group > button, .settings-input-group > input.form-control, select.form-control {
+    display: inline-flex;
+    border-radius: 0;
+}

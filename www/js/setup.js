@@ -15,9 +15,6 @@ function continue_setup_wizard() {
             enablestep3();
             break;
         case 4:
-            enablestep4();
-            break;
-        case 5:
             closeModal('ok')
             break;
         default:
@@ -50,7 +47,7 @@ function setupdlg() {
     document.getElementById('main_ui').style.display = 'none';
     document.getElementById('settings_list_data').innerHTML = "";
     setactiveModal('setupdlg.html', setupdone);
-    document.getElementById("startsteplink").style.color = "green";
+    document.getElementById("startsteplink").style.color = "var(--paige-blue)";
     showModal();
 }
 
@@ -62,25 +59,19 @@ function enableStep( title, components, buttonTitle) {
 }
 
 function enablestep1() {
-    document.getElementById("step1link").style.color = "green";
-    var content = settingsComponentsToTable(getComponentsForKeywords(["paige"]));
+    document.getElementById("step1link").style.color = "var(--paige-blue)";
+    var content = settingsComponentsToTable(getComponentsForKeywords(["paige network", "paige password"]));
     enableStep("Paige Settings", content, "Continue");
 }
 
 function enablestep2() {
-    document.getElementById("step2link").style.color = "green";
-    var content = settingsComponentsToTable(getComponentsForKeywords(["wi-fi", "network"]));
+    document.getElementById("step2link").style.color = "var(--paige-blue)";
+    var content = settingsComponentsToTable(getComponentsForKeywords(["wi-fi", "wifi", "hostname"]));
     enableStep("WiFi Configuration", content, "Continue");
 }
 
 function enablestep3() {
-    document.getElementById("step3link").style.color = "green";
-    var content = settingsComponentsToTable(getComponentsForKeywords(["sd"]));
-    enableStep("SD Card Configuration", content, "Continue");
-}
-
-function enablestep4() {
-    document.getElementById("endsteplink").style.color = "green";
+    document.getElementById("endsteplink").style.color = "var(--paige-blue)";
     enableStep("Done", end_content, "Finish setup");
 }
 
@@ -98,12 +89,10 @@ function settingsComponentsToTable(components) {
     var content = "<table>";
     for (var i = 0; i < components.length; i++) {
         content += "<tr>";
-        content += "<td style='vertical-align:middle'>";
+        content += "<td style='vertical-align:middle' id='label_" +  components[i].form_idx + "'>";
         content += components[i].label;
         content += "</td>";
-        content += "<td style='vertical-align:middle'>";
-        content += "<tr><td>" + components[i].control + "</td></tr>";
-        content += "</td>";
+        content += components[i].control;
         content += "</tr>\n";
     }
     content += "</table>";
