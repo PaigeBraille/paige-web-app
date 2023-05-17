@@ -182,15 +182,7 @@ function startSocket() {
             if (tval[0] == "[MSG") {
               makeTextareaAutoScroll(initialInputText);
               makeTextareaAutoScroll(translatedText);
-              if (tval[3] == "ASCII"){
-                returned_value = tval[4][0];
-                paige_keyText = initialInputText.value + returned_value;
-                onPaigeChange(paige_keyText, true);
-              } else if (tval[3] == "BACK_SPACE") {
-                returned_value = tval[4][0];
-                paige_keyText = initialInputText.value.slice(0, -1);
-                onPaigeChange(paige_keyText, true);
-              } else if (tval[3] == "FILE"){
+              if (tval[3] == "FILE"){
                   console.log(tval[4]);
                   paige_keyText = tval[4].replace(/A/g,"\n");
                   paige_keyText = paige_keyText.slice(0,-2);
