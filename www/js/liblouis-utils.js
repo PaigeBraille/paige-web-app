@@ -63,7 +63,7 @@ function processText(text, goToLastPage) {
   }
 }
 
-function c(lines) {
+function translateLines(lines) {
   var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   var translation = [];
   try {

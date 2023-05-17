@@ -1060,11 +1060,12 @@ function files_refreshFiles(path, usecache) {
     path = "/";
     last_source = current_source;
   }
-  if (current_source == tft_sd || current_source == tft_usb) {
-    document.getElementById("print_upload_btn").style.display = "none";
-  } else {
-    document.getElementById("print_upload_btn").style.display = "inline-flex";
-  }
+  // if (current_source == tft_sd || current_source == tft_usb) {
+  //   document.getElementById("print_upload_btn").style.display = "none";
+  // } else {
+  //   document.getElementById("print_upload_btn").style.display = "inline-flex";
+  // }
+  document.getElementById("print_upload_btn").style.display = "none";
   if (typeof usecache === "undefined") usecache = false;
   document.getElementById("files_currentPath").innerHTML = files_currentPath;
   files_file_list = [];
