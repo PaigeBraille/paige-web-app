@@ -28,8 +28,7 @@ function getactiveModal() {
 function showModal() {
     var currentmodal = getactiveModal();
     currentmodal.element.style.display = "block";
-    document.getElementById("stepcontent").focus();
-    //console.log("Show modal " +  currentmodal.name + " with ID " + currentmodal.id  );
+    document.getElementById(currentmodal.element.id).focus();
 }
 
 // When the user clicks on <span> (x), close the modal

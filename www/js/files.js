@@ -90,14 +90,14 @@ function files_build_file_line(index) {
   var entry = files_file_list[index];
   var is_clickable = files_is_clickable(index);
   if ((files_filter_sd_list && entry.isprintable) || !files_filter_sd_list) {
-    content += "<li class='list-group-item list-group-hover file-item' role='presentation'>";
+    content += "<li class='list-group-item list-group-hover file-item' tabindex='0'>";
     content += "<div class='row'>";
     content += "<div class='col-md-5 col-sm-5 no_overflow' ";
     if (is_clickable) {
       content +=
         "style='cursor:pointer;' onclick='files_click_file(" + index + ")'";
     }
-    content += "><table><tr><td><span style='padding-right:12px;'>";
+    content += "><table><tr><td aria-hidden='true'><span style='padding-right:12px;'>";
     if (entry.isdir == true) content += get_icon_svg("folder-open");
     else content += '<!-- replaceSVG --><object data="images/Files.svg" type="image/svg+xml"></object><!-- /replaceSVG -->';
     content += "</span ></td><td>";
@@ -106,9 +106,9 @@ function files_build_file_line(index) {
       target_firmware == "marlin" &&
       typeof entry.sdname !== "undefined"
     ) {
-      content += "<span aria-hidden='true'>" + entry.sdname + "</span>";
+      content += "<span>" + entry.sdname + "</span>";
     } else {
-      content += "<span aria-hidden='true'>" + entry.name + "</span>";
+      content += "<span>" + entry.name + "</span>";
     }
     content += "</td></tr></table></div>";
     var sizecol = "col-md-2 col-sm-2";
