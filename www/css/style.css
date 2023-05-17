@@ -866,3 +866,33 @@ button.delete-button {
     display: inline-flex;
     border-radius: 0;
 }
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+button.close {
+    padding: 10px;
+    color: var(--paige-red);
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.8;
+    margin-left: auto;
+    float: right;
+    font-weight: 800;
+}
+
+button.close:hover, button.close:focus {
+    color: var(--color-gray);
+    text-decoration: none;
+    opacity: 1;
+}

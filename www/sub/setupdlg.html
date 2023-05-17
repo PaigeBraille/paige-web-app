@@ -4,7 +4,10 @@
     <!-- setup content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close" onclick="closeModal('cancel')"><b>&times;</b></span>
+            <button type="button" class="close" onclick="closeModal('cancel')" aria-label="Close" role="button" tabindex="0" onkeydown="handleCloseKeydown(event)">
+                <span aria-hidden="true">✖</span>
+                <span class="visuallyhidden">Close the dialog</span>
+            </button>
             <br>
             <div class="step">
                 <div class="spacer"></div>

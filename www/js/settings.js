@@ -244,7 +244,7 @@ function build_input_buttons(i, sub_element) {
     content += extra_set_function + "(" + i + ");";
   }
   content += "Set </button>";
-  if (setting_configList[i].label.toLowerCase() === "station ssid") {
+  if (setting_configList[i].label.toLowerCase() === "station ssid" || setting_configList[i].label.toLowerCase() === "sta/ssid") {
     content += "<button class='btn btn-default' onclick='scanwifidlg(\"" + i + '","' + sub_element + "\")'>Scan</button>";
   }
   return content;

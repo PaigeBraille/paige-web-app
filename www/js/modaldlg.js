@@ -28,6 +28,7 @@ function getactiveModal() {
 function showModal() {
     var currentmodal = getactiveModal();
     currentmodal.element.style.display = "block";
+    document.getElementById("stepcontent").focus();
     //console.log("Show modal " +  currentmodal.name + " with ID " + currentmodal.id  );
 }
 
@@ -49,4 +50,10 @@ function closeModal(response) {
 //default close function
 function myfnclose(value) {
     //console.log("modale closed: " + value);
+}
+
+function handleCloseKeydown(event) {
+    if (event.key === "Enter") {
+        closeModal();
+    }
 }

@@ -535,6 +535,7 @@ function initUI_4() {
   AddCmd(display_boot_progress);
   closeModal("Connection successful");
   document.getElementById("loading-splash-screen").style.display = "none";
+  document.getElementById("loading-splash-screen").ariaHidden = true;
   setupdlg();
 }
 
