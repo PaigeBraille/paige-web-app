@@ -27,7 +27,7 @@
             </table>
         </div>
         <div class="pull-right" id="files_navigation_buttons">
-            <button class="btn btn-xs btn-primary" onclick="files_filter_button(this);" aria-label="Filter files">
+            <button class="btn btn-xs btn-primary" onclick="files_filter_button(this);" aria-label="Filter files" aria-hidden="true">
                 <span id="files_filter_glyph" style="position:relative; top:2px">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200' aria-hidden="true">
                         <g transform='translate(50,1200) scale(1, -1)'>
@@ -40,9 +40,9 @@
             </button>
 
             <button class="btn btn-xs btn-primary" id="files_createdir_btn" onclick="files_Createdir()"
-                aria-label="Create folder">Create folder</button>
+                aria-label="Create folder" aria-hidden="true">Create folder</button>
             <button id="print_upload_btn" class="btn btn-xs btn-primary" onclick="files_select_upload()"
-                aria-label="Upload files">Upload</button>
+                aria-label="Upload files" aria-hidden="true">Upload</button>
             <input type="file" id="files_input_file" onchange="files_check_if_upload()"
                 accept=" .g, .gco, .gcode, .G, .GCO, .GCODE" style="display:none" aria-label="File input" />
 
