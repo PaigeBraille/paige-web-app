@@ -1,6 +1,7 @@
 // Create the modal
 var listmodal = [];
 
+var focusedElementBeforeModal;
 
 function setactiveModal(html_template, closefunc) {
     if (typeof document.getElementById(html_template) === 'undefined') {
@@ -28,6 +29,7 @@ function getactiveModal() {
 function showModal() {
     var currentmodal = getactiveModal();
     currentmodal.element.style.display = "block";
+    focusedElementBeforeModal = document.activeElement;
     document.getElementById(currentmodal.element.id).focus();
 }
 
@@ -37,12 +39,12 @@ function closeModal(response) {
     if (currentmodal != null) {
         currentmodal.element.style.display = "none";
         var closefn = currentmodal.closefn;
-        //console.log("Deletetion of modal " +  currentmodal.name + " with ID "  + currentmodal.id);
         listmodal.pop();
         delete currentmodal;
         currentmodal = getactiveModal();
-        //if (currentmodal != null)console.log("New active modal is  " +  currentmodal.name + " with ID "  + currentmodal.id);
-        //else console.log("No active modal");
+        if (focusedElementBeforeModal) {
+            focusedElementBeforeModal.focus();
+        }
         closefn(response);
     }
 }

@@ -978,11 +978,14 @@ function files_is_clickable(index) {
 
 function files_click_file(index) {
   var entry = files_file_list[index];
+
+  // Skip directories
   if (entry.isdir) {
     var path = files_currentPath + entry.name + "/";
     files_refreshFiles(path, true);
     return;
   }
+
   if (
     direct_sd &&
     (!(
@@ -991,17 +994,29 @@ function files_click_file(index) {
     ) ||
       target_firmware != "smoothieware")
   ) {
-    //console.log("file on direct SD");
+    // File on direct SD
     var url = "";
-    if (target_firmware == "smoothieware")
+    if (target_firmware == "smoothieware") {
       url = files_currentPath.replace(primary_sd, "/SD/") + entry.sdname;
-    else url = "/SD/" + files_currentPath + entry.sdname;
-    window.open(url.replace("//", "/"));
+    } else {
+      url = "/SD/" + files_currentPath + entry.sdname;
+    }
+
+    // Create a new anchor element, set the href and download attributes, and click it
+    var a = document.createElement('a');
+    a.href = url.replace("//", "/");
+    a.download = entry.sdname || '';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
     return;
   }
+
   if (target_firmware == "smoothieware" && entry.isprintable) {
-    //console.log("file on smoothie SD");
-    //todo use a cat command ?
+    // File on smoothie SD
+    // todo: use a cat command?
     return;
   }
 }
