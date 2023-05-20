@@ -1,9 +1,12 @@
 <!-- update Modal -->
-<div id="updatedlg.html" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" tabindex="-1">
+<div id="updatedlg.html" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" tabindex="0">
     <!-- update content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close" onclick="closeUpdateDialog('cancel')"><b>&times;</b></span>
+            <button type="button" class="close" onclick="closeUpdateDialog('cancel')" aria-label="Close" role="button" tabindex="0">
+                <span aria-hidden="true">✖</span>
+                <span class="visuallyhidden">Close the dialog</span>
+            </button>
             <h3>
                 <div class="modal-title" id="fw_update_dlg_title" translate>ESP3D Firmware Update</div>
             </h3>

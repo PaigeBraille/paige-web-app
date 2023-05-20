@@ -1,9 +1,12 @@
 <!-- preference Modal -->
-<div id="preferencesdlg.html" class="modal" onclick="clear_drop_menu(event)" role="dialog" aria-labelledby="modal-title" tabindex="-1" aria-modal="true">
+<div id="preferencesdlg.html" class="modal" onclick="clear_drop_menu(event)" role="dialog" aria-labelledby="modal-title" tabindex="0" aria-modal="true">
     <!-- preferences content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close" onclick="closePreferencesDialog()"><b>&times;</b></span>
+            <button type="button" class="close" onclick="closePreferencesDialog()" aria-label="Close" role="button" tabindex="0">
+                <span aria-hidden="true">✖</span>
+                <span class="visuallyhidden">Close the dialog</span>
+            </button>
             <h3>
                 <div class="modal-title" translate>Preferences</div>
             </h3>

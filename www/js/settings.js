@@ -115,16 +115,6 @@ function refreshSettings(hide_setting_list) {
 
 function build_select_flag_for_setting_list(index, subindex) {
   var html = "";
-  var flag = (html +=
-    "<select class='form-control' id='setting_" +
-    index +
-    "_" +
-    subindex +
-    "' onchange='setting_checkchange(" +
-    index +
-    "," +
-    subindex +
-    ")' >");
   html += "<option value='1'";
   var tmp = setting_configList[index].defaultvalue;
   tmp |= settings_get_flag_value(index, subindex);
@@ -140,8 +130,6 @@ function build_select_flag_for_setting_list(index, subindex) {
   html += translate_text_item("Enable", true);
   html += "</option>\n";
   html += "</select>\n";
-  //console.log("default:" + setting_configList[index].defaultvalue);
-  //console.log(html);
   return html;
 }
 
@@ -155,7 +143,7 @@ function build_select_for_setting_list(index, subindex) {
     index +
     "," +
     subindex +
-    ")' >";
+    ")' aria-label='Setting Option'>";
   for (var i = 0; i < setting_configList[index].Options.length; i++) {
     html += "<option value='" + setting_configList[index].Options[i].id + "'";
     if (
@@ -168,14 +156,11 @@ function build_select_for_setting_list(index, subindex) {
       setting_configList[index].Options[i].display,
       true
     );
-    //Ugly workaround for OSX Chrome and Safari
     if (browser_is("MacOSX"))
       html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     html += "</option>\n";
   }
   html += "</select>\n";
-  //console.log("default:" + setting_configList[index].defaultvalue);
-  //console.log(html);
   return html;
 }
 
@@ -215,122 +200,53 @@ function update_UI_setting() {
     }
   }
 }
-//to generate setting editor in setting or setup
-function build_control_from_index(index, extra_set_function) {
+function build_control_from_index(index, form_idx) {
   var i = index;
-  var content = "<table>";
+  var content = '';
   if (i < setting_configList.length) {
     var nbsub = 1;
     if (setting_configList[i].type == "F") {
       nbsub = setting_configList[i].Options.length;
     }
     for (var sub_element = 0; sub_element < nbsub; sub_element++) {
-      if (sub_element > 0) {
-        content += "<tr><td style='height:10px;'></td></tr>";
-      }
-      content += "<tr><td style='vertical-align: middle;'>";
-      if (setting_configList[i].type == "F") {
-        content += translate_text_item(
-          setting_configList[i].Options[sub_element].display,
-          true
-        );
-        content += "</td><td>&nbsp;</td><td>";
-      }
-
-      content +=
-        "<div id='status_setting_" +
-        i +
-        "_" +
-        sub_element +
-        "' class='form-group has-feedback' style='margin: auto;'>";
-      content += "<div class='item-flex-row'>";
-      content += "<table><tr><td>";
-      content += "<div class='input-group'>";
-      // content += "<div class='input-group-btn'>";
-      // content +=
-      //   "<button class='btn btn-default btn-svg' onclick='setting_revert_to_default(" +
-      //   i +
-      //   "," +
-      //   sub_element +
-      //   ")' >";
-      // content += get_icon_svg("repeat");
-      // content += "</button>";
-      // content += "</div>";
-      content += "<input class='hide_it'></input>";
-      content += "</div>";
-      content += "</td><td>";
-      content += "<div class='input-group'>";
-      content += "<span class='input-group-addon hide_it' ></span>";
-      //flag
-      if (setting_configList[i].type == "F") {
-        //console.log(setting_configList[i].label + " " + setting_configList[i].type);
-        //console.log(setting_configList[i].Options.length);
-        content += build_select_flag_for_setting_list(i, sub_element);
-      }
-      //drop list
-      else if (setting_configList[i].Options.length > 0) {
-        content += build_select_for_setting_list(i, sub_element);
-      }
-      //text
-      else {
-        content +=
-          "<input id='setting_" +
-          i +
-          "_" +
-          sub_element +
-          "' type='text' class='form-control input-min'  value='" +
-          setting_configList[i].defaultvalue +
-          "' onkeyup='setting_checkchange(" +
-          i +
-          "," +
-          sub_element +
-          ")' >";
-      }
-      content +=
-        "<span id='icon_setting_" +
-        i +
-        "_" +
-        sub_element +
-        "'class='form-control-feedback ico_feedback'></span>";
-      content += "<span class='input-group-addon hide_it' ></span>";
-      content += "</div>";
-      content += "</td></tr></table>";
-      content += "<div class='input-group'>";
-      content += "<input class='hide_it'></input>";
-      content += "<div class='input-group-btn'>";
-      content +=
-        "<button  id='btn_setting_" +
-        i +
-        "_" +
-        sub_element +
-        "' class='btn btn-default' onclick='settingsetvalue(" +
-        i +
-        "," +
-        sub_element +
-        ");";
-      if (typeof extra_set_function != "undefined") {
-        content += extra_set_function + "(" + i + ");";
-      }
-      content +=
-        "' translate english_content='Set' >" +
-        translate_text_item("Set") +
-        "</button>";
-      if (setting_configList[i].pos == EP_STA_SSID) {
-        content +=
-          "<button class='btn btn-default' onclick='scanwifidlg(\"" +
-          i +
-          '","' +
-          sub_element +
-          "\")'>Scan</button>";
-      }
-      content += "</div>";
-      content += "</div>";
-      content += "</div>";
-      content += "</div>";
-      content += "</td></tr>";
+      content += build_input(i, sub_element, form_idx);
     }
   }
-  content += "</table>";
+  return content;
+}
+
+function build_input(i, sub_element, form_idx) {
+  var content = "<td id='status_setting_" + i + "_" + sub_element + "' class='form-group has-feedback' style='margin: auto;'>";
+  content += "<div class='settings-input-group'>";
+  content += "<input class='hide_it'></input>";
+  content += "<span class='input-group-addon hide_it' ></span>";
+  if (setting_configList[i].type == "F") {
+    content += build_select_flag_for_setting_list(i, sub_element);
+  } else if (setting_configList[i].Options.length > 0) {
+    content += build_select_for_setting_list(i, sub_element);
+  } else {
+    content += "<input id='setting_" + i + "_" + sub_element + "' type='text' class='form-control input-min'  value='" +
+      setting_configList[i].defaultvalue +
+      "' onkeyup='setting_checkchange(" + i + "," + sub_element + ")' aria-labelledby='label_" + form_idx + "'>";
+  }
+  content += "<span id='icon_setting_" + i + "_" + sub_element + "' class='form-control-feedback ico_feedback'></span>";
+  content += "<span class='input-group-addon hide_it' ></span>";
+  content += build_input_buttons(i, sub_element);
+  content += "</div>";
+  content += "</td>";
+  return content;
+}
+
+function build_input_buttons(i, sub_element) {
+  var content = "<button id='btn_setting_" + i + "_" + sub_element + "' class='btn btn-default' onclick='settingsetvalue(" +
+  i + "," + sub_element + ")' aria-labelledby='btn_setting_" + i + "_" + sub_element + "'>";
+  if (typeof extra_set_function != "undefined") {
+    content += extra_set_function + "(" + i + ");";
+  }
+  content += "Set </button>";
+  if (setting_configList[i].label.toLowerCase() === "station ssid" || setting_configList[i].label.toLowerCase() === "sta/ssid") {
+    content += "<button class='btn btn-default' onclick='scanwifidlg(\"" + i + '","' + sub_element + "\")'>Scan</button>";
+  }
   return content;
 }
 
@@ -344,18 +260,11 @@ function get_index_from_eeprom_pos(pos) {
   return -1;
 }
 
-function build_HTML_setting_list(filter) {
-  //this to prevent concurent process to update after we clean content
-  if (do_not_build_settings) return;
-  var content = "";
-  current_setting_filter = filter;
-  document.getElementById(
-    current_setting_filter + "_setting_filter"
-  ).checked = true;
-  console.log({ current_setting_filter: current_setting_filter });
-  console.log({ configList: setting_configList });
+function getSettingsTableComponents(filter) {
+  var components = [];
+  var form_idx = 0;
   for (var i = 0; i < setting_configList.length; i++) {
-    var text = translate_text_item(setting_configList[i].label, true);
+    var text = setting_configList[i].label;
     if (text.toLowerCase().includes("ssid") || text.toLowerCase().includes("password") || text.toLowerCase().includes("hostname")) {
       var newtext = text.replaceAll("Station SSID", "Wi-Fi Network").replaceAll("Station Password", "Wi-Fi Password").replaceAll("AP SSID", "Paige Network").replaceAll("AP Password", "Paige Password");
       var newtext2 = newtext.replaceAll("Sta/SSID", "Wi-Fi Network").replaceAll("Sta/Password", "Wi-Fi Password").replaceAll("AP/SSID", "Paige Network").replaceAll("AP/Password", "Paige Password");
@@ -364,20 +273,31 @@ function build_HTML_setting_list(filter) {
         filter == "all" ||
         filter == "network"
       ) {
-        console.log("starting the content writing");
-        content += "<tr>";
-        content += "<td style='vertical-align:middle'>";
-        content += newtext2;
-        content += "</td>";
-        content += "<td style='vertical-align:middle'>";
-        content +=
-          "<table><tr><td>" + build_control_from_index(i) + "</td></tr></table>";
-        content += "</td>";
-        content += "</tr>\n";
+        components.push({ label: newtext2, control: build_control_from_index(i, form_idx), form_idx: form_idx });
+        form_idx++;
       }
     }
   }
-  console.log({ contentBeforeWrite: content });
+  return components;
+}
+
+function build_HTML_setting_list(filter) {
+  //this to prevent concurent process to update after we clean content
+  if (do_not_build_settings) return;
+  var content = "";
+  current_setting_filter = filter;
+  document.getElementById(
+    current_setting_filter + "_setting_filter"
+  ).checked = true;
+  var components = getSettingsTableComponents(filter);
+  for (var i = 0; i < components.length; i++) {
+    content += "<tr>";
+    content += "<td style='vertical-align:middle' id='label_" + components[i].form_idx  + "'>";
+    content += components[i].label;
+    content += "</td>";
+    content += components[i].control;
+    content += "</tr>\n";
+  }
   if (content.length > 0)
     document.getElementById("settings_list_data").innerHTML = content;
 }

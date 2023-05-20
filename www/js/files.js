@@ -52,7 +52,7 @@ function build_accept(file_filters_list) {
     accept_txt = "*, *.*";
     tfiles_filters = "";
   }
-  document.getElementById("files_input_file").accept = accept_txt+", text/plain, .txt, .brf";
+  document.getElementById("files_input_file").accept = accept_txt + ", text/plain, .txt, .brf";
   console.log(accept_txt);
 }
 
@@ -90,16 +90,15 @@ function files_build_file_line(index) {
   var entry = files_file_list[index];
   var is_clickable = files_is_clickable(index);
   if ((files_filter_sd_list && entry.isprintable) || !files_filter_sd_list) {
-    content += "<li class='list-group-item list-group-hover file-item' >";
+    content += "<li class='list-group-item list-group-hover file-item' tabindex='0'>";
     content += "<div class='row'>";
     content += "<div class='col-md-5 col-sm-5 no_overflow' ";
     if (is_clickable) {
       content +=
         "style='cursor:pointer;' onclick='files_click_file(" + index + ")'";
     }
-    content += "><table><tr><td><span style='padding-right:12px;'>";
+    content += "><table><tr><td aria-hidden='true'><span style='padding-right:12px;'>";
     if (entry.isdir == true) content += get_icon_svg("folder-open");
-    // All strings that match the replaceSVG comment are replaced with the corresponding SVG code using the replaceSVG gulp task
     else content += '<!-- replaceSVG --><object data="images/Files.svg" type="image/svg+xml"></object><!-- /replaceSVG -->';
     content += "</span ></td><td>";
     if (
@@ -107,9 +106,9 @@ function files_build_file_line(index) {
       target_firmware == "marlin" &&
       typeof entry.sdname !== "undefined"
     ) {
-      content += entry.sdname;
+      content += "<span>" + entry.sdname + "</span>";
     } else {
-      content += entry.name;
+      content += "<span>" + entry.name + "</span>";
     }
     content += "</td></tr></table></div>";
     var sizecol = "col-md-2 col-sm-2";
@@ -120,7 +119,7 @@ function files_build_file_line(index) {
       timecol = "hide_it";
       iconcol = "col-md-3 col-sm-3";
     }
-    content += "<div class='" + sizecol + "'";
+    content += "<div class='" + sizecol + "' aria-hidden='true'";
     if (is_clickable) {
       content +=
         "style='cursor:pointer;' onclick='files_click_file(" + index + ")' ";
@@ -128,35 +127,20 @@ function files_build_file_line(index) {
     var size = entry.size;
     if (entry.isdir) size = "";
     content += ">" + size + "</div>";
-    content += "<div class='" + timecol + "'";
+    content += "<div class='" + timecol + "' aria-hidden='true'";
     if (is_clickable) {
       content +=
         "style='cursor:pointer;' onclick='files_click_file(" + index + ")' ";
     }
     content += ">" + entry.datetime + "</div>";
-    content += "<div class='" + iconcol + "'>";
+    content += "<div class='" + iconcol + "' aria-hidden='true'>";
     content += "<div class='file-buttons'>";
-    // if (files_showdeletebutton(index)) {
-    //   content +=
-    //     "<button class='btn btn-info' onclick='PAIGE_files_load(" +
-    //     index +
-    //     ")' > Open </button>";
-    // }
-    // content += "&nbsp;";
-    // if (entry.isprintable) {
-    //   content +=
-    //     "<button class='btn btn-xs btn-default'  onclick='files_print(" +
-    //     index +
-    //     ")' style='padding-top: 4px;'>";
-    //   if (target_firmware == "grbl-embedded" || target_firmware == "grbl")
-    //     content += get_icon_svg("play", "1em", "1em");
-    //   else content += get_icon_svg("print", "1em", "1em");
-    //   content += "</button>";
-    // }
     content += "&nbsp;";
     if (files_showdeletebutton(index)) {
       content +=
-        "<button class='delete-button' aria-label='delete' onclick='files_delete(" +
+        "<button class='delete-button' aria-label='delete " +
+        entry.name +
+        "' onclick='files_delete(" +
         index +
         ")'>" +
         delete_button +
@@ -170,10 +154,11 @@ function files_build_file_line(index) {
   return content;
 }
 
+
 function PAIGE_files_load(index) {
-  var filePath =  "SD" + files_currentPath + files_file_list[index].name;
+  var filePath = "SD" + files_currentPath + files_file_list[index].name;
   if (files_currentPath[0] !== "/") {
-    filePath =  "SD/" + files_currentPath + files_file_list[index].name;
+    filePath = "SD/" + files_currentPath + files_file_list[index].name;
   }
   try {
     var rawFile = new XMLHttpRequest();
@@ -189,7 +174,7 @@ function PAIGE_files_load(index) {
           // Translate from english to braille first
           updateTextFromEnglishFileUpload(allText);
         }
-        
+
       } else {
         console.error("Error loading file from", filePath);
         console.error("Ready state", rawFile.readyState);
@@ -1075,11 +1060,12 @@ function files_refreshFiles(path, usecache) {
     path = "/";
     last_source = current_source;
   }
-  if (current_source == tft_sd || current_source == tft_usb) {
-    document.getElementById("print_upload_btn").style.display = "none";
-  } else {
-    document.getElementById("print_upload_btn").style.display = "inline-flex";
-  }
+  // if (current_source == tft_sd || current_source == tft_usb) {
+  //   document.getElementById("print_upload_btn").style.display = "none";
+  // } else {
+  //   document.getElementById("print_upload_btn").style.display = "inline-flex";
+  // }
+  document.getElementById("print_upload_btn").style.display = "none";
   if (typeof usecache === "undefined") usecache = false;
   document.getElementById("files_currentPath").innerHTML = files_currentPath;
   files_file_list = [];

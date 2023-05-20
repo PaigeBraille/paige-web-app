@@ -35,7 +35,7 @@ function process_scanWifi_answer(response_text) {
         } else {
             var aplist = response.AP_LIST;
             //console.log("found " + aplist.length + " AP");
-            aplist.sort(function(a, b) {
+            aplist.sort(function (a, b) {
                 return (parseInt(a.SIGNAL) < parseInt(b.SIGNAL)) ? -1 : (parseInt(a.SIGNAL) > parseInt(b.SIGNAL)) ? 1 : 0
             });
             for (var i = aplist.length - 1; i >= 0; i--) {
@@ -50,8 +50,8 @@ function process_scanWifi_answer(response_text) {
                 if (aplist[i].IS_PROTECTED == "1") content += get_icon_svg("lock");
                 content += "</></td>";
                 content += "<td>";
-                content += "<button class='btn btn-primary' onclick='select_ap_ssid(\"" + aplist[i].SSID.replace("'","\\'").replace("\"","\\\"") + "\");'>";
-                content += get_icon_svg("ok");
+                content += "<button class='btn btn-primary' aria-label='" + aplist[i].SSID + "' onclick='select_ap_ssid(\"" + aplist[i].SSID.replace("'", "\\'").replace("\"", "\\\"") + "\");'>";
+                content += "Join";
                 content += "</button>";
                 content += "</td>";
                 content += "</tr>";
@@ -69,7 +69,7 @@ function select_ap_ssid(ssid_name) {
     var val = document.getElementById("setting_" + ssid_item_scanwifi + "_" + ssid_subitem_scanwifi).value;
     document.getElementById("setting_" + ssid_item_scanwifi + "_" + ssid_subitem_scanwifi).value = ssid_name;
     document.getElementById("setting_" + ssid_item_scanwifi + "_" + ssid_subitem_scanwifi).focus();
-    if (val != ssid_name)setsettingchanged(ssid_item_scanwifi, ssid_subitem_scanwifi);
+    if (val != ssid_name) setsettingchanged(ssid_item_scanwifi, ssid_subitem_scanwifi);
     closeModal("Ok");
 }
 

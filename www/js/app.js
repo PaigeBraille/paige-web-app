@@ -126,9 +126,6 @@ var wsmsg = "";
 
 function startSocket() {
   var returned_value;
-  var grade;
-  var lines;
-  var translation;
   try {
     if (async_webcommunication) {
       ws_source = new WebSocket("ws://" + document.location.host + "/ws", [
@@ -182,7 +179,15 @@ function startSocket() {
             if (tval[0] == "[MSG") {
               makeTextareaAutoScroll(initialInputText);
               makeTextareaAutoScroll(translatedText);
-              if (tval[3] == "FILE"){
+              if (tval[3] == "ASCII"){
+                returned_value = tval[4][0];
+                paige_keyText = initialInputText.value + returned_value;
+                onPaigeChange(paige_keyText, true);
+              } else if (tval[3] == "BACK_SPACE") {
+                returned_value = tval[4][0];
+                paige_keyText = initialInputText.value.slice(0, -1);
+                onPaigeChange(paige_keyText, true);
+              } else if (tval[3] == "FILE"){
                   console.log(tval[4]);
                   paige_keyText = tval[4].replace(/A/g,"\n");
                   paige_keyText = paige_keyText.slice(0,-2);
@@ -252,7 +257,6 @@ function startSocket() {
         }
       }
     }
-    //console.log(msg);
   };
 }
 
@@ -495,20 +499,15 @@ function initUI_4() {
   init_files_panel(false);
   setupGradeButtons();
   //check if we need setup
-  if (target_firmware == "???") {
-    console.log("Launch Setup");
-    AddCmd(display_boot_progress);
-    closeModal("Connection successful");
-    setupdlg();
-  } else {
-    //wizard is done UI can be updated
-    setup_is_done = true;
-    do_not_build_settings = false;
-    AddCmd(display_boot_progress);
-    build_HTML_setting_list(current_setting_filter);
-    AddCmd(closeModal);
-    AddCmd(show_main_UI);
-  }
+  console.log("Launch Setup");
+  AddCmd(display_boot_progress);
+  closeModal("Connection successful");
+  document.getElementById("loading-splash-screen").style.display = "none";
+  document.getElementById("loading-splash-screen").ariaHidden = true;
+
+  // TODO: re-enable setup wizard
+  // setupdlg();
+  setupdone();
 }
 
 function initDemo() {
@@ -524,21 +523,6 @@ function initDemo() {
   document.getElementById("translated").style.fontFamily = '"aph_braille_shadowsregular"';
 }
 
-function show_main_UI() {
-  SendHomeCommand();
-  document.getElementById("main_ui").style.display = "flex";
-  // If demo, change to demo settings
-  if (IS_UI_DEMO) {
-    initDemo();
-  }
-  // Default to Paige tab
-  if (!USES_PAIGE_DISPLAY) {
-    document.getElementById("braille-pagination").style.display = "none";
-    document.getElementById("pagination-text").style.display = "none";
-  }
-  document.getElementById("loading-splash-screen").style.display = "none";
-  openPaigeTab();
-}
 
 function compareStrings(a, b) {
   // case-insensitive comparison

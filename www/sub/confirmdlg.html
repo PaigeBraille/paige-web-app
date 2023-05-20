@@ -1,10 +1,11 @@
 <!-- alert Modal -->
-<div id="confirmdlg.html" class="modal topmodal" role="dialog" aria-labelledby="modal-title" tabindex="-1" aria-modal="true">
+<div id="confirmdlg.html" class="modal topmodal" role="dialog" aria-labelledby="modal-title" tabindex="0" aria-modal="true">
     <!-- alert content -->
     <div class="modal-content">
         <div class="modal-header">
-            <button class="close" onclick="closeModal('cancel')" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" onclick="closeModal('cancel')" aria-label="Close" role="button" tabindex="0" onkeydown="handleCloseKeydown(event)">
+                <span aria-hidden="true">✖</span>
+                <span class="visuallyhidden">Close the dialog</span>
             </button>
             <h3 id="modal-title">
                 <div class="modal-title"></div>
