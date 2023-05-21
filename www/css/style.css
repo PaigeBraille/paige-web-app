@@ -908,3 +908,7 @@ button.close:focus {
 #SPIFFS_uploadbtn {
     margin-left: auto;
 }
+
+.scan-wifi-popup {
+    z-index: 20000000 !important;
+}

@@ -15,11 +15,16 @@ function continue_setup_wizard() {
             enablestep3();
             break;
         case 4:
-            closeModal('ok')
+            finishSetup();
             break;
         default:
             console.log("wizard page out of range");
     }
+}
+
+function finishSetup() {
+    closeModal('ok');
+    restartdlg();
 }
 
 function setupdone(response) {
