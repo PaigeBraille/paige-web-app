@@ -803,7 +803,8 @@ footer li {
 button.delete-button {
     background-color: transparent;
     border: none;
-    margin: 0px;
+    margin-left: auto;
+    margin-right: 0;
     padding: 0px;
     cursor: pointer;
 }
@@ -815,9 +816,10 @@ button.delete-button {
     box-shadow: none;
 }
 
-.file-item>.row {
+.file-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .file-buttons {
@@ -892,4 +894,8 @@ button.close:focus {
     color: var(--color-gray);
     text-decoration: none;
     opacity: 1;
+}
+
+.step > button {
+    font-weight: 800;
 }
