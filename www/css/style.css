@@ -547,21 +547,21 @@ div.paige-buttons {
     font-weight: 200;
 }
 
-.radio-toolbar label:hover {
+.button-toolbar button:hover {
     background-color: white;
 }
 
-.radio-toolbar input[type="radio"]:focus+label {
+.button-toolbar button:focus {
     border: 1px solid var(--color-gray);
 }
 
-.radio-toolbar input[type="radio"]:checked+label {
+.button-toolbar button.active {
     background-color: var(--paige-blue);
     border-color: var(--paige-blue);
     color: white;
 }
 
-.radio-toolbar label {
+.button-toolbar button {
     display: inline-block;
     background-color: white;
     font-size: var(--font-size-button);
@@ -578,7 +578,7 @@ div.paige-buttons {
     padding-right: 4px;
 }
 
-.radio-toolbar {
+.button-toolbar {
     justify-content: start;
     display: flex;
     gap: var(--padding-sm);
@@ -586,12 +586,6 @@ div.paige-buttons {
     justify-content: end;
     align-items: center;
     flex-wrap: wrap;
-}
-
-.radio-toolbar input[type="radio"] {
-    opacity: 0;
-    position: fixed;
-    width: 0;
 }
 
 #files_navigation_buttons {
@@ -821,7 +815,7 @@ button.delete-button {
     box-shadow: none;
 }
 
-.file-item > .row {
+.file-item>.row {
     display: flex;
     align-items: center;
 }
@@ -840,7 +834,7 @@ button.delete-button {
     align-items: center;
 }
 
-.pagination-controls > button {
+.pagination-controls>button {
     margin-right: var(--padding-sm);
     background-color: transparent;
     color: var(--paige-blue);
@@ -862,7 +856,9 @@ button.delete-button {
     margin-left: 12px;
 }
 
-.settings-input-group > button, .settings-input-group > input.form-control, select.form-control {
+.settings-input-group>button,
+.settings-input-group>input.form-control,
+select.form-control {
     display: inline-flex;
     border-radius: 0;
 }
@@ -891,7 +887,8 @@ button.close {
     font-weight: 800;
 }
 
-button.close:hover, button.close:focus {
+button.close:hover,
+button.close:focus {
     color: var(--color-gray);
     text-decoration: none;
     opacity: 1;
