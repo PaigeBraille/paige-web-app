@@ -34,6 +34,8 @@ function openPaigeTab() {
     document.getElementById("paigetab").style.display = "block";
     document.getElementById("paigetablink").className += " active";
     setIcons("paigetab");
+    // Change focus to #paigetab element
+    document.getElementById("paigetab").focus();
 }
 
 function setIcons(tabName) {

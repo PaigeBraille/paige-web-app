@@ -46,9 +46,6 @@ function process_scanWifi_answer(response_text) {
                 content += "<td style='text-align: center;vertical-align:middle;'>";
                 content += aplist[i].SIGNAL;
                 content += "%</td>";
-                content += "<td style='vertical-align:middle'><center>";
-                if (aplist[i].IS_PROTECTED == "1") content += get_icon_svg("lock");
-                content += "</></td>";
                 content += "<td>";
                 content += "<button class='btn btn-primary' aria-label='" + aplist[i].SSID + "' onclick='select_ap_ssid(\"" + aplist[i].SSID.replace("'", "\\'").replace("\"", "\\\"") + "\");'>";
                 content += "Join";
