@@ -899,3 +899,12 @@ button.close:focus {
 .step > button {
     font-weight: 800;
 }
+
+.filename-text {
+    margin-right: auto;
+    padding-left: var(--padding-sm);
+}
+
+#SPIFFS_uploadbtn {
+    margin-left: auto;
+}
