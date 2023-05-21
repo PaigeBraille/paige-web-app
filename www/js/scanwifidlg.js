@@ -3,10 +3,10 @@ var ssid_subitem_scanwifi = -1;
 //scanwifi dialog
 function scanwifidlg(item, subitem) {
     var modal = setactiveModal('scanwifidlg.html', scanwifidlg_close);
+    showModal();
     if (modal == null) return;
     ssid_item_scanwifi = item;
     ssid_subitem_scanwifi = subitem;
-    showModal();
     refresh_scanwifi();
 }
 

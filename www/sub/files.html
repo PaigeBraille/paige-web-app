@@ -7,14 +7,13 @@
                     <td aria-hidden="true">&nbsp;&nbsp;</td>
                     <td aria-hidden="true"><span id="files_currentPath" aria-label="Current path"></span></td>
                     <td aria-hidden="true">&nbsp;&nbsp;</td>
-                    <td>
-                        <div id="files_nav_loader" style="width:1em;height:1em" class="loader hide_it"
-                            aria-hidden="true"></div>
+                    <td aria-hidden="true">
+                        <div id="files_nav_loader" style="width:1em;height:1em" class="loader hide_it"></div>
                     </td>
                 </tr>
             </table>
         </div>
-        <div class="hide_it pull-right" id="files_uploading_msg" aria-live="polite">
+        <div class="hide_it pull-right" id="files_uploading_msg" aria-hidden="true">
             <table>
                 <tr>
                     <td><span translate>Uploading </span></td>
@@ -27,7 +26,8 @@
             </table>
         </div>
         <div class="pull-right" id="files_navigation_buttons">
-            <button class="btn btn-xs btn-primary" onclick="files_filter_button(this);" style="display:none"  aria-label="Filter files" aria-hidden="true">
+            <button class="btn btn-xs btn-primary" onclick="files_filter_button(this);" style="display:none"
+                aria-label="Filter files" aria-hidden="true">
                 <span id="files_filter_glyph" style="position:relative; top:2px">
                     <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200' aria-hidden="true">
                         <g transform='translate(50,1200) scale(1, -1)'>
@@ -40,7 +40,7 @@
             </button>
 
             <button class="btn btn-xs btn-primary" id="files_createdir_btn" onclick="files_Createdir()"
-                aria-label="Create folder" aria-hidden="true" style="display:none" >Create folder</button>
+                aria-label="Create folder" aria-hidden="true" style="display:none">Create folder</button>
             <button id="print_upload_btn" class="btn btn-xs btn-primary" onclick="files_select_upload()"
                 aria-label="Upload files" aria-hidden="true">Upload</button>
             <input type="file" id="files_input_file" onchange="files_check_if_upload()"
@@ -49,9 +49,8 @@
         </div>
     </div>
     <div id="file-body" class="panel-body panel-height panel-max-height panel-scroll panel-flex-main" role="main"
-        aria-labelledby="file-list-heading">
+        aria-label="File List">
         <div id="files_list_loader" class="loader hide_it" style="margin:auto" aria-hidden="true"></div>
-        <h2 id="file-list-heading" class="sr-only">File List</h2>
         <ul class="list-group" id="files_fileList" role="list">
         </ul>
     </div>

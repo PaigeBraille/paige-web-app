@@ -30,6 +30,7 @@ function showModal() {
     var currentmodal = getactiveModal();
     currentmodal.element.style.display = "block";
     focusedElementBeforeModal = document.activeElement;
+    console.log(currentmodal.element.id);
     document.getElementById(currentmodal.element.id).focus();
 }
 

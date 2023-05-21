@@ -3,9 +3,9 @@
     <h2 id="grade-title">Choose grade</h2>
     <div class="radio-toolbar" aria-label="Grade selection">
       <input type="radio" id="radioGrade1" name="grade" value="1" checked>
-      <label for="radioGrade1" aria-label="Grade 1">1</label>
+      <label for="radioGrade1">Grade 1</label>
       <input type="radio" id="radioGrade2" name="grade" value="2">
-      <label for="radioGrade2" aria-label="Grade 2">2</label>
+      <label for="radioGrade2">Grade 2</label>
     </div>
   </div>
   <div id="paige-textareas" role="region" aria-labelledby="textarea-label-1 textarea-label-2">
@@ -13,11 +13,11 @@
       <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
       <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
         oninput="onPaigeChange(this.value, true);" aria-describedby="braille-pagination"></textarea>
-        <div class="pagination-controls" id="braille-pagination" aria-label="Braille input pagination controls">
-          <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
-          <button onclick="goToNextPage()" aria-label="Go to next page">→</button>
-          <span id="pagination-text">Page 1 of 1</span>
-        </div>
+      <div class="pagination-controls" id="braille-pagination" aria-label="Braille input pagination controls">
+        <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
+        <button onclick="goToNextPage()" aria-label="Go to next page">→</button>
+        <span id="pagination-text">Page 1 of 1</span>
+      </div>
     </div>
     <div class="paige-textarea">
       <label for="translated" class="textarea-title" id="textarea-label-2">Print</label>
