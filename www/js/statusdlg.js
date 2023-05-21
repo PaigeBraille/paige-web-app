@@ -26,10 +26,10 @@ function update_btn_status(forcevalue) {
     }
     if (statuspage == 0) {
         statuspage = 1;
-        document.getElementById('next_status_btn').innerHTML = get_icon_svg("triangle-right", "1em", "1em")
+        document.getElementById('next_status_btn').innerHTML = "Next Page >"
     } else {
         statuspage = 0;
-        document.getElementById('next_status_btn').innerHTML = get_icon_svg("triangle-left", "1em", "1em")
+        document.getElementById('next_status_btn').innerHTML = "Previous Page <"
     }
 }
 
