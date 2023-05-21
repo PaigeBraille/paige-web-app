@@ -491,6 +491,11 @@ function initUI_3() {
   initUI_4();
 }
 
+function hideSplashScreen() {
+  document.getElementById("loading-splash-screen").style.display = "none";
+  document.getElementById("loading-splash-screen").ariaHidden = true;
+}
+
 function initUI_4() {
   AddCmd(display_boot_progress);
   // init_temperature_panel();
@@ -502,14 +507,14 @@ function initUI_4() {
   console.log("Launch Setup");
   AddCmd(display_boot_progress);
   closeModal("Connection successful");
-  document.getElementById("loading-splash-screen").style.display = "none";
-  document.getElementById("loading-splash-screen").ariaHidden = true;
 
   if (IS_UI_TEST) {
     // Always show setup wizard in test mode
+    hideSplashScreen();
     setupdlg();
   } else if (IS_UI_DEMO) {
     // Never show setup wizard in demo mode
+    hideSplashScreen();
     setupdone();
   } else {
     showSetupWizardIfAP();
@@ -550,6 +555,7 @@ function showSetupWizardIfAP() {
   var url = "/command?plain=" + encodeURIComponent("[ESP420]plain");;
   SendGetHttp(url, function (response) {
     var isApMode = isWiFiInAPMode(response);
+    hideSplashScreen();
     if (isApMode) {
       setupdlg();
     } else {
