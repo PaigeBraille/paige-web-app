@@ -15,11 +15,16 @@ function continue_setup_wizard() {
             enablestep3();
             break;
         case 4:
-            closeModal('ok')
+            finishSetup();
             break;
         default:
             console.log("wizard page out of range");
     }
+}
+
+function finishSetup() {
+    closeModal('ok');
+    restartdlg();
 }
 
 function setupdone(response) {
@@ -60,19 +65,19 @@ function enableStep( title, components, buttonTitle) {
 
 function enablestep1() {
     document.getElementById("step1link").style.color = "var(--paige-blue)";
-    var content = settingsComponentsToTable(getComponentsForKeywords(["paige network", "paige password"]));
-    enableStep("Paige Settings", content, "Continue");
+    var content = settingsComponentsToTable(getComponentsForKeywords(["hostname"]));
+    enableStep("What's your name?", content, "Continue");
 }
 
 function enablestep2() {
     document.getElementById("step2link").style.color = "var(--paige-blue)";
-    var content = settingsComponentsToTable(getComponentsForKeywords(["wi-fi", "wifi", "hostname"]));
-    enableStep("WiFi Configuration", content, "Continue");
+    var content = settingsComponentsToTable(getComponentsForKeywords(["wi-fi", "wifi"]));
+    enableStep("I need a Wi-Fi connection to work. Please enter your details below.", content, "Continue");
 }
 
 function enablestep3() {
     document.getElementById("endsteplink").style.color = "var(--paige-blue)";
-    enableStep("Done", end_content, "Finish setup");
+    enableStep("Nearly there! I am now going to restart.", end_content, "Finish setup");
 }
 
 function getComponentsForKeywords(keywords) {

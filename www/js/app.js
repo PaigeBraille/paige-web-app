@@ -174,29 +174,29 @@ function startSocket() {
               wsmsg.startsWith("echo:E0 Flow")
             )
           )
-          if(wsmsg.startsWith("[MSG:INFO:")){
-            var tval = wsmsg.split(":");
-            if (tval[0] == "[MSG") {
-              makeTextareaAutoScroll(initialInputText);
-              makeTextareaAutoScroll(translatedText);
-              if (tval[3] == "ASCII"){
-                returned_value = tval[4][0];
-                paige_keyText = initialInputText.value + returned_value;
-                onPaigeChange(paige_keyText, true);
-              } else if (tval[3] == "BACK_SPACE") {
-                returned_value = tval[4][0];
-                paige_keyText = initialInputText.value.slice(0, -1);
-                onPaigeChange(paige_keyText, true);
-              } else if (tval[3] == "FILE"){
-                  console.log(tval[4]);
-                  paige_keyText = tval[4].replace(/A/g,"\n");
-                  paige_keyText = paige_keyText.slice(0,-2);
+            if (wsmsg.startsWith("[MSG:INFO:")) {
+              var tval = wsmsg.split(":");
+              if (tval[0] == "[MSG") {
+                makeTextareaAutoScroll(initialInputText);
+                makeTextareaAutoScroll(translatedText);
+                if (tval[3] == "ASCII") {
+                  returned_value = tval[4][0];
+                  paige_keyText = initialInputText.value + returned_value;
                   onPaigeChange(paige_keyText, true);
-              } 
+                } else if (tval[3] == "BACK_SPACE") {
+                  returned_value = tval[4][0];
+                  paige_keyText = initialInputText.value.slice(0, -1);
+                  onPaigeChange(paige_keyText, true);
+                } else if (tval[3] == "FILE") {
+                  console.log(tval[4]);
+                  paige_keyText = tval[4].replace(/A/g, "\n");
+                  paige_keyText = paige_keyText.slice(0, -2);
+                  onPaigeChange(paige_keyText, true);
+                }
+              }
+
             }
-            
-          }
-            console.log(wsmsg);
+          console.log(wsmsg);
           wsmsg = "";
           msg = "";
         }
@@ -491,6 +491,11 @@ function initUI_3() {
   initUI_4();
 }
 
+function hideSplashScreen() {
+  document.getElementById("loading-splash-screen").style.display = "none";
+  document.getElementById("loading-splash-screen").ariaHidden = true;
+}
+
 function initUI_4() {
   AddCmd(display_boot_progress);
   // init_temperature_panel();
@@ -502,12 +507,18 @@ function initUI_4() {
   console.log("Launch Setup");
   AddCmd(display_boot_progress);
   closeModal("Connection successful");
-  document.getElementById("loading-splash-screen").style.display = "none";
-  document.getElementById("loading-splash-screen").ariaHidden = true;
 
-  // TODO: re-enable setup wizard
-  // setupdlg();
-  setupdone();
+  if (IS_UI_TEST) {
+    // Always show setup wizard in test mode
+    hideSplashScreen();
+    setupdlg();
+  } else if (IS_UI_DEMO) {
+    // Never show setup wizard in demo mode
+    hideSplashScreen();
+    setupdone();
+  } else {
+    showSetupWizardIfAP();
+  }
 }
 
 function initDemo() {
@@ -521,6 +532,36 @@ function initDemo() {
   document.getElementById("textarea-label-2").innerHTML = "Braille";
   document.getElementById("initialInputText").style.fontFamily = '"Inter", sans-serif';
   document.getElementById("translated").style.fontFamily = '"aph_braille_shadowsregular"';
+}
+
+function isWiFiInAPMode(response) {
+  var tresponse = response.split("\n");
+
+  for (var i = 0; i < tresponse.length; i++) {
+    var data = tresponse[i].split(":");
+    if (data.length >= 2) {
+      var settingName = data[0].trim().toLowerCase();
+      var settingValue = data[1].trim().toLowerCase();
+      console.log(settingName + " = " + settingValue);
+      if ((settingName === 'current wifi mode' || settingName === 'active mode') && (settingValue.includes('access point') || settingValue.includes('ap'))) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function showSetupWizardIfAP() {
+  var url = "/command?plain=" + encodeURIComponent("[ESP420]plain");;
+  SendGetHttp(url, function (response) {
+    var isApMode = isWiFiInAPMode(response);
+    hideSplashScreen();
+    if (isApMode) {
+      setupdlg();
+    } else {
+      setupdone();
+    }
+  }, function () { setupdone(); })
 }
 
 

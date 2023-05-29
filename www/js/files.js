@@ -91,51 +91,25 @@ function files_build_file_line(index) {
   var is_clickable = files_is_clickable(index);
   if ((files_filter_sd_list && entry.isprintable) || !files_filter_sd_list) {
     content += "<li class='list-group-item list-group-hover file-item' tabindex='0'>";
-    content += "<div class='row'>";
-    content += "<div class='col-md-5 col-sm-5 no_overflow' ";
+    content += "<span ";
     if (is_clickable) {
       content +=
-        "style='cursor:pointer;' onclick='files_click_file(" + index + ")'";
+        "style='cursor:pointer;' onclick='files_click_file(" + index + ")' ";
     }
-    content += "><table><tr><td aria-hidden='true'><span style='padding-right:12px;'>";
+    content += ">";
     if (entry.isdir == true) content += get_icon_svg("folder-open");
     else content += '<!-- replaceSVG --><object data="images/Files.svg" type="image/svg+xml"></object><!-- /replaceSVG -->';
-    content += "</span ></td><td>";
+    content += "</span>";
     if (
       direct_sd &&
       target_firmware == "marlin" &&
       typeof entry.sdname !== "undefined"
     ) {
-      content += "<span>" + entry.sdname + "</span>";
+      content += "<span class='filename-text'>" + entry.sdname + "</span>";
     } else {
-      content += "<span>" + entry.name + "</span>";
+      content += "<span class='filename-text'>" + entry.name + "</span>";
     }
-    content += "</td></tr></table></div>";
-    var sizecol = "col-md-2 col-sm-2";
-    var timecol = "col-md-3 col-sm-3";
-    var iconcol = "col-md-2 col-sm-2";
-    if (!entry.isdir && entry.datetime == "") {
-      sizecol = "col-md-4 col-sm-4";
-      timecol = "hide_it";
-      iconcol = "col-md-3 col-sm-3";
-    }
-    content += "<div class='" + sizecol + "' aria-hidden='true'";
-    if (is_clickable) {
-      content +=
-        "style='cursor:pointer;' onclick='files_click_file(" + index + ")' ";
-    }
-    var size = entry.size;
-    if (entry.isdir) size = "";
-    content += ">" + size + "</div>";
-    content += "<div class='" + timecol + "' aria-hidden='true'";
-    if (is_clickable) {
-      content +=
-        "style='cursor:pointer;' onclick='files_click_file(" + index + ")' ";
-    }
-    content += ">" + entry.datetime + "</div>";
-    content += "<div class='" + iconcol + "' aria-hidden='true'>";
-    content += "<div class='file-buttons'>";
-    content += "&nbsp;";
+    content += "<div class='file-buttons' style='display:inline-flex;'>";
     if (files_showdeletebutton(index)) {
       content +=
         "<button class='delete-button' aria-label='delete " +
@@ -146,8 +120,6 @@ function files_build_file_line(index) {
         delete_button +
         "</button>";
     }
-    content += "</div>";
-    content += "</div>";
     content += "</div>";
     content += "</li>";
   }
@@ -978,11 +950,14 @@ function files_is_clickable(index) {
 
 function files_click_file(index) {
   var entry = files_file_list[index];
+
+  // Skip directories
   if (entry.isdir) {
     var path = files_currentPath + entry.name + "/";
     files_refreshFiles(path, true);
     return;
   }
+
   if (
     direct_sd &&
     (!(
@@ -991,17 +966,29 @@ function files_click_file(index) {
     ) ||
       target_firmware != "smoothieware")
   ) {
-    //console.log("file on direct SD");
+    // File on direct SD
     var url = "";
-    if (target_firmware == "smoothieware")
+    if (target_firmware == "smoothieware") {
       url = files_currentPath.replace(primary_sd, "/SD/") + entry.sdname;
-    else url = "/SD/" + files_currentPath + entry.sdname;
-    window.open(url.replace("//", "/"));
+    } else {
+      url = "/SD/" + files_currentPath + entry.sdname;
+    }
+
+    // Create a new anchor element, set the href and download attributes, and click it
+    var a = document.createElement('a');
+    a.href = url.replace("//", "/");
+    a.download = entry.sdname || '';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
     return;
   }
+
   if (target_firmware == "smoothieware" && entry.isprintable) {
-    //console.log("file on smoothie SD");
-    //todo use a cat command ?
+    // File on smoothie SD
+    // todo: use a cat command?
     return;
   }
 }
@@ -1475,20 +1462,21 @@ function files_build_display_filelist(displaylist) {
     });
   }
   if (files_status_list.length > 0) {
-    if (files_status_list[0].total != "-1") {
-      document.getElementById("files_sd_status_total").innerHTML =
-        files_status_list[0].total;
-      document.getElementById("files_sd_status_used").innerHTML =
-        files_status_list[0].used;
-      document.getElementById("files_sd_status_occupation").value =
-        files_status_list[0].occupation;
-      document.getElementById("files_sd_status_percent").innerHTML =
-        files_status_list[0].occupation;
-      document.getElementById("files_space_sd_status").style.display =
-        "table-row";
-    } else {
-      document.getElementById("files_space_sd_status").style.display = "none";
-    }
+    // if (files_status_list[0].total != "-1") {
+    //   document.getElementById("files_sd_status_total").innerHTML =
+    //     files_status_list[0].total;
+    //   document.getElementById("files_sd_status_used").innerHTML =
+    //     files_status_list[0].used;
+    //   document.getElementById("files_sd_status_occupation").value =
+    //     files_status_list[0].occupation;
+    //   document.getElementById("files_sd_status_percent").innerHTML =
+    //     files_status_list[0].occupation;
+    //   document.getElementById("files_space_sd_status").style.display =
+    //     "table-row";
+    // } else {
+    //   document.getElementById("files_space_sd_status").style.display = "none";
+    // }
+    document.getElementById("files_space_sd_status").style.display = "none";
     if (
       files_error_status != "" &&
       (files_status_list[0].status.toLowerCase() == "ok" ||

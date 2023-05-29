@@ -5285,7 +5285,7 @@ a.badge:focus {
 
 .list-group-item {
   position: relative;
-  display: block;
+  display: flex;
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #ffffff;

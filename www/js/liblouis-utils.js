@@ -10,15 +10,24 @@ var LINES_PER_PAGE = 5;
 var allPagesText = [""];
 var currentPage = 0;
 
-function setupGradeButtons() {
-  var radio1 = document.getElementById('radioGrade1');
-  var radio2 = document.getElementById('radioGrade2');
+var gradeButton1 = document.getElementById('buttonGrade1');
+var gradeButton2 = document.getElementById('buttonGrade2');
+var gradeValue = gradeButton1.value;
 
-  radio1.addEventListener('click', function () {
+function setActiveGradeButton(button) {
+  gradeButton1.classList.remove("active");
+  gradeButton2.classList.remove("active");
+  button.classList.add("active");
+  gradeValue = button.value;
+}
+
+function setupGradeButtons() {
+  gradeButton1.addEventListener('click', function () {
+    setActiveGradeButton(gradeButton1);
     onPaigeChange(initialInputText.value, false);
   });
-
-  radio2.addEventListener('click', function () {
+  gradeButton2.addEventListener('click', function () {
+    setActiveGradeButton(gradeButton2);
     onPaigeChange(initialInputText.value, false);
   });
 }
@@ -64,7 +73,6 @@ function processText(text, goToLastPage) {
 }
 
 function translateLines(lines) {
-  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
   var translation = [];
   try {
     for (var i = 0; i < lines.length; i++) {
@@ -163,7 +171,7 @@ function brailleToPrint(tableNames, inputStr) {
 }
 
 function updateTextFromEnglishFileUpload(text) {
-  var gradeValue = document.querySelector('input[name="grade"]:checked').value;
+
   var tableNames = "en-ueb-g1.ctb";
   if (gradeValue === '2') {
     tableNames = "en-ueb-g2.ctb";

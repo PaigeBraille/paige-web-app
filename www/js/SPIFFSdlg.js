@@ -114,15 +114,14 @@ function SPIFFSsuccess(response) {
   //console.log(response);
   var jsonresponse = JSON.parse(response);
   document.getElementById("SPIFFS_loader").style.visibility = "hidden";
-  document.getElementById("refreshSPIFFSbtn").style.display = "block";
+  // document.getElementById("refreshSPIFFSbtn").style.display = "block";
   document.getElementById("SPIFFS_select_files").style.display = "block";
   SPIFFSdispatchfilestatus(jsonresponse);
 }
 
 function SPIFFSfailed(errorcode, response) {
   document.getElementById("SPIFFS_loader").style.visibility = "hidden";
-  document.getElementById("refreshSPIFFSbtn").style.display = "block";
-  document.getElementById("refreshSPIFFSbtn").style.display = "block";
+  // document.getElementById("refreshSPIFFSbtn").style.display = "block";
   alertdlg(
     translate_text_item("Error"),
     "Error " + errorcode + " : " + response
@@ -235,7 +234,7 @@ function refreshSPIFFS() {
   document.getElementById("SPIFFS_file_name").innerHTML =
     translate_text_item("No file chosen");
   document.getElementById("SPIFFS_uploadbtn").style.display = "none";
-  document.getElementById("refreshSPIFFSbtn").style.display = "none";
+  // document.getElementById("refreshSPIFFSbtn").style.display = "none";
   document.getElementById("SPIFFS_select_files").style.display = "none";
   //removeIf(production)
   var response =
@@ -359,7 +358,7 @@ function SPIFFSUploadsuccess(response) {
   document.getElementById("SPIFFS_prg").style.display = "none";
   document.getElementById("SPIFFS_uploadbtn").style.display = "none";
   document.getElementById("uploadSPIFFSmsg").innerHTML = "";
-  document.getElementById("refreshSPIFFSbtn").style.display = "block";
+  // document.getElementById("refreshSPIFFSbtn").style.display = "block";
   SPIFFS_upload_ongoing = false;
   response = response.replace('"status":"Ok"', '"status":"Upload done"');
   var jsonresponse = JSON.parse(response);
@@ -372,7 +371,7 @@ function SPIFFSUploadfailed(errorcode, response) {
   document.getElementById("SPIFFS_uploadbtn").style.display = "block";
   document.getElementById("uploadSPIFFSmsg").innerHTML = "";
   document.getElementById("uploadSPIFFSmsg").style.display = "none";
-  document.getElementById("refreshSPIFFSbtn").style.display = "block";
+  // document.getElementById("refreshSPIFFSbtn").style.display = "block";
   console.log("Error " + errorcode + " : " + response);
   if (esp_error_code != 0) {
     alertdlg(

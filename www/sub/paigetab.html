@@ -1,34 +1,32 @@
-<div id="paigetab" class="tabcontent" role="tabpanel" aria-labelledby="paige-tab">
-  <div class="grade-chooser" role="region" aria-label="Choose grade">
-    <span id="grade-title" role="heading" aria-level="2">Choose grade</span>
-    <div class="radio-toolbar">
-      <input type="radio" id="radioGrade1" name="grade" value="1" checked>
-      <label for="radioGrade1">1</label>
-      <input type="radio" id="radioGrade2" name="grade" value="2">
-      <label for="radioGrade2">2</label>
+<div id="paigetab" class="tabcontent" role="tabpanel" aria-labelledby="paige-tab" tabindex="-1">
+  <div class="grade-chooser" role="region" aria-labelledby="grade-title">
+    <h2 id="grade-title">Choose grade</h2>
+    <div class="button-toolbar" aria-label="Grade selection">
+      <button type="button" id="buttonGrade1" name="grade" value="1" class="active" aria-label="Grade 1">1</button>
+      <button type="button" id="buttonGrade2" name="grade" value="2" aria-label="Grade 2">2</button>
     </div>
   </div>
-  <div id="paige-textareas" role="region" aria-label="Text areas">
+  <div id="paige-textareas" role="region" aria-labelledby="textarea-label-1 textarea-label-2">
     <div class="paige-textarea">
       <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
       <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
         oninput="onPaigeChange(this.value, true);" aria-describedby="braille-pagination"></textarea>
-        <div class="pagination-controls" id="braille-pagination">
-          <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
-          <button onclick="goToNextPage()" aria-label="Go to next page">→</button>
-          <span id="pagination-text">Page 1 of 1</span>
-        </div>
+      <div class="pagination-controls" id="braille-pagination" aria-label="Braille input pagination controls">
+        <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
+        <button onclick="goToNextPage()" aria-label="Go to next page">→</button>
+        <span id="pagination-text">Page 1 of 1</span>
+      </div>
     </div>
     <div class="paige-textarea">
       <label for="translated" class="textarea-title" id="textarea-label-2">Print</label>
-      <textarea disabled id="translated" aria-label="Print textarea"></textarea>
+      <textarea disabled id="translated" aria-label="Translated Print output"></textarea>
     </div>
   </div>
-  <div class="paige-buttons" style="display: none;">
-    <button onClick="saveTextInput();" id="save-button" aria-label="Save text input" aria-hidden="true">
+  <div class="paige-buttons" aria-hidden="true" style="display: none;">
+    <button onClick="saveTextInput();" id="save-button" aria-label="Save text input">
       Save
     </button>
-    <button id="PAIGEClearButton" onclick="clearTextInput();" aria-label="Clear text input" aria-hidden="true">
+    <button id="PAIGEClearButton" onclick="clearTextInput();" aria-label="Clear text input">
       Clear
     </button>
   </div>
