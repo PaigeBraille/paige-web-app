@@ -76,7 +76,7 @@ function translateLines(lines) {
   var translation = [];
   try {
     for (var i = 0; i < lines.length; i++) {
-      var line = translateWithLiblouis(cleanText(lines[i].replace("\n", "")));
+      var line = cleanText(lines[i].replace("\n", ""));
       if (line.replace(/\s+/g, '').length !== 0) {
         translation.push(translateWithLiblouis(line, gradeValue));
       }
