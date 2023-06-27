@@ -30,8 +30,7 @@
   "license": "(ISC OR GPL-3.0)",
   "dependencies": {
     "global": "latest",
-    "liblouis-build": "latest",
-    "liblouis-js": "latest"
+    "liblouis": "latest"
   },
   "scripts": {
     "package": "gulp package",
