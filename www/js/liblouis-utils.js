@@ -167,7 +167,26 @@ function printToBraille(tableNames, inputStr) {
 }
 
 function brailleToPrint(tableNames, inputStr) {
-  return liblouis.backTranslateString(tableNames, inputStr);
+  try {
+    return liblouis.backTranslateString(tableNames, inputStr);
+  } catch (e) {
+    console.warn("Could not translate input string, trying work breakdown");
+    let words = inputStr.split(' ');
+    let translatedWords = [];
+    for (let i = 0; i < words.length; i++) {
+      try {
+        let translatedWord = liblouis.backTranslateString(tableNames, words[i]+' ');
+        let translatedWord2 = liblouis.backTranslateString(tableNames, words[i])+' ';
+        if (translatedWord2.length > translatedWord.length) {
+          translatedWord = translatedWord2;
+        }
+        translatedWords.push(translatedWord);
+      } catch (e) {
+        console.error("Error translating word", words[i], e);
+      }
+    }
+    return translatedWords.join('');
+  }
 }
 
 function updateTextFromEnglishFileUpload(text) {
