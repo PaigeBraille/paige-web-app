@@ -16,7 +16,7 @@ import smoosher from "gulp-smoosher";
 import size from "gulp-filesize";
 
 // Add "unicode.dis" if you need unicode
-var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-g2.ctb", "spaces.uti", "latinLetterDef6Dots.uti", "latinUppercaseComp6.uti", "en-ueb-chardefs.uti", "en-ueb-math.ctb", "braille-patterns.cti"];
+var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-g2.ctb", "spaces.uti", "latinLetterDef6Dots.uti", "latinUppercaseComp6.uti", "en-ueb-chardefs.uti", "en-ueb-math.ctb", "braille-patterns.cti", "unicode.dis"];
 
 function updateLiblouis() {
   // Remove unused table data from liblouis build

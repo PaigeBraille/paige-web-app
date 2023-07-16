@@ -166,51 +166,49 @@ function printToBraille(tableNames, inputStr) {
   return liblouis.translateString(tableNames, inputStr);
 }
 
+function unicodeToAscii(unicodeString) {
+  let asciiString = "";
+  for (let i = 0; i < unicodeString.length; i++) {
+      let charCode = unicodeString.charCodeAt(i);
+      if (charCode < 128) {  // ASCII includes codes from 0 to 127
+          asciiString += String.fromCharCode(charCode);
+      }
+  }
+  return asciiString;
+}
+
 function brailleToPrint(tableNames, inputStr) {
-  try {
-    return liblouis.backTranslateString(tableNames, inputStr);
-  } catch (e) {
-    console.warn("Could not translate input string, trying work breakdown");
-    let words = inputStr.split(' ');
-    let translatedWords = [];
-    for (let i = 0; i < words.length; i++) {
+  var translatedWords = [];
+  var asciiString = unicodeToAscii(inputStr);
+  var inputWords = asciiString.split(' ');
+  for (var i = 0; i < inputWords.length; i++) {
+    try {
+      translatedWords.push(liblouis.backTranslateString(tableNames, inputWords[i]).trim());
+    } catch (e) {
       try {
-        let translatedWord = liblouis.backTranslateString(tableNames, words[i]+' ');
-        let translatedWord2 = liblouis.backTranslateString(tableNames, words[i])+' ';
-        if (translatedWord2.length > translatedWord.length) {
-          translatedWord = translatedWord2;
-        }
-        translatedWords.push(translatedWord);
+        translatedWords.push(liblouis.backTranslateString(tableNames, inputWords[i]+' ').trim());
       } catch (e) {
-        console.error("Error translating word", words[i], e);
+        console.error("Error translating word", inputWords[i], e);
+        translatedWords.push(inputWords[i]);
       }
     }
-    return translatedWords.join('');
   }
+  return translatedWords.join(' ');
 }
 
 function updateTextFromEnglishFileUpload(text) {
-
-  var tableNames = "en-ueb-g1.ctb";
+  var tableNames = "unicode.dis,en-ueb-g1.ctb";
   if (gradeValue === '2') {
-    tableNames = "en-ueb-g2.ctb";
+    tableNames = "unicode.dis,en-ueb-g2.ctb";
   }
   var brailleInput = printToBraille(tableNames, text);
   onPaigeChange(brailleInput, false);
 }
 
 function translateWithLiblouis(inputStr, grade) {
-  // Use unicode.dis if you want to translate to/from Unicode Braille instead of ASCII Braille
-  // If using without unicode.dis, ASCII Braille should be rendered using the braille font (aph_braille_shadowsregular)
-
-  // var tableNames = "unicode.dis,en-ueb-g1.ctb";
-  // if (grade === '2') {
-  //   tableNames = "unicode.dis,en-ueb-g2.ctb"
-  // }
-
-  var tableNames = "en-ueb-g1.ctb";
+  var tableNames = "unicode.dis,en-ueb-g1.ctb";
   if (grade === '2') {
-    tableNames = "en-ueb-g2.ctb";
+    tableNames = "unicode.dis,en-ueb-g2.ctb";
   }
   try {
     if (IS_UI_DEMO) {
