@@ -748,7 +748,10 @@ div.paige-buttons {
 
 #loading-splash-screen {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
+    bottom: 0px;
+    right: 0px;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -911,4 +914,9 @@ button.close:focus {
 
 .scan-wifi-popup {
     z-index: 20000000 !important;
+}
+
+#paige-support-link {
+    color: white;
+    text-decoration: none;
 }
