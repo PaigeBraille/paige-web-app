@@ -60,10 +60,10 @@ python fluidnc-web-sim.py 192.168.1.25
 To update the liblouis build used in the app follow the following steps
 
 1. Run `npm install` to install the latest version of the `liblouis` js library
-2. Replace `build-tables-embeded-root-utf16.js` with the latest GitHub actions build from https://github.com/nrimsky/liblouis
+2. Replace `build-tables-embeded-root-utf32.js` with the latest GitHub actions build from https://github.com/nrimsky/liblouis
 3. Run `npm run update-liblouis` - this will delete all the unused table data from the liblouis build (to minimise file size of the final HTML file) and then copy this shortened version to `www/js`
 
-This shortened version of the liblouis build is kept checked into version control (can be found at `www/js/build-tables-embeded-root-utf16.js`) so that in case of a broken update, it can be rolled back to a previous verison.
+This shortened version of the liblouis build is kept checked into version control (can be found at `www/js/build-tables-embeded-root-utf32.js`) so that in case of a broken update, it can be rolled back to a previous verison.
 
 Once you have updated liblouis, you will have to run `npm run package` again to make a new build of the web app with the new liblouis version. 
 

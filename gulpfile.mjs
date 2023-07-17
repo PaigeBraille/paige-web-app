@@ -16,12 +16,12 @@ import smoosher from "gulp-smoosher";
 import size from "gulp-filesize";
 
 // Add "unicode.dis" if you need unicode
-var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-g2.ctb", "spaces.uti", "latinLetterDef6Dots.uti", "latinUppercaseComp6.uti", "en-ueb-chardefs.uti", "en-ueb-math.ctb", "braille-patterns.cti", "unicode.dis"];
+var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-g2.ctb", "spaces.uti", "latinLetterDef6Dots.uti", "latinUppercaseComp6.uti", "en-ueb-chardefs.uti", "en-ueb-math.ctb", "braille-patterns.cti"];
 
 function updateLiblouis() {
   // Remove unused table data from liblouis build
   // You should have run npm install before this task runs so that it can find the build in node_modules
-  fs.readFile("build-tables-embeded-root-utf16.js", "utf8", (error, content) => {
+  fs.readFile("build-tables-embeded-root-utf32.js", "utf8", (error, content) => {
     if (error) {
       throw error;
     }
@@ -37,7 +37,7 @@ function updateLiblouis() {
       }
     }
     console.log(filenameMap);
-    fs.writeFile("www/js/build-tables-embeded-root-utf16.js", "", (error) => {
+    fs.writeFile("www/js/build-tables-embeded-root-utf32.js", "", (error) => {
       if (error) {
         throw error;
       }
@@ -53,7 +53,7 @@ function updateLiblouis() {
           }
         }
         if (keep) {
-          fs.appendFileSync("www/js/build-tables-embeded-root-utf16.js", `${line.replace("/out-emscripten-install/share/liblouis/tables", "/")}\n`);
+          fs.appendFileSync("www/js/build-tables-embeded-root-utf32.js", `${line.replace("/out-emscripten-install/share/liblouis/tables", "/")}\n`);
         }
       }
     });
