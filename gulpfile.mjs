@@ -15,56 +15,6 @@ import inlineFonts from "gulp-inline-fonts";
 import smoosher from "gulp-smoosher";
 import size from "gulp-filesize";
 
-// Add "unicode.dis" if you need unicode
-var TABLES_TO_KEEP = ["en-ueb-g1.ctb", "en-ueb-g2.ctb", "spaces.uti", "latinLetterDef6Dots.uti", "latinUppercaseComp6.uti", "en-ueb-chardefs.uti", "en-ueb-math.ctb", "braille-patterns.cti"];
-
-function updateLiblouis() {
-  // Remove unused table data from liblouis build
-  // You should have run npm install before this task runs so that it can find the build in node_modules
-  fs.readFile("build-tables-embeded-root-utf32.js", "utf8", (error, content) => {
-    if (error) {
-      throw error;
-    }
-    const lines = content.split("\n");
-    const filenameMap = {};
-
-    for (const line of lines) {
-      if (line.includes("Module['FS_createDataFile']")) {
-        const parts = line.split(",").map(part => part.trim().replace(/'|"/g, ""));
-        if (TABLES_TO_KEEP.includes(parts[1])) {
-          filenameMap[parts[1]] = parts[2];
-        }
-      }
-    }
-    console.log(filenameMap);
-    fs.writeFile("www/js/build-tables-embeded-root-utf32.js", "", (error) => {
-      if (error) {
-        throw error;
-      }
-      for (const line of lines) {
-        let keep = true;
-        if (line.includes(".push.apply(") || line.includes("Module['FS_createDataFile']") || line.includes("var fileData")) {
-          keep = false;
-          for (const table of TABLES_TO_KEEP) {
-            if (line.includes(filenameMap[table])) {
-              keep = true;
-              break;
-            }
-          }
-        }
-        if (keep) {
-          fs.appendFileSync("www/js/build-tables-embeded-root-utf32.js", `${line.replace("/out-emscripten-install/share/liblouis/tables", "/")}\n`);
-        }
-      }
-    });
-  });
-  fs.copyFile('node_modules/liblouis/easy-api.js', 'www/js/easy-api.js', (error) => {
-    if (error) {
-      throw error;
-    }
-    console.log('easy-api.js was copied to www directory');
-  });
-}
 
 function clean() {
   return new Promise(function (resolve, reject) {

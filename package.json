@@ -36,7 +36,6 @@
     "package": "gulp package",
     "test": "gulp package2test",
     "demo": "gulp package2demo",
-    "packagefordisplay": "gulp packageDisplay",
-    "update-liblouis": "gulp updateLiblouis"
+    "packagefordisplay": "gulp packageDisplay"
   }
 }
