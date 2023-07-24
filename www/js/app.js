@@ -190,7 +190,7 @@ function startSocket() {
                 } else if (tval[3] == "FILE") {
                   console.log(tval[4]);
                   paige_keyText = tval[4].replace(/A/g, "\n");
-                  paige_keyText = tval[4].replace(/B/g, ":");
+                  paige_keyText = paige_keyText.replace(/B/g, ":");
                   paige_keyText = paige_keyText.slice(0, -2);
                   onPaigeChange(paige_keyText, true);
                 }
