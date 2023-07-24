@@ -453,6 +453,10 @@ function Set_page_title(page_title) {
 function initUI() {
   console.log("Init UI");
   overrideBackButton();
+  // Prevent scrolling while we load
+  window.onscroll = function () {
+    window.scrollTo(0, 0);
+  };
   if (ESP3D_authentication) connectdlg(false);
   AddCmd(display_boot_progress);
   //initial check
@@ -495,6 +499,7 @@ function initUI_3() {
 function hideSplashScreen() {
   document.getElementById("loading-splash-screen").style.display = "none";
   document.getElementById("loading-splash-screen").ariaHidden = true;
+  window.onscroll = undefined;
 }
 
 function initUI_4() {
