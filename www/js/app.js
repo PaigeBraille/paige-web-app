@@ -523,7 +523,10 @@ function initUI_4() {
     hideSplashScreen();
     setupdone();
   } else {
-    showSetupWizardIfAP();
+    // showSetupWizardIfAP();
+    // DISABLE WIZARD FOR NOW
+    hideSplashScreen();
+    setupdlg();
   }
 }
 
