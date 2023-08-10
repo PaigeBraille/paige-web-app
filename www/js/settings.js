@@ -265,9 +265,9 @@ function getSettingsTableComponents(filter) {
   var form_idx = 0;
   for (var i = 0; i < setting_configList.length; i++) {
     var text = setting_configList[i].label;
-    if (text.toLowerCase().includes("ssid") || text.toLowerCase().includes("password") || text.toLowerCase().includes("hostname")) {
-      var newtext = text.replaceAll("Station SSID", "Wi-Fi Network").replaceAll("Station Password", "Wi-Fi Password").replaceAll("AP SSID", "Paige Network").replaceAll("AP Password", "Paige Password");
-      var newtext2 = newtext.replaceAll("Sta/SSID", "Wi-Fi Network").replaceAll("Sta/Password", "Wi-Fi Password").replaceAll("AP/SSID", "Paige Network").replaceAll("AP/Password", "Paige Password");
+    if (text.toLowerCase().includes("ssid") || text.toLowerCase().includes("password")) {
+      var newtext = text.replaceAll("Station SSID", "Wi-Fi Network").replaceAll("Station Password", "Wi-Fi Password").replaceAll("AP SSID", "Name").replaceAll("AP Password", "Password");
+      var newtext2 = newtext.replaceAll("Sta/SSID", "Wi-Fi Network").replaceAll("Sta/Password", "Wi-Fi Password").replaceAll("AP/SSID", "Name").replaceAll("AP/Password", "Password");
       if (
         setting_configList[i].F.trim().toLowerCase() == filter ||
         filter == "all" ||
@@ -493,6 +493,7 @@ function setting_revert_to_default(index, subindex) {
 }
 
 function settingsetvalue(index, subindex) {
+  // console.log("I:"+index+"   S:"+subindex)
   var sub = 0;
   if (typeof subindex != "undefined") sub = subindex;
   //remove possible spaces
@@ -533,6 +534,27 @@ function settingsetvalue(index, subindex) {
       "form-group has-feedback has-success";
     var url = "/command?plain=" + encodeURIComponent(cmd);
     SendGetHttp(url, setESPsettingsSuccess, setESPsettingsfailed);
+    if(index == 25){
+      index = 29;
+      //check validity of value
+      var isvalid = setting_check_value(value, index, subindex);
+      //if not valid show error
+      if (!isvalid) {
+        setsettingerror(index);
+        alertdlg(
+          translate_text_item("Out of range"),
+          translate_text_item("Value must be ") + setting_error_msg + " !"
+        );
+      } else {
+        //value is ok save it
+        var cmd = setting_configList[index].cmd + value;
+        setting_lastindex = index;
+        setting_lastsubindex = subindex;
+        setting_configList[index].defaultvalue = value;
+        var url = "/command?plain=" + encodeURIComponent(cmd);
+        SendGetHttp(url, setESPsettingsSuccess, setESPsettingsfailed);
+      }
+    }
   }
 }
 

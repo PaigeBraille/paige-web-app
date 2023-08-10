@@ -11,7 +11,7 @@ function updatedlg() {
     document.getElementById('fw-select').value = "";
     // if (target_firmware == "grbl-embedded") document.getElementById('fw_update_dlg_title').innerHTML = translate_text_item("ESP3D Update").replace("ESP3D", "GRBL_ESP32");
     // if (target_firmware == "marlin-embedded") document.getElementById('fw_update_dlg_title').innerHTML = translate_text_item("ESP3D Update").replace("ESP3D", "Marlin");
-    document.getElementById('fw_update_dlg_title').innerHTML = 'Paige Firmware Update'
+    document.getElementById('fw_update_dlg_title').innerHTML = 'Update Firmware'
     showModal();
 }
 
