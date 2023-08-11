@@ -802,6 +802,21 @@ footer li {
     flex-grow: 1;
 }
 
+button.download-button {
+    background-color: transparent;
+    border: none;
+    margin-left: 0;
+    margin-right:4;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.download-button:hover,
+.download-button:active {
+    background-color: transparent;
+    color: inherit;
+    box-shadow: none;
+}
 
 button.delete-button {
     background-color: transparent;
