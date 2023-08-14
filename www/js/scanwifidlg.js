@@ -47,7 +47,7 @@ function process_scanWifi_answer(response_text) {
                 content += aplist[i].SIGNAL;
                 content += "%</td>";
                 content += "<td>";
-                content += "<button class='btn btn-primary' aria-label='Join " + aplist[i].SSID + "' onclick='select_ap_ssid(\"" + aplist[i].SSID.replace("'", "\\'").replace("\"", "\\\"") + "\");'>";
+                content += "<button class='btn btn-primary' aria-label='" + aplist[i].SSID + "' onclick='select_ap_ssid(\"" + aplist[i].SSID.replace("'", "\\'").replace("\"", "\\\"") + "\");'>";
                 content += "Join";
                 content += "</button>";
                 content += "</td>";

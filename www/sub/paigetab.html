@@ -1,7 +1,7 @@
-<div id="paigetab" class="tabcontent" role="tabpanel" aria-labelledby="paige-tab" tabindex="-1">
-  <div class="grade-chooser" role="region" aria-labelledby="grade-title">
+<div id="paigetab" class="tabcontent" role="tabpanel" aria-labelledby="Home" tabindex="-1">
+  <div class="grade-chooser" role="region">
     <h2 id="grade-title">Choose grade</h2>
-    <div class="button-toolbar" aria-label="Grade selection">
+    <div class="button-toolbar">
       <button type="button" id="buttonGrade1" name="grade" value="1" class="active" aria-label="Grade 1">1</button>
       <button type="button" id="buttonGrade2" name="grade" value="2" aria-label="Grade 2">2</button>
     </div>
@@ -10,7 +10,7 @@
     <div class="paige-textarea">
       <label for="initialInputText" class="textarea-title" id="textarea-label-1">Braille</label>
       <textarea id="initialInputText" name="name" onpaste="return false;" ondrop="return false;" autocomplete="off"
-        oninput="onPaigeChange(this.value, true);" aria-describedby="braille-pagination"></textarea>
+        oninput="onPaigeChange(this.value, true);"></textarea>
       <div class="pagination-controls" id="braille-pagination" aria-label="Braille input pagination controls">
         <button onclick="goToPreviousPage()" aria-label="Go to previous page">←</button>
         <button onclick="goToNextPage()" aria-label="Go to next page">→</button>

@@ -105,9 +105,9 @@ function files_build_file_line(index) {
       target_firmware == "marlin" &&
       typeof entry.sdname !== "undefined"
     ) {
-      content += "<span class='filename-text'>" + entry.sdname + "</span>";
+      content += "<span class='filename-text' aria-hidden='true'>" + entry.sdname + "</span>";
     } else {
-      content += "<span class='filename-text'>" + entry.name + "</span>";
+      content += "<span class='filename-text' aria-hidden='true'>" + entry.name + "</span>";
     }
     content += "<div class='file-buttons' style='display:inline-flex;'>";
     if (files_showdeletebutton(index)) {
