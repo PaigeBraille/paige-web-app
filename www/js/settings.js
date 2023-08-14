@@ -216,7 +216,7 @@ function build_control_from_index(index, form_idx) {
 }
 
 function build_input(i, sub_element, form_idx) {
-  var content = "<td id='status_setting_" + i + "_" + sub_element + "' class='form-group has-feedback' style='margin: auto;'>";
+  var content = "<span id='status_setting_" + i + "_" + sub_element + "' class='form-group has-feedback' style='margin-right:0'>";
   content += "<div class='settings-input-group'>";
   content += "<input class='hide_it'></input>";
   content += "<span class='input-group-addon hide_it' ></span>";
@@ -227,19 +227,19 @@ function build_input(i, sub_element, form_idx) {
   } else {
     content += "<input id='setting_" + i + "_" + sub_element + "' type='text' class='form-control input-min'  value='" +
       setting_configList[i].defaultvalue +
-      "' onkeyup='setting_checkchange(" + i + "," + sub_element + ")' aria-labelledby='label_" + form_idx + "'>";
+      "' onkeyup='setting_checkchange(" + i + "," + sub_element + ")' aria-labelledby='label_" + form_idx + "' style='margin-left:10px'>";
   }
   content += "<span id='icon_setting_" + i + "_" + sub_element + "' class='form-control-feedback ico_feedback'></span>";
   content += "<span class='input-group-addon hide_it' ></span>";
   content += build_input_buttons(i, sub_element);
   content += "</div>";
-  content += "</td>";
+  content += "</span>";
   return content;
 }
 
 function build_input_buttons(i, sub_element) {
   var content = "<button id='btn_setting_" + i + "_" + sub_element + "' class='btn btn-default' onclick='settingsetvalue(" +
-  i + "," + sub_element + ")' aria-labelledby='btn_setting_" + i + "_" + sub_element + "'>";
+  i + "," + sub_element + ")'>";
   if (typeof extra_set_function != "undefined") {
     content += extra_set_function + "(" + i + ");";
   }
@@ -291,12 +291,12 @@ function build_HTML_setting_list(filter) {
   ).checked = true;
   var components = getSettingsTableComponents(filter);
   for (var i = 0; i < components.length; i++) {
-    content += "<tr>";
-    content += "<td style='vertical-align:middle' id='label_" + components[i].form_idx  + "'>";
+    content += "<li class='list-group-item list-group-hover file-item' >";
+    content += "<span style='vertical-align:middle' id='label_" + components[i].form_idx  + "'>";
     content += components[i].label;
-    content += "</td>";
+    content += "</span>";
     content += components[i].control;
-    content += "</tr>\n";
+    content += "</li>\n";
   }
   if (content.length > 0)
     document.getElementById("settings_list_data").innerHTML = content;

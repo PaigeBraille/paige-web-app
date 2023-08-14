@@ -499,7 +499,7 @@ function initUI_3() {
 function hideSplashScreen() {
   document.getElementById("loading-splash-screen").style.display = "none";
   document.getElementById("loading-splash-screen").ariaHidden = true;
-  window.onscroll = undefined;
+  // window.onscroll = undefined;
 }
 
 function initUI_4() {
