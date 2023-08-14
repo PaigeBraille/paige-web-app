@@ -526,7 +526,8 @@ function initUI_4() {
     // showSetupWizardIfAP();
     // DISABLE WIZARD FOR NOW
     hideSplashScreen();
-    setupdlg();
+    setupdone();
+    // setupdlg();
   }
 }
 
@@ -552,7 +553,7 @@ function isWiFiInAPMode(response) {
       var settingName = data[0].trim().toLowerCase();
       var settingValue = data[1].trim().toLowerCase();
       console.log(settingName + " = " + settingValue);
-      if ((settingName === 'current wifi mode' || settingName === 'active mode') && (settingValue.includes('access point') || settingValue.includes('ap'))) {
+      if ((settingName === 'current wifi mode' || settingName === 'active mode') && (settingValue.includes('access point'))) {
         return true;
       }
     }
