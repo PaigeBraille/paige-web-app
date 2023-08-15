@@ -525,8 +525,11 @@ function initUI_4() {
   } else {
     // showSetupWizardIfAP();
     // DISABLE WIZARD FOR NOW
-    hideSplashScreen();
-    setupdone();
+    var url = "/command?plain=" + encodeURIComponent("[ESP420]plain");;
+    SendGetHttp(url, function (response) {
+      hideSplashScreen();
+      setupdone();
+    }, function () { setupdone(); })
     // setupdlg();
   }
 }
