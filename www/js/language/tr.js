@@ -256,6 +256,7 @@ var turkishtrans = {
 "Show GRBL panel":"GRBL panelini g&ouml;ster",
 "Show commands panel":"Komut panelini g&ouml;ster",
 "Select files":"Dosyalar&inodot; se&ccedil;",
+"Upload files":"Dosyalar&inodot; yükle",
 "Select file":"Dosya se&ccedil;",
 "$n files":"$n dosyalar&inodot;",
 "No file chosen":"Dosya se&ccedil;ilmedi",

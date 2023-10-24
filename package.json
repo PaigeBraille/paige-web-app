@@ -1,11 +1,11 @@
 {
-  "name": "PaigeWebApp",
-  "description": "Paige Web App",
+  "name": "ESP3D-WebUI",
+  "description": "Web UI for ESP3D",
   "devDependencies": {
     "del": "latest",
     "deprecated": "latest",
     "fs": "latest",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-bytediff": "latest",
     "gulp-cdnizer": "latest",
     "gulp-clean-css": "latest",
@@ -14,28 +14,21 @@
     "gulp-gzip": "latest",
     "gulp-htmlmin": "latest",
     "gulp-if": "latest",
-    "gulp-inline-fonts": "^1.2.1",
     "gulp-jshint": "latest",
-    "gulp-ng-annotate": "^0.2.0",
-    "gulp-purgecss": "^5.0.0",
+    "gulp-ng-annotate": "latest",
     "gulp-remove-code": "latest",
     "gulp-replace": "latest",
-    "gulp-smoosher": "^0.0.7",
-    "gulp-uglify": "latest",
-    "gulp-zip": "^4.2.0",
+    "gulp-smoosher": "latest",
+    "gulp-uglify": "^3.0.2",
+    "gulp-zip": "latest",
     "jshint": "latest",
-    "merge-stream": "latest"
+    "merge-stream": "latest",
+    "uglify-js": "^3.14.2"
   },
-  "repository": "https://github.com/nrimsky/ESP3D-WEBUI",
+  "repository": "https://github.com/luc-github/ESP3D-WEBUI",
+  "author": "Luc LEBOSSE",
   "license": "(ISC OR GPL-3.0)",
   "dependencies": {
-    "global": "latest",
-    "liblouis": "^0.4.0"
-  },
-  "scripts": {
-    "package": "gulp package",
-    "test": "gulp package2test",
-    "demo": "gulp package2demo",
-    "packagefordisplay": "gulp packageDisplay"
+    "global": "latest"
   }
 }

@@ -43,7 +43,7 @@
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border: 2px solid var(--paige-blue);
+    border: 2px solid #337AB7;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     position: relative;
     margin: auto;
@@ -53,6 +53,21 @@
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
     animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #337AB7;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .modal-header {

@@ -256,6 +256,7 @@ var hungariantrans = {
 "Show GRBL panel":"Mutassa a GRBL panelt",
 "Show commands panel":"A parancsok panel megjelenítése",
 "Select files":"Válasszon fájlokat",
+"Upload files":"Feltölteni fájlokat",
 "Select file":"Válasszon fájlt",
 "$n files":"$n fájlok",
 "No file chosen":"Nem választott fáltt",

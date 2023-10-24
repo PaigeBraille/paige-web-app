@@ -73,16 +73,7 @@
     left: 0em
 }
 
-@media (min-width: 768px) {
-    .dropdown-content {
-        top: 3em;
-        right: 1em;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .dropdown-content {
-        top: 3em;
-        left: 1.2em;
-    }
+.dropdown-content {
+    top: 3em;
+    right: 1em;
 }

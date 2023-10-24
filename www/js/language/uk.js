@@ -252,6 +252,7 @@ var ukrtrans = {
 "Show GRBL panel": "Показати панель GRBL",
 "Show commands panel": "Показати панель команд",
 "Select files": "Вибір файлів",
+"Upload files": "завантажити файли",
 "Select file": "Вибрати файл",
 "$n files": "$n файлів",
 "No file chosen": "Файл не вибрано",

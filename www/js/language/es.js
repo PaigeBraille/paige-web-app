@@ -252,6 +252,7 @@ var spanishtrans = {
 "Show GRBL panel":"Mostrar el panel GRBL",
 "Show commands panel":"Mostrar el panel de comandos",
 "Select files":"Selecciona archivos",
+"Upload files":"Subir archivos",
 "Select file":"Seleccione archivo",
 "$n files":"$n archivos",
 "No file chosen":"Ning&uacute;n archivo elegido",
