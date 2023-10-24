@@ -3,7 +3,7 @@ var http_cmd_list = [];
 var processing_cmd = false;
 var xmlhttpupload;
 
-var max_cmd = 20;
+var max_cmd = 200;
 
 function clear_cmd_list() {
     http_cmd_list = [];
@@ -63,12 +63,12 @@ function process_cmd() {
 
 function AddCmd(cmd_fn, id) {
     if (http_cmd_list.length > max_cmd) {
-        errorfn(999, translate_text_item("Server not responding"));
+        //console.log("adding rejected");	
         return;
     }
     var cmd_id = 0;
     if (typeof id != 'undefined') cmd_id = id;
-    //console.log("adding command");
+    //onsole.log("adding command");
     var cmd = {
         cmd: cmd_fn,
         type: "CMD",
@@ -81,7 +81,8 @@ function AddCmd(cmd_fn, id) {
 
 function SendGetHttp(url, result_fn, error_fn, id, max_id) {
     if ((http_cmd_list.length > max_cmd) && (max_cmd != -1)) {
-        error_fn(999, translate_text_item("Server not responding"));
+        console.log("adding rejected");
+        error_fn();
         return;
     }
     var cmd_id = 0;
@@ -100,7 +101,7 @@ function SendGetHttp(url, result_fn, error_fn, id, max_id) {
                 //console.log("found " + http_cmd_list[p].id + " and " + cmd_id);	
             }
             if (cmd_max_id <= 0) {
-                console.log("Limit reached for " + id);
+                //console.log("Limit reched for " + id);	
                 return;
             }
         }
@@ -120,6 +121,9 @@ function SendGetHttp(url, result_fn, error_fn, id, max_id) {
 }
 
 function ProcessGetHttp(url, resultfn, errorfn) {
+    if (IS_UI_TEST || IS_UI_DEMO) {
+        return;
+    }
     if (http_communication_locked) {
         errorfn(503, translate_text_item("Communication locked!"));
         console.log("locked");
@@ -137,9 +141,7 @@ function ProcessGetHttp(url, resultfn, errorfn) {
             }
         }
     }
-
-    url += (url.indexOf("?") == -1) ? "?" : "&";
-    url += "PAGEID=" + page_id;
+    if (url.indexOf("?") != -1) url += "&PAGEID=" + page_id;
     //console.log("GET:" + url);
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
@@ -147,7 +149,8 @@ function ProcessGetHttp(url, resultfn, errorfn) {
 
 function SendPostHttp(url, postdata, result_fn, error_fn, id, max_id) {
     if ((http_cmd_list.length > max_cmd) && (max_cmd != -1)) {
-        error_fn(999, translate_text_item("Server not responding"));
+        //console.log("adding rejected");	
+        error_fn();
         return;
     }
     var cmd_id = 0;
@@ -192,8 +195,6 @@ function ProcessPostHttp(url, postdata, resultfn, errorfn) {
             }
         }
     }
-    url += (url.indexOf("?") == -1) ? "?" : "&";
-    url += "PAGEID=" + page_id;
     //console.log(url);
     xmlhttp.open("POST", url, true);
     xmlhttp.send(postdata);
@@ -201,7 +202,8 @@ function ProcessPostHttp(url, postdata, resultfn, errorfn) {
 
 function SendFileHttp(url, postdata, progress_fn, result_fn, error_fn) {
     if ((http_cmd_list.length > max_cmd) && (max_cmd != -1)) {
-        error_fn(999, translate_text_item("Server not responding"));
+        //console.log("adding rejected");	
+        error_fn();
         return;
     }
     if (http_cmd_list.length != 0) process = false;
@@ -243,8 +245,6 @@ function ProcessFileHttp(url, postdata, progressfn, resultfn, errorfn) {
             }
         }
     }
-    url += (url.indexOf("?") == -1) ? "?" : "&";
-    url += "PAGEID=" + page_id;
     //console.log(url);
     xmlhttpupload.open("POST", url, true);
     if (typeof progressfn != 'undefined' && progressfn != null) xmlhttpupload.upload.addEventListener("progress", progressfn, false);

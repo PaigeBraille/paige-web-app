@@ -6,8 +6,8 @@ function inputdlg(titledlg, textdlg, closefunc, preset) {
     var body = modal.element.getElementsByClassName("modal-text")[0];
     title.innerHTML = titledlg;
     body.innerHTML = textdlg;
-    if (typeof preset !== 'undefined') id('inputldg_text').value = preset;
-    else id('inputldg_text').value = "";
+    if (typeof preset !== 'undefined') document.getElementById('inputldg_text').value = preset;
+    else document.getElementById('inputldg_text').value = "";
     showModal();
 }
 
@@ -15,7 +15,7 @@ function inputdlg(titledlg, textdlg, closefunc, preset) {
 function closeInputModal(response) {
     var answer = "";
     if (response == "ok") {
-        var input = id('inputldg_text').value;
+        var input = document.getElementById('inputldg_text').value;
         answer = input.trim();
     }
     closeModal(answer);

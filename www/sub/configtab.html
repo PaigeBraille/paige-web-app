@@ -15,6 +15,30 @@
         <hr>
         <div class="loader hide_it" id="config_loader"></div>
         <div class="hide_it" id="config_list_content">
+            <div id="config_smoothie_nav" class="hide_it">
+                <center>
+                    <table>
+                        <tr>
+                            <td style="padding:10px">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" id="config_main_file" name="config_filter" value="config" onclick="config_display_override(false);">
+                                        <span id="config_main_file_name">config</span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td style="padding:10px">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" id="config_override_file" name="config_filter" value="override" onclick="config_display_override(true);">
+                                        <span id="config_override_file_name">smoothieware</span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
             <div id="config_main_content">
                 <table class="table table-bordered table-striped table-hover table-responsive" style="width:auto; max-width: 90% !important; word-wrap: break-word;">
                     <thead>

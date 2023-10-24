@@ -3,8 +3,8 @@ function restartdlg() {
     console.log("show restart");
     var modal = setactiveModal('restartdlg.html');
     if (modal == null) return;
-    displayBlock('prgrestart');
-    id('restartmsg').innerHTML = translate_text_item("Restarting, please wait....");
+    document.getElementById('prgrestart').style.display = 'block';
+    document.getElementById('restartmsg').innerHTML = translate_text_item("Restarting, please wait....");
     showModal();
     SendPrinterCommand("[ESP444]RESTART", false, restart_esp_success, restart_esp_failed);
 }
@@ -12,16 +12,16 @@ function restartdlg() {
 function restart_esp_success(response) {
     var i = 0;
     var interval;
-    var x = id("prgrestart");
+    var x = document.getElementById("prgrestart");
     http_communication_locked = true;
-    x.max = 10;
+    x.max = 4;
     interval = setInterval(function() {
         last_ping = Date.now();
         i = i + 1;
-        var x = id("prgrestart");
+        var x = document.getElementById("prgrestart");
         x.value = i;
-        id('restartmsg').innerHTML = translate_text_item("Restarting, please wait....") + (x.max + 1 - i) + translate_text_item(" seconds");
-        if (i > x.max) {
+        document.getElementById('restartmsg').innerHTML = translate_text_item("Restarting, please wait....") + (5 - i) + translate_text_item(" seconds");
+        if (i > 4) {
             clearInterval(interval);
             location.reload();
         }
@@ -30,8 +30,8 @@ function restart_esp_success(response) {
 }
 
 function restart_esp_failed(errorcode, response) {
-    displayNone('prgrestart');
-    id('restartmsg').innerHTML = translate_text_item("Upload failed : ") + errorcode + " :" + response;
+    document.getElementById('prgrestart').style.display = 'none';
+    document.getElementById('restartmsg').innerHTML = translate_text_item("Upload failed : ") + errorcode + " :" + response;
     console.log("Error " + errorcode + " : " + response);
     closeModal('Cancel')
 }

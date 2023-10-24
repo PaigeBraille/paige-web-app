@@ -1,8 +1,4 @@
-var grbl_processfn = null;
-var grbl_errorfn = null;
-
-function noop() {}
-function SendPrinterCommand(cmd, echo_on, processfn, errorfn, id, max_id, extra_arg) {
+function SendPrinterCommand(cmd, echo_on, processfn, errorfn, id, max_id) {
     var url = "/command?commandText=";
     var push_cmd = true;
     if (typeof echo_on !== 'undefined') {
@@ -18,17 +14,8 @@ function SendPrinterCommand(cmd, echo_on, processfn, errorfn, id, max_id, extra_
     //endRemoveIf(production)
     if (typeof processfn === 'undefined' || processfn == null) processfn = SendPrinterCommandSuccess;
     if (typeof errorfn === 'undefined' || errorfn == null) errorfn = SendPrinterCommandFailed;
-    if (!cmd.startsWith("[ESP")) {
-        grbl_processfn = processfn;
-        grbl_errorfn = errorfn;
-        processfn = noop;
-        errorfn = noop;
-    }
     cmd = encodeURI(cmd);
     cmd = cmd.replace("#", "%23");
-    if (extra_arg) {
-        cmd += "&" + extra_arg;
-    }
     SendGetHttp(url + cmd, processfn, errorfn, id, max_id);
     //console.log(cmd);
 }
@@ -54,7 +41,11 @@ function SendPrinterSilentCommandSuccess(response) {
     //console.log(response);
 }
 
+
 function SendPrinterCommandSuccess(response) {
+    if ((target_firmware == "grbl") || (target_firmware == "grbl-embedded")) return;
+    if (response[response.length - 1] != '\n') Monitor_output_Update(response + "\n");
+    else Monitor_output_Update(response);
 }
 
 function SendPrinterCommandFailed(error_code, response) {

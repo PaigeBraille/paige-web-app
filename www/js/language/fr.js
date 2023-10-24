@@ -251,7 +251,6 @@ var frenchtrans = {
 "Show GRBL panel":"Afficher le panneau GRBL",
 "Show commands panel":"Afficher le panneau des commandes",
 "Select files":"S&eacute;lect. fichiers",
-"Upload files":"T&eacute;l&eacute;charger. fichiers",
 "Select file":"S&eacute;lect. fichier",
 "$n files":"$n fichiers",
 "No file chosen":"Aucun fichier choisi",

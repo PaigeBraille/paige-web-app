@@ -4,11 +4,18 @@ function connectdlg(getFw) {
     var get_FW = true;
     if (modal == null) return;
     showModal();
+    //removeIf(production)
+    connectsuccess("FW version:0.9.9X # FW target:Smoothieware # FW HW:Direct SD # primary : /sd/ # secondary : /ext/ # authentication: no");
+    return;
+    //endRemoveIf(production)
     if (typeof getFw != 'undefined') get_FW = getFw;
     if (get_FW) retryconnect();
 }
 
 function getFWdata(response) {
+    if (IS_UI_TEST || IS_UI_DEMO) {
+        return true;
+    }
     var tlist = response.split("#");
     //FW version:0.9.200 # FW target:smoothieware # FW HW:Direct SD # primary sd:/ext/ # secondary sd:/sd/ # authentication: yes
     if (tlist.length < 3) {
@@ -39,15 +46,21 @@ function getFWdata(response) {
     if (sublist.length != 2) {
         return false;
     }
-    primary_sd = sublist[1].toLowerCase().trim();
-
+    if (!direct_sd && (target_firmware == "smoothieware")) {
+        primary_sd = "sd/";
+    } else {
+        primary_sd = sublist[1].toLowerCase().trim();
+    }
     //secondary sd
     sublist = tlist[4].split(":");
     if (sublist.length != 2) {
         return false;
     }
-    secondary_sd = sublist[1].toLowerCase().trim();
-
+    if (!direct_sd && (target_firmware == "smoothieware")) {
+        secondary_sd = "ext/";
+    } else {
+        secondary_sd = sublist[1].toLowerCase().trim();
+    }
     //authentication
     sublist = tlist[5].split(":");
     if (sublist.length != 2) {
@@ -75,11 +88,11 @@ function getFWdata(response) {
         if (sublist[0].trim() == "hostname") esp_hostname = sublist[1].trim();
     }
     
-    if (tlist.length > 8) {
-        sublist = tlist[8].split(":");
-        if (sublist[0].trim() == "axis") {
-            grblaxis = parseInt(sublist[1].trim());
-        }
+    if ((target_firmware == "grbl-embedded") && (tlist.length > 8)) {
+         sublist = tlist[8].split(":");
+         if (sublist[0].trim() == "axis") {
+             grblaxis = parseInt(sublist[1].trim());
+            }
     }
     
     if (async_webcommunication) {
@@ -100,10 +113,8 @@ function connectsuccess(response) {
         console.log("Fw identification:" + response);
         if (ESP3D_authentication) {
             closeModal("Connection successful");
-            displayInline('menu_authentication');
             logindlg(initUI, true);
         } else {
-            displayNone('menu_authentication');
             initUI();
         }
     } else {
@@ -113,16 +124,16 @@ function connectsuccess(response) {
 }
 
 function connectfailed(errorcode, response) {
-    displayBlock('connectbtn');
-    displayBlock('failed_connect_msg');
-    displayNone('connecting_msg');
+    document.getElementById('connectbtn').style.display = 'block';
+    document.getElementById('failed_connect_msg').style.display = 'block';
+    document.getElementById('connecting_msg').style.display = 'none';
     console.log("Fw identification error " + errorcode + " : " + response);
 }
 
 function retryconnect() {
-    displayNone('connectbtn');
-    displayNone('failed_connect_msg');
-    displayBlock('connecting_msg');
+    document.getElementById('connectbtn').style.display = 'none';
+    document.getElementById('failed_connect_msg').style.display = 'none';
+    document.getElementById('connecting_msg').style.display = 'block';
     var url = "/command?plain=" + encodeURIComponent("[ESP800]");;
     SendGetHttp(url, connectsuccess, connectfailed)
 }

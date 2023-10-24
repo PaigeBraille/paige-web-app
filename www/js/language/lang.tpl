@@ -254,7 +254,6 @@ var langtrans = {
 "Show GRBL panel":"Show GRBL panel",
 "Show commands panel":"Show commands panel",
 "Select files":"Select files",
-"Upload files":"Upload files",
 "Select file":"Select file",
 "$n files":"$n files",
 "No file chosen":"No file chosen",

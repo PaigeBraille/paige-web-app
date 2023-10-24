@@ -4,7 +4,7 @@ function clear_drop_menu(event) {
     if (item !== null && typeof item.id !== 'undefined') {
         ignore_id = item.id;
     }
-    var list = classes("dropmenu-content");
+    var list = document.getElementsByClassName("dropmenu-content");
     for (var index = 0; index < list.length; index++) {
         var item2 = get_parent_by_class(list[index], "dropdownselect");
         if (item2 !== null && typeof item2.id !== 'undefined' && item2.id != ignore_id && list[index].classList.contains('show')) {

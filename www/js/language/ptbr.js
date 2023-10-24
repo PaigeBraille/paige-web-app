@@ -261,7 +261,6 @@ var ptbrtrans = {
 "Show GRBL panel":"Exibe painel GRBL",
 "Show commands panel":"Exibe painel de comandos",
 "Select files":"Seleciona arquivos",
-"Upload files":"Fazer upload de arquivos",
 "Select file":"Seleciona arquivo",
 "$n files":"$n arquivos",
 "No file chosen":"Nenhum arquivo selecionado",

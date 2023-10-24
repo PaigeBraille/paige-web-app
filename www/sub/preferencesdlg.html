@@ -1,9 +1,12 @@
 <!-- preference Modal -->
-<div id="preferencesdlg.html" class="modal" onclick="clear_drop_menu(event)">
+<div id="preferencesdlg.html" class="modal" onclick="clear_drop_menu(event)" role="dialog" aria-labelledby="modal-title" tabindex="-1" aria-modal="true">
     <!-- preferences content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close" onclick="closePreferencesDialog()"><b>&times;</b></span>
+            <button type="button" class="close" onclick="closePreferencesDialog()" aria-label="Close" role="button" tabindex="0">
+                <span aria-hidden="true">✖</span>
+                <span class="visuallyhidden">Close the dialog</span>
+            </button>
             <h3>
                 <div class="modal-title" translate>Preferences</div>
             </h3>
@@ -77,7 +80,6 @@
                     </div>
                 </div>
                 <div id="control_preferences" class="panel-body">
-
                     <div id="preferences_pos_Interval_check_group">
                         <table>
                             <tr>
@@ -211,6 +213,148 @@
                     </div>
                 </div>
             </div>
+            <div id="temp_pref_panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="show_temperatures_panel" onclick="prefs_toggledisplay('show_temperatures_panel')" />
+                            <span translate>Show temperatures panel</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="temperatures_preferences" class="panel-body">
+                    <div id="preferences_tempInterval_check_group">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span><span translate>Temperature Refresh Time</span>:&nbsp;</span>
+                                </td>
+                                <td>
+                                    <div class="input-group has-control">
+                                        <input class="form-control w4" type="number" min="1" max="99" id="preferences_tempInterval_check" onchange="Checkvalues('preferences_tempInterval_check')" />
+                                        <span id="preferences_tempInterval_check_icon" class="form-control-feedback ico_feedback"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="hide_it"></input>
+                                        <span class="input-group-addon form_control" translate>sec</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="checkbox" id="redundant_controls_option" class="hide_it">
+                        <label>
+                            <input type="checkbox" id="enable_redundant_controls" />
+                            <span translate>Enable heater T0 redundant temperatures</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" id="probe_controls_option" class="hide_it">
+                        <label>
+                            <input type="checkbox" id="enable_probe_controls" />
+                            <span translate>Enable probe temperatures</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" id="bed_controls_option">
+                        <label>
+                            <input type="checkbox" id="enable_bed_controls" />
+                            <span translate>Enable bed controls</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" id="chamber_controls_option" class="hide_it">
+                        <label>
+                            <input type="checkbox" id="enable_chamber_controls" />
+                            <span translate>Enable chamber controls</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="ext_pref_panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="show_extruder_panel" onclick="prefs_toggledisplay('show_extruder_panel')" />
+                            <span translate>Show extruder panel</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-body" id="extruder_preferences">
+                    <div id="preferences_filament_length_group">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span><span translate>Length</span>:&nbsp;</span>
+                                </td>
+                                <td>
+                                    <div class="input-group has-control">
+                                        <input class="form-control w6" type="number" min="1" max="9999" id="preferences_filament_length" onchange="Checkvalues('preferences_filament_length')" />
+                                        <span id="preferences_filament_length_icon" class="form-control-feedback ico_feedback"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="hide_it"></input>
+                                        <span class="input-group-addon form_control" translate>mm</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div id="preferences_e_velocity_group">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span><span translate>E feedrate</span>:&nbsp;</span>
+                                </td>
+                                <td>
+                                    <div class="input-group has-control">
+                                        <input class="form-control w6" type="number" min="1" max="9999" id="preferences_e_velocity" onchange="Checkvalues('preferences_e_velocity')" />
+                                        <span id="preferences_e_velocity_icon" class="form-control-feedback ico_feedback"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="hide_it"></input>
+                                        <span class="input-group-addon form_control" translate>mm/min</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <br>
+
+                    <div id="preferences_control_nb_extruders_group">
+                        <table>
+                            <tr>
+                                <td>
+                                    <span><span translate>Number of extruders</span>:&nbsp;</span>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="preferences_control_nb_extruders">
+                                        <option value="1">1</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="enable_mixed_E_controls" onclick="build_extruder_list()" />
+                            <span translate>Mixed extruders</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="enable_fan_controls" />
+                            <span translate>Enable fan controls</span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
             <div class="panel panel-default" id="grbl_pref_panel">
                 <div class="panel-heading">
                     <div class="checkbox">
@@ -221,28 +365,6 @@
                     </div>
                 </div>
                 <div id="grbl_preferences" class="panel-body">
-                    <div id="preferences_autoReport_Interval_group">
-                        <table>
-                            <tr>
-                                <td>
-                                    <span><span translate>AutoReport Interval</span>:&nbsp;</span>
-                                </td>
-                                <td>
-                                    <div class="input-group has-control">
-                                        <input class="form-control w4" type="number" min="50" max="30000" id="preferences_autoReport_Interval" onchange="Checkvalues('preferences_autoReport_Interval')" />
-                                        <span id="preferences_autoReport_Interval_icon" class="form-control-feedback ico_feedback"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input class="hide_it"></input>
-                                        <span class="input-group-addon form_control" translate>ms</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <br>
                     <div id="preferences_status_Interval_check_group">
                         <table>
                             <tr>

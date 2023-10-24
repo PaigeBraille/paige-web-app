@@ -253,7 +253,6 @@ var polishtrans = {
 "Show GRBL panel":"Poka&zacute; panel GRBL (parser g-code)",
 "Show commands panel":"Poka&zacute; panel komend",
 "Select files":"Wybierz pliki",
-"Upload files":"Przesyłać pliki",
 "Select file":"Wybierz plik",
 "$n files":"$n plik&oacute;w",
 "No file chosen":"Nie wybrano pliku",

@@ -5,7 +5,7 @@ function showmacrodlg(closefn) {
     var modal = setactiveModal('macrodlg.html', closefn);
     if (modal == null) return;
     build_dlg_macrolist_ui();
-    displayNone('macrodlg_upload_msg');
+    document.getElementById('macrodlg_upload_msg').style.display = 'none';
     showModal();
 }
 
@@ -114,19 +114,19 @@ function build_dlg_macrolist_line(index) {
         content += "<td style='vertical-align:middle'>" + build_filename_selection(index) + "</td>";
     }
     content += "</td>";
-    id('macro_line_' + index).innerHTML = content;
+    document.getElementById('macro_line_' + index).innerHTML = content;
 }
 
 function macro_filename_OnKeyUp(event, index) {
-    var item = id("macro_filename_line_" + index);
-    var group = id("macro_filename_input_line_" + index);
+    var item = document.getElementById("macro_filename_line_" + index);
+    var group = document.getElementById("macro_filename_input_line_" + index);
     var value = item.value.trim();
     if (value.length > 0) {
         if (group.classList.contains('has-feedback')) group.classList.remove('has-feedback');
         if (group.classList.contains('has-error')) group.classList.remove('has-error');
-        displayNone("icon_macro_status_line_" + index);
+        document.getElementById("icon_macro_status_line_" + index).style.display = 'none';
     } else {
-        displayBlock("icon_macro_status_line_" + index);
+        document.getElementById("icon_macro_status_line_" + index).style.display = 'block';
         if (!group.classList.contains('has-error')) group.classList.add('has-error');
         if (!group.classList.contains('has-feedback')) group.classList.add('has-feedback');
     }
@@ -170,7 +170,7 @@ function build_dlg_macrolist_ui() {
         content += "</tr>";
     }
 
-    id('dlg_macro_list').innerHTML = content;
+    document.getElementById('dlg_macro_list').innerHTML = content;
     for (var i = 0; i < 9; i++) build_dlg_macrolist_line(i);
 }
 
@@ -266,9 +266,9 @@ function SaveNewMacroList() {
 function macrodlgUploadProgressDisplay(oEvent) {
     if (oEvent.lengthComputable) {
         var percentComplete = (oEvent.loaded / oEvent.total) * 100;
-        id('macrodlg_prg').value = percentComplete;
-        id('macrodlg_upload_percent').innerHTML = percentComplete.toFixed(0);
-        displayBlock('macrodlg_upload_msg');
+        document.getElementById('macrodlg_prg').value = percentComplete;
+        document.getElementById('macrodlg_upload_percent').innerHTML = percentComplete.toFixed(0);
+        document.getElementById('macrodlg_upload_msg').style.display = 'block';
     } else {
         // Impossible because size is unknown
     }
@@ -299,11 +299,11 @@ function macroUploadsuccess(response) {
         }
         control_macrolist.push(entry);
     }
-    displayNone('macrodlg_upload_msg');
+    document.getElementById('macrodlg_upload_msg').style.display = 'none';
     closeModal('ok');
 }
 
 function macroUploadfailed(errorcode, response) {
     alertdlg(translate_text_item("Error"), translate_text_item("Save macro list failed!"));
-    displayNone('macrodlg_upload_msg');
+    document.getElementById('macrodlg_upload_msg').style.display = 'none';
 }

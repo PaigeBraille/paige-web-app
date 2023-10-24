@@ -1,0 +1,27 @@
+name: Publish index.html.gz
+
+on:
+  push:
+    branches: [ main ]
+jobs:
+  archive-build-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run package
+      - name: Create a temporary artifact downloads folder
+        run: mkdir downloads
+      - name: Add artifacts to publish to the temp folder
+        run: |
+          cd downloads
+          cp ../index.html.gz ./index.html.gz
+      - name: Upload Artifact to GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: Web-App
+          path: downloads

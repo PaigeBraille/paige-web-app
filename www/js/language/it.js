@@ -252,7 +252,6 @@ var italiantrans = {
 "Show GRBL panel":"Mostra il panello GRBL",
 "Show commands panel":"Mostra il pannello dei comandi",
 "Select files":"Seleziona i file",
-"Upload files":"Caricamento i file",
 "Select file":"Seleziona file",
 "$n files":"$n file",
 "No file chosen":"Nessun file selezionato",

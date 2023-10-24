@@ -4,9 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>ESP3D WebUI</title>
+    <title>Paige: Loading</title>
     <script>
       var target_firmware = "";
     </script>
@@ -31,33 +29,34 @@
     <link href="css/tabs.css" rel="stylesheet" />
     <link href="css/modaldlg.css" rel="stylesheet" />
     <link href="css/wizard.css" rel="stylesheet" />
-    <link href="css/tablet.css" rel="stylesheet" />
-    <link href="css/tooltip.css" rel="stylesheet" />
     <!--endRemoveIf(cleanheader)-->
 
     <!-- smoosh -->
     <link href="css/style.css" rel="stylesheet" />
     <!-- endsmoosh -->
   </head>
+
   <body>
     <div id="loadingmsg">
       <center>
         <h3>Loading....</h3>
       </center>
     </div>
-    <div id="main_ui" class="container-fluid hide_it">
-      <!-- topnavbar -->
-      <file-include w3-include-html="'sub/navbar.html'"></file-include>
-      <!-- /topnavbar -->
+    <div id="loading-splash-screen"><h1>Loading Paige...</h1></div>
+    <div id="main_ui" tabindex="-1">
+      <!-- tabbar -->
+      <file-include w3-include-html="'sub/tab_bar.html'"></file-include>
+      <!-- / tabbar -->
       <!-- content -->
       <div id="mainuitabscontent">
         <file-include w3-include-html="'sub/dashtab.html'"></file-include>
         <file-include w3-include-html="'sub/cameratab.html'"></file-include>
         <file-include w3-include-html="'sub/configtab.html'"></file-include>
         <file-include w3-include-html="'sub/settingstab.html'"></file-include>
-        <file-include w3-include-html="'sub/tablettab.html'"></file-include>
+        <file-include w3-include-html="'sub/paigetab.html'"></file-include>
       </div>
       <!-- / content -->
+      <file-include w3-include-html="'sub/footer.html'"></file-include>
     </div>
     <!-- template -->
     <file-include w3-include-html="'sub/connectdlg.html'"></file-include>
@@ -78,8 +77,9 @@
     <file-include w3-include-html="'sub/UIdisableddlg.html'"></file-include>
     <!-- / template -->
     <!--removeIf(cleanheader)-->
-    <script src="js/util.js"></script>
-    <script src="js/wizard.js"></script>
+    <script src="js/build-tables-embeded-root-utf16.js"></script>
+    <script src="js/asciiToUnicode.js"></script>
+    <script src="js/easy-api.js"></script>
     <script src="js/http.js"></script>
     <script src="js/icons.js"></script>
     <script src="js/camera.js"></script>
@@ -97,6 +97,7 @@
     <script src="js/restartdlg.js"></script>
     <script src="js/modaldlg.js"></script>
     <script src="js/SPIFFSdlg.js"></script>
+    <script src="js/liblouis-utils.js"></script>
     <script src="js/statusdlg.js"></script>
     <script src="js/updatedlg.js"></script>
     <script src="js/setupdlg.js"></script>
@@ -104,15 +105,16 @@
     <script src="js/preferencesdlg.js"></script>
     <script src="js/translate.js"></script>
     <script src="js/commands.js"></script>
+    <script src="js/extruders.js"></script>
     <script src="js/printercmd.js"></script>
+    <script src="js/temperatures.js"></script>
     <script src="js/controls.js"></script>
     <script src="js/grbl.js"></script>
+    <script src="js/smoothie.js"></script>
     <script src="js/dropmenu.js"></script>
     <script src="js/localstorage.js"></script>
     <script src="js/UIdisableddlg.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/numpad.js"></script>
-    <script src="js/tablet.js"></script>
     <!--endRemoveIf(cleanheader)-->
     <!-- smoosh -->
     <script src="js/app.js"></script>

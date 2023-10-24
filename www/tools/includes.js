@@ -1,9 +1,9 @@
 /* W3Data ver 1.31 by W3Schools.com */
 var w3DataObject = {};
-function w3DisplayData(elementId, data) {
+function w3DisplayData(id, data) {
     var htmlObj, htmlTemplate, html, arr = [], a, l, rowClone, x, j, i, ii, cc, repeat, repeatObj, repeatX = "";
-    htmlObj = id(elementId);
-    htmlTemplate = w3InitTemplate(elementId, htmlObj);
+    htmlObj = document.getElementById(id);
+    htmlTemplate = w3InitTemplate(id, htmlObj);
     html = htmlTemplate.cloneNode(true);
     arr = w3GetElementsByAttribute(html, "w3-repeat");
     l = arr.length;
@@ -36,11 +36,11 @@ function w3DisplayData(elementId, data) {
     }
     html = w3NeedleInHaystack(html, "element");
     htmlObj.parentNode.replaceChild(html, htmlObj);
-    function w3InitTemplate(elementId, obj) {
+    function w3InitTemplate(id, obj) {
         var template;
         template = obj.cloneNode(true);
-        if (w3DataObject.hasOwnProperty(elementId)) {return w3DataObject[elementId];}
-        w3DataObject[elementId] = template;
+        if (w3DataObject.hasOwnProperty(id)) {return w3DataObject[id];}
+        w3DataObject[id] = template;
         return template;
     }
     function w3GetElementsByAttribute(x, att) {
