@@ -6,6 +6,10 @@ var current_setting_filter = "network";
 var setup_is_done = false;
 var do_not_build_settings = false;
 
+var gradeButton1 = document.getElementById('buttonGrade1');
+var gradeButton2 = document.getElementById('buttonGrade2');
+var gradeValue = gradeButton2.value;
+
 function refreshSettings(hide_setting_list) {
   if (http_communication_locked) {
     document.getElementById("config_status").innerHTML = translate_text_item(
@@ -278,7 +282,7 @@ function getSettingsTableComponents(filter) {
       }
     }
   }
-  return components;
+  return components
 }
 
 function build_HTML_setting_list(filter) {
@@ -290,6 +294,7 @@ function build_HTML_setting_list(filter) {
     current_setting_filter + "_setting_filter"
   ).checked = true;
   var components = getSettingsTableComponents(filter);
+  content += "<li class='list-group-item list-group-hover file-item'><span style='vertical-align:middle' id='label_braille'>UEB Braille Grade</span><span id='status_setting_braille' class='form-group has-feedback' style='margin-right:0'><div class='settings-input-group'><input class='hide_it'><span class='input-group-addon hide_it'></span><label><input type='radio' name='braille_grade' value='grade1' onclick='setActiveGradeButton(gradeButton1)'> Grade 1</label><label style='margin-left: 10px;'><input type='radio' name='braille_grade' value='grade2' checked onclick='setActiveGradeButton(gradeButton2)'> Grade 2</label></div></span></li><div style='margin-bottom: 20px;'></div>";
   for (var i = 0; i < components.length; i++) {
     content += "<li class='list-group-item list-group-hover file-item' >";
     content += "<span style='vertical-align:middle' id='label_" + components[i].form_idx  + "'>";

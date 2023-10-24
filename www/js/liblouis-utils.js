@@ -12,7 +12,7 @@ var currentPage = 0;
 
 var gradeButton1 = document.getElementById('buttonGrade1');
 var gradeButton2 = document.getElementById('buttonGrade2');
-var gradeValue = gradeButton1.value;
+var gradeValue = gradeButton2.value;
 
 function setActiveGradeButton(button) {
   gradeButton1.classList.remove("active");

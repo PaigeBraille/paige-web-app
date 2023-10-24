@@ -533,9 +533,9 @@ div.paige-buttons {
 
 .grade-chooser {
     margin: 0px;
-    border-style: solid none;
+    /* border-style: solid none;
     border-width: 1px;
-    border-color: var(--color-gray);
+    border-color: var(--color-gray); */
     padding: 0;
     margin-bottom: var(--space-md);
     padding: var(--padding-sm);
@@ -562,7 +562,7 @@ div.paige-buttons {
 }
 
 .button-toolbar button {
-    display: inline-block;
+    display: none;
     background-color: white;
     font-size: var(--font-size-button);
     border: 1px solid var(--color-gray);
