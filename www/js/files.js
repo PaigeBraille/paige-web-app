@@ -1,5 +1,6 @@
 var initialInputText = document.querySelector("#initialInputText");
 var processedText = document.querySelector("#processedText");
+var translatedText = document.getElementById("translated")
 
 var files_currentPath = "/";
 var files_filter_sd_list = false;
@@ -973,6 +974,33 @@ function files_click_file(index) {
     } else {
       url = "/SD/" + files_currentPath + entry.sdname;
     }
+    var filePath = "SD" + files_currentPath + files_file_list[index].name;
+    if (files_currentPath[0] !== "/") {
+      filePath = "SD/" + files_currentPath + files_file_list[index].name;
+    }
+    try {
+      var rawFile = new XMLHttpRequest();
+      rawFile.open("GET", filePath, false);
+      rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4 && rawFile.status === 200) {
+          var allText = rawFile.responseText;
+  
+          openPaigeTab();
+          if (files_file_list[index].name.includes(".brf")) {
+            // Braille file -> put directly into input textarea
+            onPaigeChange(allText, false);
+
+          }
+        } else {
+          console.error("Error loading file from", filePath);
+          console.error("Ready state", rawFile.readyState);
+          console.error("Status", rawFile.status);
+        }
+      };
+      rawFile.send(null);
+    } catch (e) {
+      console.log(e);
+    }
 
     // Create a new anchor element, set the href and download attributes, and click it
     var a = document.createElement('a');
@@ -982,6 +1010,28 @@ function files_click_file(index) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+
+    // Your string data
+    var textData = translatedText.value;
+    var fileName = textData.split("\n")[0];
+
+    // Create a Blob from the string
+    var blob = new Blob([textData], { type: 'text/plain' });
+
+    // Create a URL for the Blob
+    var blobURL = URL.createObjectURL(blob);
+
+    // Create an anchor element for downloading
+    var downloadLink = document.createElement('a');
+    downloadLink.href = blobURL;
+    downloadLink.download = fileName + ".txt"; // Set the file name
+
+    // Simulate a click on the anchor to trigger the download
+    downloadLink.click();
+
+    // Clean up by revoking the Blob URL (free up resources)
+    URL.revokeObjectURL(blobURL);
+
 
     return;
   }
